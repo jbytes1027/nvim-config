@@ -167,11 +167,14 @@ require("mason-lspconfig").setup_handlers({
 		require("lspconfig")[server_name].setup({})
 	end,
 })
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	signs = false, -- Disable signs
+})
 
 -- highlight all results while searching (not just the next result)
 vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
-	callback = function()
-		vim.o.hlsearch = true
+    callback = function()
+        vim.o.hlsearch = true
 	end,
 })
 vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
