@@ -56,6 +56,9 @@ require("lazy").setup({
 	{
 		"williamboman/mason.nvim",
 	},
+    {
+        "lewis6991/gitsigns.nvim",
+    }
 })
 
 -- SETUP COLORS
@@ -112,6 +115,12 @@ require("telescope").setup({ -- see https://github.com/nvim-telescope/telescope.
 })
 
 require("mason").setup()
+
+require('gitsigns').setup {
+  signcolumn = false,
+  numhl      = true, 
+  update_debounce = 0,
+}
 
 -- highlight all results while searching (not just the next result)
 vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
