@@ -56,9 +56,19 @@ require("lazy").setup({
 	{
 		"williamboman/mason.nvim",
 	},
-    {
-        "lewis6991/gitsigns.nvim",
-    }
+	{
+		"lewis6991/gitsigns.nvim",
+	},
+	{
+		"nvimtools/none-ls.nvim",
+		dependencies = {
+			{
+				"jay-babu/mason-null-ls.nvim",
+				cmd = { "NullLsInstall", "NullLsUninstall" },
+				opts = { handlers = {} },
+			},
+		},
+	},
 })
 
 -- SETUP COLORS
@@ -115,12 +125,23 @@ require("telescope").setup({ -- see https://github.com/nvim-telescope/telescope.
 })
 
 require("mason").setup()
-
-require('gitsigns').setup {
-  signcolumn = false,
-  numhl      = true, 
-  update_debounce = 0,
-}
+require("mason-null-ls").setup({
+	ensure_installed = {
+		-- Opt to list sources here, when available in mason.
+	},
+	automatic_installation = false,
+	handlers = {},
+})
+require("null-ls").setup({
+	sources = {
+		-- Anything not supported by mason.
+	},
+})
+require("gitsigns").setup({
+	signcolumn = false,
+	numhl = true,
+	update_debounce = 0,
+})
 
 -- highlight all results while searching (not just the next result)
 vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
@@ -194,3 +215,41 @@ vim.keymap.set({ "n" }, "<leader>ls", function()
 end, { desc = "Search symbols" })
 
 vim.keymap.set({ "n" }, "<leader>e", "<cmd>Explore<CR><CR>", { desc = "Open explorer" })
+vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
+vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
+vim.keymap.set({ "n" }, "<leader>la", function()
+	vim.lsp.buf.code_action()
+end, { desc = "LSP code action" })
+vim.keymap.set({ "v" }, "<leader>la", function()
+	vim.lsp.buf.code_action()
+end, { desc = "LSP code action" })
+vim.keymap.set({ "n" }, "gd", function()
+	vim.lsp.buf.definition()
+end, { desc = "Show the definition of current symbol" })
+vim.keymap.set({ "n" }, "gD", function()
+	vim.lsp.buf.declaration()
+end, { desc = "Declaration of current symbol" })
+vim.keymap.set({ "n" }, "gI", function()
+	vim.lsp.buf.implementation()
+end, { desc = "Implementation of current symbol" })
+vim.keymap.set({ "n" }, "<leader>lf", function()
+	vim.lsp.buf.format()
+end, { desc = "Format buffer" })
+vim.keymap.set({ "v" }, "<leader>lf", function()
+	vim.lsp.buf.format()
+end, { desc = "Format buffer" })
+vim.keymap.set({ "n" }, "gr", function()
+	vim.lsp.buf.references()
+end, { desc = "References of current symbol" })
+vim.keymap.set({ "n" }, "<leader>lR", function()
+	vim.lsp.buf.references()
+end, { desc = "Search references" })
+vim.keymap.set({ "n" }, "<leader>lr", function()
+	vim.lsp.buf.rename()
+end, { desc = "Rename current symbol" })
+vim.keymap.set({ "n" }, "<leader>lh", function()
+	vim.lsp.buf.signature_help()
+end, { desc = "Signature help" })
+vim.keymap.set({ "n" }, "gy", function()
+	vim.lsp.buf.type_definition()
+end, { desc = "Definition of current type" })
