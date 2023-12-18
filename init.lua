@@ -88,7 +88,12 @@ require("lazy").setup({
     {
         "j-hui/fidget.nvim",
     },
+    {
+        'numToStr/Comment.nvim',
+    }
 })
+
+require('Comment').setup()
 
 require("fidget").setup({
     notification = {
