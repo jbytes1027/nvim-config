@@ -270,11 +270,20 @@ Stl_get_left = function()
     return ret
 end
 
+Stl_get_recording = function()
+    local reg_recording = vim.fn.reg_recording()
+    if reg_recording == "" then
+        return ""
+    end
+
+    return "RECORDING @" .. reg_recording .. "  "
+end
+
 -- setup status bar
 local statusline = "%t"                              -- file title
 statusline = statusline .. "%{v:lua.Stl_get_left()}"
 statusline = statusline .. "%="                      -- right align following
--- statusline = statusline .. " "..vim.bo.filetype -- line:col
+statusline = statusline .. "%{v:lua.Stl_get_recording()}"
 statusline = statusline .. '%{&fenc==""?&enc:&fenc}' -- file encoding, otherwise encoding
 statusline = statusline .. "  %l:%c"                 -- line:col
 statusline = statusline .. "  %P"                    -- percentage in file by line
