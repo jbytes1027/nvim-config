@@ -255,7 +255,7 @@ Stl_get_modified = function()
 end
 
 Stl_get_left = function()
-    local ret = "" .. Stl_get_modified() .. Stl_get_readonly()
+    local ret = ""
 
     local git = Stl_get_git()
     if git ~= "" then
@@ -280,7 +280,10 @@ Stl_get_recording = function()
 end
 
 -- setup status bar
-local statusline = "%t"                              -- file title
+local statusline = "%t" -- file title
+statusline = statusline .. "%{v:lua.Stl_get_modified()}"
+statusline = statusline .. "%{v:lua.Stl_get_readonly()}"
+statusline = statusline .. "%<"
 statusline = statusline .. "%{v:lua.Stl_get_left()}"
 statusline = statusline .. "%="                      -- right align following
 statusline = statusline .. "%{v:lua.Stl_get_recording()}"
