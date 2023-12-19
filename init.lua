@@ -89,11 +89,17 @@ require("lazy").setup({
         "j-hui/fidget.nvim",
     },
     {
-        'numToStr/Comment.nvim',
-    }
+        "numToStr/Comment.nvim",
+    },
+    {
+        "kelly-lin/ranger.nvim",
+        config = function()
+            require("ranger-nvim").setup({ replace_netrw = true })
+        end,
+    },
 })
 
-require('Comment').setup()
+require("Comment").setup()
 
 require("fidget").setup({
     notification = {
@@ -368,7 +374,6 @@ vim.keymap.set({ "n" }, "<leader>ls", function()
     end
 end, { desc = "Search symbols" })
 
-vim.keymap.set({ "n" }, "<leader>e", "<cmd>Explore<CR><CR>", { desc = "Open explorer" })
 vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
 vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
 vim.keymap.set({ "n" }, "<leader>la", function()
@@ -407,3 +412,10 @@ end, { desc = "Signature help" })
 vim.keymap.set({ "n" }, "gy", function()
     vim.lsp.buf.type_definition()
 end, { desc = "Definition of current type" })
+vim.keymap.set({ "n" }, "<leader>e", "", {
+    callback = function()
+        require("ranger-nvim").open(true)
+    end,
+    noremap = true,
+    desc = "Open explorer",
+})
