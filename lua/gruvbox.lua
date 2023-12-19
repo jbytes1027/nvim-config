@@ -1025,7 +1025,6 @@ local function get_groups()
 		--    ["@text.diff.delete"] = { link = "diffRemoved" },
 		--    ["@tag"] = { link = "Tag" },
 		["@tag.html"] = { link = "Type" },
-		["@text.title.html"] = { link = "Normal" },
 		["@text.title.1.html"] = { link = "Normal" },
 		["@text.title.2.html"] = { link = "Normal" },
 		["@text.title.3.html"] = { link = "Normal" },
