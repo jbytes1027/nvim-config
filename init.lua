@@ -285,6 +285,14 @@ Stl_get_left = function()
     return ret
 end
 
+Stl_get_diff = function()
+    if vim.wo.diff then
+        return " [diff]"
+    else
+        return ""
+    end
+end
+
 Stl_get_recording = function()
     local reg_recording = vim.fn.reg_recording()
     if reg_recording == "" then
@@ -298,6 +306,7 @@ end
 local statusline = "%t" -- file title
 statusline = statusline .. "%{v:lua.Stl_get_modified()}"
 statusline = statusline .. "%{v:lua.Stl_get_readonly()}"
+statusline = statusline .. "%{v:lua.Stl_get_diff()}"
 statusline = statusline .. "%<"
 statusline = statusline .. "%{v:lua.Stl_get_left()}"
 statusline = statusline .. "%="                      -- right align following
