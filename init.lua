@@ -16,6 +16,9 @@ vim.opt.clipboard = "unnamedplus" -- use sytem clipboard
 vim.opt.ignorecase = true         -- ignore case by default when searching
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
 
+-- SETUP COLORS
+require("gruvbox").load()
+
 -- SETUP LAZY
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then -- install lazyvim if not found in lazypath
@@ -98,6 +101,9 @@ require("lazy").setup({
             require("ranger-nvim").setup({ replace_netrw = true })
         end,
     },
+    {
+        "mrjones2014/smart-splits.nvim",
+    },
 })
 
 require("Comment").setup()
@@ -109,9 +115,6 @@ require("fidget").setup({
 })
 
 vim.lsp.set_log_level(vim.log.levels.WARN)
-
--- SETUP COLORS
-require("gruvbox").load()
 
 require("nvim-treesitter.configs").setup({
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -426,3 +429,27 @@ end, { desc = "Toggle comment line" })
 vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", {
     desc = "Toggle comment for selection",
 })
+vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
+vim.keymap.set({ "n" }, "<A-w>", "<cmd>close<cr>", { desc = "Close window" })
+vim.keymap.set({ "n" }, "<A-|>", "<cmd>split<cr><C-w>j", { desc = "Horizontal Split" })
+vim.keymap.set({ "n" }, "<A-\\>", "<cmd>vsplit<cr><C-w>l", { desc = "Vertical Split" })
+vim.keymap.set({ "n" }, "<A-h>", "<cmd>wincmd h<cr>", { desc = "Left window navigation" })
+vim.keymap.set({ "n" }, "<A-j>", "<cmd>wincmd j<cr>", { desc = "Down window navigation" })
+vim.keymap.set({ "n" }, "<A-k>", "<cmd>wincmd k<cr>", { desc = "Up window navigation" })
+vim.keymap.set({ "n" }, "<A-l>", "<cmd>wincmd l<cr>", { desc = "Right window navigation" })
+vim.keymap.set({ "n" }, "<A-S-h>", function()
+    require("smart-splits").swap_buf_left({ move_cursor = true })
+end, { desc = "Window move left" })
+vim.keymap.set({ "n" }, "<A-S-j>", function()
+    require("smart-splits").swap_buf_down({ move_cursor = true })
+end, { desc = "Window move down" })
+vim.keymap.set({ "n" }, "<A-S-k>", function()
+    require("smart-splits").swap_buf_up({ move_cursor = true })
+end, { desc = "Window move up" })
+vim.keymap.set({ "n" }, "<A-S-l>", function()
+    require("smart-splits").swap_buf_right({ move_cursor = true })
+end, { desc = "Window move right" })
+vim.keymap.set({ "n" }, "<C-h>", require("smart-splits").resize_left, { desc = "Resize split right" })
+vim.keymap.set({ "n" }, "<C-j>", require("smart-splits").resize_down, { desc = "Resize split down" })
+vim.keymap.set({ "n" }, "<C-k>", require("smart-splits").resize_up, { desc = "Resize split up" })
+vim.keymap.set({ "n" }, "<C-l>", require("smart-splits").resize_right, { desc = "Resize split left" })
