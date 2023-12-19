@@ -1,3 +1,4 @@
+vim.o.exrc = true                 -- load cd configs
 vim.opt.hidden = true             -- allow hidden buffers
 vim.opt.mouse = "a"               -- enable mouse for all modes
 vim.opt.laststatus = 2            -- hide status bar
