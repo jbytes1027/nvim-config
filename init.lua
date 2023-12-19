@@ -482,8 +482,40 @@ vim.keymap.set({ "n" }, "<leader>ld", function()
     vim.diagnostic.open_float()
 end, { desc = "Hover diagnostics" })
 vim.keymap.set({ "n" }, "[d", function()
-    vim.diagnostic.goto_prev()
+    vim.diagnostic.goto_prev({ float = true })
 end, { desc = "Previous diagnostic" })
 vim.keymap.set({ "n" }, "]d", function()
-    vim.diagnostic.goto_next()
+    vim.diagnostic.goto_next({ float = true })
 end, { desc = "Next diagnostic" })
+
+vim.keymap.set({ "n" }, "]c", function()
+    if vim.wo.diff then
+        vim.cmd("normal! ]c")
+    else
+        vim.schedule(function()
+            require("gitsigns").next_hunk({ preview = false })
+        end)
+    end
+end, { desc = "Jump to next hunk" })
+vim.keymap.set({ "n" }, "[c", function()
+    if vim.wo.diff then
+        vim.cmd("normal! [c")
+    else
+        vim.schedule(function()
+            require("gitsigns").prev_hunk({ preview = false })
+        end)
+    end
+end, { desc = "Jump to prev hunk" })
+
+vim.keymap.set({ "n" }, "<leader>gl", function() require("gitsigns").blame_line() end, { desc = "View git blame" })
+vim.keymap.set({ "n" }, "<leader>gL", function() require("gitsigns").blame_line({ full = true }) end, { desc = "View full git blame" })
+vim.keymap.set({ "n" }, "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview git hunk" })
+vim.keymap.set({ "n" }, "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset Git hunk" })
+vim.keymap.set({ "v" }, "<leader>gr", function() require("gitsigns").reset_hunk({vim.api.nvim_buf_get_mark(0, '<')[1], vim.api.nvim_buf_get_mark(0, '>')[1]}) end, { desc = "Reset Git hunk" })
+vim.keymap.set({ "n" }, "<leader>gR", function() require("gitsigns").reset_buffer() end, { desc = "Reset Git buffer" })
+vim.keymap.set({ "n" }, "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage Git hunk" })
+vim.keymap.set({ "v" }, "<leader>gs", function() require("gitsigns").stage_hunk({vim.api.nvim_buf_get_mark(0, '<')[1], vim.api.nvim_buf_get_mark(0, '>')[1]}) end, { desc = "Stage Git hunk" })
+vim.keymap.set({ "n" }, "<leader>gS", function() require("gitsigns").stage_buffer() end, { desc = "Stage Git buffer" })
+vim.keymap.set({ "n" }, "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo Git stage" })
+vim.keymap.set({ "n" }, "<leader>gU", function() require("gitsigns").reset_buffer_index() end, { desc = "Unstage Git file" })
+vim.keymap.set({ "n" }, "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
