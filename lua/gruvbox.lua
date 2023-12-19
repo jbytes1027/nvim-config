@@ -65,7 +65,6 @@ Gruvbox.config = {
 	palette_overrides = {},
 	overrides = {},
 	dim_inactive = false,
-	transparent_mode = false,
 }
 
 -- main gruvbox color palette
@@ -264,20 +263,13 @@ local function get_groups()
 		GruvboxAquaBold = { fg = colors.aqua, bold = config.bold },
 		GruvboxOrange = { fg = colors.orange },
 		GruvboxOrangeBold = { fg = colors.orange, bold = config.bold },
-		GruvboxRedSign = config.transparent_mode and { fg = colors.red, reverse = config.invert_signs }
-			or { fg = colors.red, bg = colors.bg0, reverse = config.invert_signs },
-		GruvboxGreenSign = config.transparent_mode and { fg = colors.green, reverse = config.invert_signs }
-			or { fg = colors.green, bg = colors.bg0, reverse = config.invert_signs },
-		GruvboxYellowSign = config.transparent_mode and { fg = colors.yellow, reverse = config.invert_signs }
-			or { fg = colors.yellow, bg = colors.bg0, reverse = config.invert_signs },
-		GruvboxBlueSign = config.transparent_mode and { fg = colors.blue, reverse = config.invert_signs }
-			or { fg = colors.blue, bg = colors.bg0, reverse = config.invert_signs },
-		GruvboxPurpleSign = config.transparent_mode and { fg = colors.purple, reverse = config.invert_signs }
-			or { fg = colors.purple, bg = colors.bg0, reverse = config.invert_signs },
-		GruvboxAquaSign = config.transparent_mode and { fg = colors.aqua, reverse = config.invert_signs }
-			or { fg = colors.aqua, bg = colors.bg0, reverse = config.invert_signs },
-		GruvboxOrangeSign = config.transparent_mode and { fg = colors.orange, reverse = config.invert_signs }
-			or { fg = colors.orange, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxRedSign = { fg = colors.red, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxGreenSign = { fg = colors.green, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxYellowSign = { fg = colors.yellow, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxBlueSign = { fg = colors.blue, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxPurpleSign = { fg = colors.purple, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxAquaSign = { fg = colors.aqua, bg = colors.bg0, reverse = config.invert_signs },
+		GruvboxOrangeSign = { fg = colors.orange, bg = colors.bg0, reverse = config.invert_signs },
 		GruvboxRedUnderline = { undercurl = config.undercurl, sp = colors.red },
 		GruvboxGreenUnderline = { undercurl = config.undercurl, sp = colors.green },
 		GruvboxYellowUnderline = { undercurl = config.undercurl, sp = colors.yellow },
@@ -285,8 +277,8 @@ local function get_groups()
 		GruvboxPurpleUnderline = { undercurl = config.undercurl, sp = colors.purple },
 		GruvboxAquaUnderline = { undercurl = config.undercurl, sp = colors.aqua },
 		GruvboxOrangeUnderline = { undercurl = config.undercurl, sp = colors.orange },
-		Normal = config.transparent_mode and { fg = colors.fg1, bg = nil } or { fg = colors.fg1, bg = colors.bg0 },
-		NormalFloat = config.transparent_mode and { fg = colors.fg1, bg = nil } or { fg = colors.fg1, bg = colors.bg1 },
+		Normal = { fg = colors.fg1, bg = nil } or { fg = colors.fg1, bg = colors.bg0 },
+		NormalFloat = { fg = colors.fg1, bg = colors.bg1 },
 		NormalNC = config.dim_inactive and { fg = colors.fg0, bg = colors.bg1 } or { link = "Normal" },
 		CursorLine = { bg = colors.bg1 },
 		CursorColumn = { link = "CursorLine" },
@@ -311,8 +303,7 @@ local function get_groups()
 		--StatusLineNC = { link = "StatusLine" },
 		WinBar = { fg = colors.fg4, bg = colors.bg0 },
 		WinBarNC = { fg = colors.fg3, bg = colors.bg1 },
-		WinSeparator = config.transparent_mode and { fg = colors.bg3, bg = nil }
-			or { fg = colors.bg3, bg = colors.bg0 },
+		WinSeparator = { fg = colors.bg3, bg = colors.bg0 },
 		WildMenu = { fg = colors.blue, bg = colors.bg2, bold = config.bold },
 		Directory = { link = "GruvboxBlueBold" },
 		Title = { link = "GruvboxGreenBold" },
