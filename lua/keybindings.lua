@@ -89,6 +89,7 @@ end, { desc = "Search symbols" })
 -- Lsp
 vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
 vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
+vim.keymap.set({ "n" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
 vim.keymap.set({ "n" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
 vim.keymap.set({ "v" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
 vim.keymap.set(
@@ -105,7 +106,9 @@ vim.keymap.set(
     { desc = "Implementation of current symbol" }
 )
 vim.keymap.set({ "n" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
-vim.keymap.set({ "v" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
+vim.keymap.set({ "v" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format selection" })
+vim.keymap.set({ "n" }, "<leader>lc", function() vim.lsp.buf.incoming_calls() end, { desc = "View incoming calls" })
+vim.keymap.set({ "n" }, "<leader>lC", function() vim.lsp.buf.outgoing_calls() end, { desc = "View outgoing calls" })
 vim.keymap.set({ "n" }, "gr", function() vim.lsp.buf.references() end, { desc = "References of current symbol" })
 vim.keymap.set({ "n" }, "<leader>lR", function() vim.lsp.buf.references() end, { desc = "Search references" })
 vim.keymap.set({ "n" }, "<leader>lr", function() vim.lsp.buf.rename() end, { desc = "Rename current symbol" })
@@ -262,4 +265,4 @@ vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
 vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "n" }, "<A-q>", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
-vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw") -- enable ctrl-delete
+vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw")  -- enable ctrl-delete
