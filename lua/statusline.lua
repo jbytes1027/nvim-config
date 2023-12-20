@@ -13,46 +13,26 @@ function Stl_get_diag()
 
     local out = {}
 
-    if count["errors"] ~= 0 then
-        table.insert(out, count["errors"] .. "E")
-    end
-    if count["warnings"] ~= 0 then
-        table.insert(out, count["warnings"] .. "W")
-    end
-    if count["hints"] ~= 0 then
-        table.insert(out, count["hints"] .. "H")
-    end
-    if count["info"] ~= 0 then
-        table.insert(out, count["info"] .. "I")
-    end
+    if count["errors"] ~= 0 then table.insert(out, count["errors"] .. "E") end
+    if count["warnings"] ~= 0 then table.insert(out, count["warnings"] .. "W") end
+    if count["hints"] ~= 0 then table.insert(out, count["hints"] .. "H") end
+    if count["info"] ~= 0 then table.insert(out, count["info"] .. "I") end
 
-    if next(out) == nil then
-        return ""
-    end
+    if next(out) == nil then return "" end
 
     return table.concat(out, ",")
 end
 
 Stl_get_git = function()
     local git_info = vim.b.gitsigns_status_dict
-    if not git_info or git_info.head == "" then
-        return ""
-    end
+    if not git_info or git_info.head == "" then return "" end
 
     local out = {}
 
-    if git_info.added and git_info.added ~= 0 then
-        table.insert(out, "+" .. git_info.added)
-    end
-    if git_info.changed and git_info.changed ~= 0 then
-        table.insert(out, "~" .. git_info.changed)
-    end
-    if git_info.removed and git_info.removed ~= 0 then
-        table.insert(out, "-" .. git_info.removed)
-    end
-    if next(table) == nil then
-        return ""
-    end
+    if git_info.added and git_info.added ~= 0 then table.insert(out, "+" .. git_info.added) end
+    if git_info.changed and git_info.changed ~= 0 then table.insert(out, "~" .. git_info.changed) end
+    if git_info.removed and git_info.removed ~= 0 then table.insert(out, "-" .. git_info.removed) end
+    if next(table) == nil then return "" end
 
     return table.concat(out, ",")
 end
@@ -77,14 +57,10 @@ Stl_get_left = function()
     local ret = ""
 
     local git = Stl_get_git()
-    if git ~= "" then
-        ret = ret .. "  " .. git
-    end
+    if git ~= "" then ret = ret .. "  " .. git end
 
     local diag = Stl_get_diag()
-    if diag ~= "" then
-        ret = ret .. "  " .. diag
-    end
+    if diag ~= "" then ret = ret .. "  " .. diag end
 
     return ret
 end
@@ -99,9 +75,7 @@ end
 
 Stl_get_recording = function()
     local reg_recording = vim.fn.reg_recording()
-    if reg_recording == "" then
-        return ""
-    end
+    if reg_recording == "" then return "" end
 
     return "RECORDING @" .. reg_recording .. "  "
 end
@@ -113,9 +87,9 @@ vim.o.statusline = table.concat({
     "%{v:lua.Stl_get_diff()}",
     "%<", -- when squeezed, cut off everything after
     "%{v:lua.Stl_get_left()}",
-    "%=",                   -- right align following
+    "%=", -- right align following
     "%{v:lua.Stl_get_recording()}",
     '%{&fenc==""?&enc:&fenc}', -- file encoding, otherwise encoding
-    "  %l:%c",              -- line:col
-    "  %P",                 -- percentage in file by line
+    "  %l:%c", -- line:col
+    "  %P", -- percentage in file by line
 })

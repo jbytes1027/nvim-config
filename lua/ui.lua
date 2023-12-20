@@ -11,13 +11,9 @@
 
 local M = {}
 
-local function bool2str(bool)
-    return bool and "on" or "off"
-end
+local function bool2str(bool) return bool and "on" or "off" end
 
-local function ui_notify(silent, ...)
-    return not silent and vim.notify(...)
-end
+local function ui_notify(silent, ...) return not silent and vim.notify(...) end
 
 --- Toggle autopairs
 ---@param silent? boolean if true then don't sent a notification
@@ -46,9 +42,7 @@ function M.toggle_diagnostics(silent)
         return
     end
 
-    if vim.g.diagnostics_hidden == nil then
-        vim.g.diagnostics_hidden = false
-    end
+    if vim.g.diagnostics_hidden == nil then vim.g.diagnostics_hidden = false end
 
     if vim.g.diagnostics_hidden then
         vim.g.diagnostics_hidden = false
@@ -151,12 +145,10 @@ function M.set_indent(silent)
     local input_avail, input = pcall(vim.fn.input, "Set indent value (>0 expandtab, <=0 noexpandtab): ")
     if input_avail then
         local indent = tonumber(input)
-        if not indent or indent == 0 then
-            return
-        end
+        if not indent or indent == 0 then return end
         vim.bo.expandtab = (indent > 0) -- local to buffer
         indent = math.abs(indent)
-        vim.bo.tabstop = indent   -- local to buffer
+        vim.bo.tabstop = indent -- local to buffer
         vim.bo.softtabstop = indent -- local to buffer
         vim.bo.shiftwidth = indent -- local to buffer
         ui_notify(silent, string.format("indent=%d %s", indent, vim.bo.expandtab and "expandtab" or "noexpandtab"))
@@ -166,7 +158,7 @@ end
 --- Change the number display modes
 ---@param silent? boolean if true then don't sent a notification
 function M.change_number(silent)
-    local number = vim.wo.number              -- local to window
+    local number = vim.wo.number -- local to window
     local relativenumber = vim.wo.relativenumber -- local to window
     if not number and not relativenumber then
         vim.wo.number = true
@@ -212,21 +204,13 @@ function M.toggle_buffer_syntax(bufnr, silent)
     bufnr = (bufnr and bufnr ~= 0) and bufnr or vim.api.nvim_win_get_buf(0)
     local ts_avail, parsers = pcall(require, "nvim-treesitter.parsers")
     if vim.bo[bufnr].syntax == "off" then
-        if ts_avail and parsers.has_parser() then
-            vim.treesitter.start(bufnr)
-        end
+        if ts_avail and parsers.has_parser() then vim.treesitter.start(bufnr) end
         vim.bo[bufnr].syntax = "on"
-        if not vim.b[bufnr].semantic_tokens_enabled then
-            M.toggle_buffer_semantic_tokens(bufnr, true)
-        end
+        if not vim.b[bufnr].semantic_tokens_enabled then M.toggle_buffer_semantic_tokens(bufnr, true) end
     else
-        if ts_avail and parsers.has_parser() then
-            vim.treesitter.stop(bufnr)
-        end
+        if ts_avail and parsers.has_parser() then vim.treesitter.stop(bufnr) end
         vim.bo[bufnr].syntax = "off"
-        if vim.b[bufnr].semantic_tokens_enabled then
-            M.toggle_buffer_semantic_tokens(bufnr, true)
-        end
+        if vim.b[bufnr].semantic_tokens_enabled then M.toggle_buffer_semantic_tokens(bufnr, true) end
     end
     ui_notify(silent, string.format("syntax %s", vim.bo[bufnr].syntax))
 end
@@ -244,9 +228,7 @@ local last_active_foldcolumn
 ---@param silent? boolean if true then don't sent a notification
 function M.toggle_foldcolumn(silent)
     local curr_foldcolumn = vim.wo.foldcolumn
-    if curr_foldcolumn ~= "0" then
-        last_active_foldcolumn = curr_foldcolumn
-    end
+    if curr_foldcolumn ~= "0" then last_active_foldcolumn = curr_foldcolumn end
     vim.wo.foldcolumn = curr_foldcolumn == "0" and (last_active_foldcolumn or "1") or "0"
     ui_notify(silent, string.format("foldcolumn=%s", vim.wo.foldcolumn))
 end
