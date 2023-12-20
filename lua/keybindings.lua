@@ -203,7 +203,7 @@ end, { desc = "View Git diff" })
 -- Misc
 vim.keymap.set("", "<leader>", "")             -- disable plane space key
 local function open_explorer()
-    if (require("lazy.core.config").spec.plugins["ranger-nvim"] ~= nil) then
+    if (require("lazy.core.config").spec.plugins["ranger.nvim"] ~= nil) then
         require("ranger-nvim").open(true)
     else
         vim.cmd("Explore")
@@ -217,6 +217,6 @@ vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.li
     desc = "Toggle comment for selection",
 })
 vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
-vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
+vim.keymap.set({ "n" }, "<A-q>", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
 vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw")  -- enable ctrl-delete
