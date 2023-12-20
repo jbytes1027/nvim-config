@@ -1,21 +1,22 @@
 vim.g.mapleader = " "
-vim.o.exrc = true -- load cd configs
+vim.opt.wrap = false
 vim.opt.scrolloff = 8
-vim.opt.hidden = true -- allow hidden buffers
-vim.opt.mouse = "a" -- enable mouse for all modes
-vim.opt.laststatus = 2 -- hide status bar
-vim.opt.cmdheight = 0 -- hide bottom command bar
-vim.opt.hls = false -- disable persistant search highlighting
-vim.opt.incsearch = true -- highlight search results while typing
-vim.opt.breakindent = true -- wraped lines have the same intent level
-vim.opt.linebreak = true -- wrap lines at 'breakat'
-vim.opt.relativenumber = true -- relateive line numbers
-vim.opt.number = true -- fixed line numbers
-vim.opt.tabstop = 4 -- tab is 4 spaces
-vim.opt.expandtab = true -- convert <tab> to spaces
-vim.opt.shiftwidth = 0 -- use tabstop value for shift operations
+vim.o.exrc = true                 -- load cd configs
+vim.opt.hidden = true             -- allow hidden buffers
+vim.opt.mouse = "a"               -- enable mouse for all modes
+vim.opt.laststatus = 2            -- hide status bar
+vim.opt.cmdheight = 0             -- hide bottom command bar
+vim.opt.hls = false               -- disable persistant search highlighting
+vim.opt.incsearch = true          -- highlight search results while typing
+vim.opt.breakindent = true        -- wraped lines have the same intent level
+vim.opt.linebreak = true          -- wrap lines at 'breakat'
+vim.opt.relativenumber = true     -- relateive line numbers
+vim.opt.number = true             -- fixed line numbers
+vim.opt.tabstop = 4               -- tab is 4 spaces
+vim.opt.expandtab = true          -- convert <tab> to spaces
+vim.opt.shiftwidth = 0            -- use tabstop value for shift operations
 vim.opt.clipboard = "unnamedplus" -- use sytem clipboard
-vim.opt.ignorecase = true -- ignore case by default when searching
+vim.opt.ignorecase = true         -- ignore case by default when searching
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
 
 -- SETUP COLORS
@@ -114,6 +115,18 @@ require("lazy").setup({
     {
         "mrjones2014/smart-splits.nvim",
     },
+    {
+        "NvChad/nvim-colorizer.lua",
+        opts = {
+            user_default_options = {
+                names = false,
+                rgb_fn = true,
+                hsl_fn = true,
+                mode = "virtualtext",
+                virtualtext = "███",
+            },
+        },
+    },
 })
 
 vim.lsp.set_log_level(vim.log.levels.WARN)
@@ -188,6 +201,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     signs = false, -- Disable signs
 })
 
-require("autocmds") -- load autocommands
-require("statusline") -- Setup status bar
+require("autocmds")    -- load autocommands
+require("statusline")  -- Setup status bar
 require("keybindings") -- load keybindings

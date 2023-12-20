@@ -223,6 +223,7 @@ vim.keymap.set(
 )
 vim.keymap.set({ "n" }, "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
 -- Ui mods
+vim.keymap.set({ "n" }, "<leader>uc", "<cmd>ColorizerToggle<cr>", { desc = "Toggle color highlight" })
 vim.keymap.set({ "n" }, "<leader>ud", require("ui").toggle_diagnostics, { desc = "Toggle diagnostics" })
 vim.keymap.set({ "n" }, "<leader>ug", require("ui").toggle_signcolumn, { desc = "Toggle signcolumn" })
 vim.keymap.set({ "n" }, "<leader>ui", require("ui").set_indent, { desc = "Change indent setting" })
