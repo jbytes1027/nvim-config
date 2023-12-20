@@ -277,7 +277,7 @@ local function get_groups()
 		GruvboxPurpleUnderline = { undercurl = config.undercurl, sp = colors.purple },
 		GruvboxAquaUnderline = { undercurl = config.undercurl, sp = colors.aqua },
 		GruvboxOrangeUnderline = { undercurl = config.undercurl, sp = colors.orange },
-		Normal = { fg = colors.fg1, bg = nil } or { fg = colors.fg1, bg = colors.bg0 },
+		Normal = { fg = colors.fg1, bg = colors.bg0 },
 		NormalFloat = { fg = colors.fg1, bg = colors.bg1 },
 		NormalNC = config.dim_inactive and { fg = colors.fg0, bg = colors.bg1 } or { link = "Normal" },
 		CursorLine = { bg = colors.bg1 },
