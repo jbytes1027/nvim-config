@@ -206,16 +206,31 @@ end, { desc = "Unstage Git file" })
 vim.keymap.set({ "n" }, "<leader>gd", function()
     require("gitsigns").diffthis()
 end, { desc = "View Git diff" })
+-- Ui mods
+vim.keymap.set({ "n" }, "<leader>ud", require("ui").toggle_diagnostics, { desc = "Toggle diagnostics" })
+vim.keymap.set({ "n" }, "<leader>ug", require("ui").toggle_signcolumn, { desc = "Toggle signcolumn" })
+vim.keymap.set({ "n" }, "<leader>ui", require("ui").set_indent, { desc = "Change indent setting" })
+vim.keymap.set({ "n" }, "<leader>ul", require("ui").toggle_statusline, { desc = "Toggle statusline" })
+vim.keymap.set({ "n" }, "<leader>un", require("ui").change_number, { desc = "Change line numbering" })
+vim.keymap.set({ "n" }, "<leader>up", require("ui").toggle_paste, { desc = "Toggle paste mode" })
+vim.keymap.set({ "n" }, "<leader>us", require("ui").toggle_spell, { desc = "Toggle spellcheck" })
+vim.keymap.set({ "n" }, "<leader>uS", require("ui").toggle_conceal, { desc = "Toggle conceal" })
+vim.keymap.set({ "n" }, "<leader>ut", require("ui").toggle_tabline, { desc = "Toggle tabline" })
+vim.keymap.set({ "n" }, "<leader>uu", require("ui").toggle_url_match, { desc = "Toggle URL highlight" })
+vim.keymap.set({ "n" }, "<leader>uw", require("ui").toggle_wrap, { desc = "Toggle wrap" })
+vim.keymap.set({ "n" }, "<leader>uy", require("ui").toggle_buffer_syntax, { desc = "Toggle syntax highlighting (buffer)" })
+vim.keymap.set({ "n" }, "<leader>uh", require("ui").toggle_foldcolumn, { desc = "Toggle foldcolumn" })
+
 -- Misc
-vim.keymap.set("", "<leader>", "")             -- disable plane space key
+vim.keymap.set("", "<leader>", "") -- disable plane space key
 local function open_explorer()
-    if (require("lazy.core.config").spec.plugins["ranger.nvim"] ~= nil) then
+    if require("lazy.core.config").spec.plugins["ranger.nvim"] ~= nil then
         require("ranger-nvim").open(true)
     else
         vim.cmd("Explore")
     end
 end
-vim.keymap.set({ "n" }, "<leader>e", "", { callback = open_explorer, noremap = true, desc = "Open explorer", })
+vim.keymap.set({ "n" }, "<leader>e", "", { callback = open_explorer, noremap = true, desc = "Open explorer" })
 vim.keymap.set("n", "<leader>/", function()
     require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
 end, { desc = "Toggle comment line" })
