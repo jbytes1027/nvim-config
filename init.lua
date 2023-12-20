@@ -107,6 +107,7 @@ require("lazy").setup({
         "numToStr/Comment.nvim",
     },
     {
+        enabled = jit.os ~= "Windows",
         "kelly-lin/ranger.nvim",
         config = function()
             require("ranger-nvim").setup({ replace_netrw = true })

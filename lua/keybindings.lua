@@ -202,13 +202,14 @@ vim.keymap.set({ "n" }, "<leader>gd", function()
 end, { desc = "View Git diff" })
 -- Misc
 vim.keymap.set("", "<leader>", "")             -- disable plane space key
-vim.keymap.set({ "n" }, "<leader>e", "", {
-    callback = function()
+local function open_explorer()
+    if (require("lazy.core.config").spec.plugins["ranger-nvim"] ~= nil) then
         require("ranger-nvim").open(true)
-    end,
-    noremap = true,
-    desc = "Open explorer",
-})
+    else
+        vim.cmd("Explore")
+    end
+end
+vim.keymap.set({ "n" }, "<leader>e", "", { callback = open_explorer, noremap = true, desc = "Open explorer", })
 vim.keymap.set("n", "<leader>/", function()
     require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
 end, { desc = "Toggle comment line" })
