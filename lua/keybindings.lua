@@ -233,7 +233,6 @@ vim.keymap.set({ "n" }, "<leader>up", require("ui").toggle_paste, { desc = "Togg
 vim.keymap.set({ "n" }, "<leader>us", require("ui").toggle_spell, { desc = "Toggle spellcheck" })
 vim.keymap.set({ "n" }, "<leader>uS", require("ui").toggle_conceal, { desc = "Toggle conceal" })
 vim.keymap.set({ "n" }, "<leader>ut", require("ui").toggle_tabline, { desc = "Toggle tabline" })
-vim.keymap.set({ "n" }, "<leader>uu", require("ui").toggle_url_match, { desc = "Toggle URL highlight" })
 vim.keymap.set({ "n" }, "<leader>uw", require("ui").toggle_wrap, { desc = "Toggle wrap" })
 vim.keymap.set(
     { "n" },
@@ -243,6 +242,36 @@ vim.keymap.set(
 )
 vim.keymap.set({ "n" }, "<leader>uh", require("ui").toggle_foldcolumn, { desc = "Toggle foldcolumn" })
 
+-- Autocomplete
+vim.keymap.set("i", "<C-Space>", function()
+    if require("cmp").visible() == false then
+        require("cmp").complete()
+    else
+        require("cmp").close()
+    end
+end)
+vim.keymap.set("i", "<C-p>", function() require("cmp").select_prev_item() end)
+vim.keymap.set("i", "<C-n>", function() require("cmp").select_next_item() end)
+vim.keymap.set("i", "<C-u>", function() require("cmp").scroll_docs(-4) end)
+vim.keymap.set("i", "<C-d>", function() require("cmp").scroll_docs(4) end)
+vim.keymap.set("i", "<C-y>", function() require("cmp").complete() end)
+vim.keymap.set("i", "<C-e>", function() require("cmp").abort() end)
+vim.keymap.set("i", "<Tab>", function()
+    if require("cmp").visible() then
+        require("cmp").select_next_item()
+    else
+        local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
+end)
+vim.keymap.set("i", "<S-Tab>", function()
+    if require("cmp").visible() then
+        require("cmp").select_prev_item()
+    else
+        local key = vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
+end)
 -- Misc
 vim.keymap.set("", "<leader>", "") -- disable plane space key
 local function open_explorer()

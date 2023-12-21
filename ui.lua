@@ -248,14 +248,6 @@ function M.toggle_buffer_syntax(bufnr, silent)
     ui_notify(silent, string.format("syntax %s", vim.bo[bufnr].syntax))
 end
 
---- Toggle URL/URI syntax highlighting rules
----@param silent? boolean if true then don't sent a notification
-function M.toggle_url_match(silent)
-    vim.g.highlighturl_enabled = not vim.g.highlighturl_enabled
-    require("astronvim.utils").set_url_match()
-    ui_notify(silent, string.format("URL highlighting %s", bool2str(vim.g.highlighturl_enabled)))
-end
-
 local last_active_foldcolumn
 --- Toggle foldcolumn=0|1
 ---@param silent? boolean if true then don't sent a notification

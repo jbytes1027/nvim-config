@@ -18,6 +18,7 @@ vim.opt.shiftwidth = 0            -- use tabstop value for shift operations
 vim.opt.clipboard = "unnamedplus" -- use sytem clipboard
 vim.opt.ignorecase = true         -- ignore case by default when searching
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- SETUP COLORS
 require("gruvbox").load()
@@ -66,7 +67,7 @@ require("lazy").setup({
         opts = {
             signcolumn = false,
             numhl = true,
-            update_debounce = 0,
+            update_debounce = 200,
         },
     },
     {
@@ -127,9 +128,51 @@ require("lazy").setup({
             },
         },
     },
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            -- "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lsp",
+        },
+    },
 })
 
 vim.lsp.set_log_level(vim.log.levels.WARN)
+
+require("cmp").setup({
+    performance = {
+        debounce = 60,
+        throttle = 30,
+        fetching_timeout = 100,
+        confirm_resolve_timeout = 1,
+        async_budget = 1,
+        max_view_entries = 30,
+    },
+    sources = require("cmp").config.sources({
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip",  priority = 750 },
+        { name = "buffer",   priority = 500 },
+        { name = "path",     priority = 250 },
+    }),
+    matching = {
+        disallow_fullfuzzy_matching = true,
+        disallow_prefix_unmatching = false,
+    },
+    confirm_opts = {
+        behavior = require("cmp").ConfirmBehavior.Replace,
+        select = true,
+    },
+    view = {
+        docs = {
+            auto_open = true,
+        },
+    },
+    completion = {
+        autocomplete = false,
+    },
+})
 
 require("nvim-treesitter.configs").setup({
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
