@@ -18,6 +18,7 @@ vim.opt.shiftwidth = 0            -- use tabstop value for shift operations
 vim.opt.clipboard = "unnamedplus" -- use sytem clipboard
 vim.opt.ignorecase = true         -- ignore case by default when searching
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- SETUP COLORS
 require("gruvbox").load()
@@ -66,7 +67,7 @@ require("lazy").setup({
         opts = {
             signcolumn = false,
             numhl = true,
-            update_debounce = 0,
+            update_debounce = 200,
         },
     },
     {
