@@ -148,11 +148,11 @@ require("cmp").setup({
         fetching_timeout = 100,
         confirm_resolve_timeout = 1,
         async_budget = 1,
-        max_view_entries = 30,
+        max_view_entries = 20,
     },
     sources = require("cmp").config.sources({
         { name = "nvim_lsp", priority = 1000 },
-        { name = "luasnip",  priority = 750 },
+        -- { name = "luasnip",  priority = 750 },
         { name = "buffer",   priority = 500 },
         { name = "path",     priority = 250 },
     }),

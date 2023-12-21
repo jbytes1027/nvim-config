@@ -1,3 +1,8 @@
+-- NOTES
+-- Emulate a key for passthrough with the following
+-- local key = vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
+-- vim.api.nvim_feedkeys(key, "n", true)
+
 -- Searching
 vim.keymap.set({ "n" }, "<leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
 vim.keymap.set({ "n" }, "<A-f>", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
@@ -250,27 +255,25 @@ vim.keymap.set("i", "<C-Space>", function()
         require("cmp").close()
     end
 end)
-vim.keymap.set("i", "<C-p>", function() require("cmp").select_prev_item() end)
-vim.keymap.set("i", "<C-n>", function() require("cmp").select_next_item() end)
+vim.keymap.set("i", "<C-p>", function()
+    if require("cmp").visible() == false then require("cmp").complete() end
+    require("cmp").select_prev_item()
+end)
+vim.keymap.set("i", "<C-n>", function()
+    if require("cmp").visible() == false then require("cmp").complete() end
+    require("cmp").select_next_item()
+end)
 vim.keymap.set("i", "<C-u>", function() require("cmp").scroll_docs(-4) end)
 vim.keymap.set("i", "<C-d>", function() require("cmp").scroll_docs(4) end)
-vim.keymap.set("i", "<C-y>", function() require("cmp").complete() end)
+vim.keymap.set("i", "<C-y>", function() require("cmp").confirm() end)
 vim.keymap.set("i", "<C-e>", function() require("cmp").abort() end)
 vim.keymap.set("i", "<Tab>", function()
-    if require("cmp").visible() then
-        require("cmp").select_next_item()
-    else
-        local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
-        vim.api.nvim_feedkeys(key, "n", true)
-    end
+    if require("cmp").visible() == false then require("cmp").complete() end
+    require("cmp").select_next_item()
 end)
 vim.keymap.set("i", "<S-Tab>", function()
-    if require("cmp").visible() then
-        require("cmp").select_prev_item()
-    else
-        local key = vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
-        vim.api.nvim_feedkeys(key, "n", true)
-    end
+    if require("cmp").visible() == false then require("cmp").complete() end
+    require("cmp").select_next_item()
 end)
 -- Misc
 vim.keymap.set("", "<leader>", "") -- disable plane space key
