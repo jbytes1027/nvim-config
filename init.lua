@@ -17,7 +17,8 @@ vim.opt.expandtab = true          -- convert <tab> to spaces
 vim.opt.shiftwidth = 0            -- use tabstop value for shift operations
 vim.opt.clipboard = "unnamedplus" -- use sytem clipboard
 vim.opt.ignorecase = true         -- ignore case by default when searching
-vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
+vim.opt.jumpoptions = "view"
+vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
 
 -- SETUP COLORS
