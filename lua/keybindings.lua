@@ -57,7 +57,19 @@ vim.keymap.set(
     function() require("telescope.builtin").commands() end,
     { desc = "Find commands" }
 )
-vim.keymap.set({ "n" }, "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Find help" })
+vim.keymap.set({ "n" }, "<leader>fH", function() require("telescope.builtin").help_tags() end, { desc = "Find help" })
+vim.keymap.set({ "n" }, "<leader>fh", function()
+    require("telescope").extensions.harpoon.marks({
+        pickers = {
+            attach_mappints = function(_, map)
+                map("n", "<C-n>", function() require("telescope").actions.move_selection_next() end)
+                map("n", "<C-p>", function() require("telescope").actions.move_selection_previous() end)
+
+                return true -- true for default_mappings false if not
+            end,
+        },
+    })
+end, { desc = "Find harpoon marks" })
 vim.keymap.set({ "n" }, "<leader>fo", function() require("telescope.builtin").oldfiles() end, { desc = "Find history" })
 vim.keymap.set(
     { "n" },
@@ -241,6 +253,20 @@ vim.keymap.set(
     { desc = "Toggle syntax highlighting (buffer)" }
 )
 vim.keymap.set({ "n" }, "<leader>uh", require("ui").toggle_foldcolumn, { desc = "Toggle foldcolumn" })
+-- Harpoon
+local harpoon = require("harpoon")
+vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+vim.keymap.set("n", "<leader>A", function() harpoon:list():remove() end)
+vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-1>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-2>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-3>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-4>", function() harpoon:list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-n>", function() harpoon:list():next() end)
+vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
 
 -- Misc
 vim.keymap.set("", "<leader>", "") -- disable plane space key

@@ -129,6 +129,11 @@ require("lazy").setup({
             },
         },
     },
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
 })
 
 vim.lsp.set_log_level(vim.log.levels.WARN)
@@ -146,6 +151,7 @@ require("nvim-treesitter.configs").setup({
     ignore_install = { "markdown" },
 
     highlight = {
+        dependencies = { "nvim-lua/plenary.nvim" },
         enable = true,
 
         -- Disable slow treesitter highlight for large files
@@ -174,10 +180,34 @@ require("telescope").setup({ -- see https://github.com/nvim-telescope/telescope.
             i = {
                 ["<esc>"] = require("telescope.actions").close,
                 ["<C-h>"] = function() vim.api.nvim_input("<C-w>") end, -- enable ctrl-backspace
+                ["<C-u>"] = false,                                      -- default to clear line
+                ["<C-f>"] = "preview_scrolling_down",
+                ["<C-b>"] = "preview_scrolling_up",
+            },
+        },
+    },
+    pickers = {
+        buffers = {
+            mappings = {
+                i = {
+                    ["<C-d>"] = "delete_buffer",
+                },
+            },
+        },
+        harpoon = {
+            marks = {
+                prompt_title = "Test",
             },
         },
     },
 })
+require("telescope").load_extension("harpoon")
+-- require("telescope").extensions.marks.attach_mappings = function(_, map)
+--     map("n", "<C-n>", function() require("telescope").actions.move_selection_next() end)
+--     map("n", "<C-p>", function() require("telescope").actions.move_selection_previous() end)
+-- 
+--     return true -- true for default_mappings false if not
+-- end
 
 require("mason").setup()
 require("mason-null-ls").setup({
