@@ -41,7 +41,7 @@ vim.keymap.set({ "n" }, "<leader>fk", function() require("telescope.builtin").ke
 vim.keymap.set(
     { "n" },
     "<leader>fm",
-    function() require("telescope.builtin").man_pages() end,
+    function() require("telescope.builtin").marks() end,
     { desc = "Find man pages" }
 )
 vim.keymap.set({ "n" }, "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Find buffers" })
