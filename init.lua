@@ -132,6 +132,11 @@ require("lazy").setup({
 })
 
 vim.lsp.set_log_level(vim.log.levels.WARN)
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = "🞙",
+    },
+})
 
 require("nvim-treesitter.configs").setup({
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
