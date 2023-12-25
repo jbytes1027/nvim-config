@@ -20,6 +20,15 @@ vim.opt.ignorecase = true -- ignore case by default when searching
 vim.opt.jumpoptions = "view"
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = "🞙",
+    },
+})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = false, -- Disable signs
+})
+vim.lsp.set_log_level(vim.log.levels.WARN)
 
 -- SETUP COLORS
 require("gruvbox").load()
@@ -207,52 +216,41 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lsp",
         },
+        config = function()
+            require("cmp").setup({
+                performance = {
+                    debounce = 60,
+                    throttle = 30,
+                    fetching_timeout = 100,
+                    confirm_resolve_timeout = 1,
+                    async_budget = 1,
+                    max_view_entries = 20,
+                },
+                sources = require("cmp").config.sources({
+                    { name = "nvim_lsp", priority = 1000 },
+                    -- { name = "luasnip",  priority = 750 },
+                    { name = "buffer", priority = 500 },
+                    { name = "path", priority = 250 },
+                }),
+                matching = {
+                    disallow_fullfuzzy_matching = true,
+                    disallow_prefix_unmatching = false,
+                },
+                confirm_opts = {
+                    behavior = require("cmp").ConfirmBehavior.Replace,
+                    select = true,
+                },
+                view = {
+                    docs = {
+                        auto_open = true,
+                    },
+                },
+                completion = {
+                    autocomplete = false,
+                },
+            })
+        end,
     },
-})
-
-vim.lsp.set_log_level(vim.log.levels.WARN)
-
-require("cmp").setup({
-    performance = {
-        debounce = 60,
-        throttle = 30,
-        fetching_timeout = 100,
-        confirm_resolve_timeout = 1,
-        async_budget = 1,
-        max_view_entries = 20,
-    },
-    sources = require("cmp").config.sources({
-        { name = "nvim_lsp", priority = 1000 },
-        -- { name = "luasnip",  priority = 750 },
-        { name = "buffer",   priority = 500 },
-        { name = "path",     priority = 250 },
-    }),
-    matching = {
-        disallow_fullfuzzy_matching = true,
-        disallow_prefix_unmatching = false,
-    },
-    confirm_opts = {
-        behavior = require("cmp").ConfirmBehavior.Replace,
-        select = true,
-    },
-    view = {
-        docs = {
-            auto_open = true,
-        },
-    },
-    completion = {
-        autocomplete = false,
-    },
-})
-
-vim.diagnostic.config({
-    virtual_text = {
-        prefix = "🞙",
-    },
-})
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    signs = false, -- Disable signs
 })
 
 require("autocmds") -- load autocommands
