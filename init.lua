@@ -163,7 +163,6 @@ require("lazy").setup({
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        cmd = { "LspInstall", "LspUninstall" },
         dependencies = {
             "williamboman/mason.nvim",
             "neovim/nvim-lspconfig",
@@ -233,8 +232,11 @@ require("lazy").setup({
                     { name = "path", priority = 250 },
                 }),
                 matching = {
+                    disallow_fuzzy_matching = true,
                     disallow_fullfuzzy_matching = true,
-                    disallow_prefix_unmatching = false,
+                    disallow_partial_fuzzy_matching = true,
+                    disallow_partial_matching = true,
+                    disallow_prefix_unmatching = true, -- prefix must match text
                 },
                 confirm_opts = {
                     behavior = require("cmp").ConfirmBehavior.Replace,
