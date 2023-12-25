@@ -1,23 +1,24 @@
 vim.g.mapleader = " "
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
-vim.o.exrc = true                 -- load cd configs
-vim.opt.hidden = true             -- allow hidden buffers
-vim.opt.mouse = "a"               -- enable mouse for all modes
-vim.opt.laststatus = 2            -- hide status bar
-vim.opt.cmdheight = 0             -- hide bottom command bar
-vim.opt.hls = false               -- disable persistant search highlighting
-vim.opt.incsearch = true          -- highlight search results while typing
-vim.opt.breakindent = true        -- wraped lines have the same intent level
-vim.opt.linebreak = true          -- wrap lines at 'breakat'
-vim.opt.relativenumber = true     -- relateive line numbers
-vim.opt.number = true             -- fixed line numbers
-vim.opt.tabstop = 4               -- tab is 4 spaces
-vim.opt.expandtab = true          -- convert <tab> to spaces
-vim.opt.shiftwidth = 0            -- use tabstop value for shift operations
+vim.o.exrc = true -- load cd configs
+vim.opt.hidden = true -- allow hidden buffers
+vim.opt.mouse = "a" -- enable mouse for all modes
+vim.opt.laststatus = 2 -- hide status bar
+vim.opt.cmdheight = 0 -- hide bottom command bar
+vim.opt.hls = false -- disable persistant search highlighting
+vim.opt.incsearch = true -- highlight search results while typing
+vim.opt.breakindent = true -- wraped lines have the same intent level
+vim.opt.linebreak = true -- wrap lines at 'breakat'
+vim.opt.relativenumber = true -- relateive line numbers
+vim.opt.number = true -- fixed line numbers
+vim.opt.tabstop = 4 -- tab is 4 spaces
+vim.opt.expandtab = true -- convert <tab> to spaces
+vim.opt.shiftwidth = 0 -- use tabstop value for shift operations
 vim.opt.clipboard = "unnamedplus" -- use sytem clipboard
-vim.opt.ignorecase = true         -- ignore case by default when searching
-vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
+vim.opt.ignorecase = true -- ignore case by default when searching
+vim.opt.jumpoptions = "view"
+vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
 
 -- SETUP COLORS
@@ -42,6 +43,39 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        -- stylua: ignore start
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                -- A list of parser names, or "all" (the five listed parsers should always be installed)
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+
+                -- Install parsers synchronously (only applied to `ensure_installed`)
+                sync_install = false,
+
+                -- Automatically install missing parsers when entering buffer
+                -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+                auto_install = true,
+                ignore_install = { "markdown" },
+
+                highlight = {
+                    enable = true,
+
+                    -- Disable slow treesitter highlight for large files
+                    disable = function(_, buf)
+                        local max_filesize = 1000 * 1024 -- 1000 KB
+                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                        if ok and stats and stats.size > max_filesize then return true end
+                    end,
+
+                    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+                    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+                    -- Instead of true it can also be a list of languages
+                    additional_vim_regex_highlighting = false,
+                },
+            })
+        end,
+        -- stylua: ignore stop
     },
     {
         "folke/which-key.nvim",
@@ -61,6 +95,24 @@ require("lazy").setup({
         "nvim-telescope/telescope.nvim",
         tag = "0.1.5",
         dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            -- see https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
+            require("telescope").setup({
+                defaults = {
+                    sorting_strategy = "ascending",
+                    path_display = { "truncate" },
+                    layout_config = {
+                        horizontal = { prompt_position = "top" },
+                    },
+                    mappings = {
+                        i = {
+                            ["<esc>"] = require("telescope.actions").close,
+                            ["<C-h>"] = function() vim.api.nvim_input("<C-w>") end, -- enable ctrl-backspace
+                        },
+                    },
+                },
+            })
+        end,
     },
     {
         "lewis6991/gitsigns.nvim",
@@ -72,14 +124,29 @@ require("lazy").setup({
     },
     {
         "williamboman/mason.nvim",
+        opts = {}, -- force calling setup
     },
     {
         "nvimtools/none-ls.nvim",
-        dependencies = {
-            {
-                "jay-babu/mason-null-ls.nvim",
-                cmd = { "NullLsInstall", "NullLsUninstall" },
+        dependencies = { "jay-babu/mason-null-ls.nvim" },
+        config = function()
+            require("null-ls").setup({
+                sources = {
+                    -- Anything not supported by mason.
+                },
+            })
+        end,
+    },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        cmd = { "NullLsInstall", "NullLsUninstall" },
+        dependencies = { "williamboman/mason.nvim" },
+        opts = {
+            ensure_installed = {
+                -- Opt to list sources here, when available in mason.
             },
+            automatic_installation = false,
+            handlers = {},
         },
     },
     {
@@ -89,11 +156,15 @@ require("lazy").setup({
         "williamboman/mason-lspconfig.nvim",
         cmd = { "LspInstall", "LspUninstall" },
         dependencies = {
-            {
-                "williamboman/mason.nvim",
-            },
-            {
-                "neovim/nvim-lspconfig",
+            "williamboman/mason.nvim",
+            "neovim/nvim-lspconfig",
+        },
+        opts = {
+            handlers = {
+                -- The first entry (without a key) will be the default handler and will be called for each installed server that doesn't have a dedicated handler.
+                function(server_name) -- default handler (optional)
+                    require("lspconfig")[server_name].setup({})
+                end,
             },
         },
     },
@@ -174,76 +245,16 @@ require("cmp").setup({
     },
 })
 
-require("nvim-treesitter.configs").setup({
-    -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
-    ignore_install = { "markdown" },
-
-    highlight = {
-        enable = true,
-
-        -- Disable slow treesitter highlight for large files
-        disable = function(_, buf)
-            local max_filesize = 1000 * 1024 -- 1000 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then return true end
-        end,
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = "🞙",
     },
 })
 
-require("telescope").setup({ -- see https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
-    defaults = {
-        sorting_strategy = "ascending",
-        path_display = { "truncate" },
-        layout_config = {
-            horizontal = { prompt_position = "top" },
-        },
-        mappings = {
-            i = {
-                ["<esc>"] = require("telescope.actions").close,
-                ["<C-h>"] = function() vim.api.nvim_input("<C-w>") end, -- enable ctrl-backspace
-            },
-        },
-    },
-})
-
-require("mason").setup()
-require("mason-null-ls").setup({
-    ensure_installed = {
-        -- Opt to list sources here, when available in mason.
-    },
-    automatic_installation = false,
-    handlers = {},
-})
-require("null-ls").setup({
-    sources = {
-        -- Anything not supported by mason.
-    },
-})
-require("mason-lspconfig").setup()
-require("mason-lspconfig").setup_handlers({
-    -- The first entry (without a key) will be the default handler and will be called for each installed server that doesn't have a dedicated handler.
-    function(server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup({})
-    end,
-})
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     signs = false, -- Disable signs
 })
 
-require("autocmds")    -- load autocommands
-require("statusline")  -- Setup status bar
+require("autocmds") -- load autocommands
+require("statusline") -- Setup status bar
 require("keybindings") -- load keybindings

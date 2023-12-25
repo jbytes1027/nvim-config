@@ -46,7 +46,7 @@ vim.keymap.set({ "n" }, "<leader>fk", function() require("telescope.builtin").ke
 vim.keymap.set(
     { "n" },
     "<leader>fm",
-    function() require("telescope.builtin").man_pages() end,
+    function() require("telescope.builtin").marks() end,
     { desc = "Find man pages" }
 )
 vim.keymap.set({ "n" }, "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Find buffers" })
@@ -275,6 +275,16 @@ vim.keymap.set("i", "<S-Tab>", function()
     if require("cmp").visible() == false then require("cmp").complete() end
     require("cmp").select_next_item()
 end)
+
+-- Use lowercase for global marks and uppercase for local marks.
+local low = function(i) return string.char(97+i) end
+local upp = function(i) return string.char(65+i) end
+
+for i=0,25 do vim.keymap.set("n", "m"..low(i), "m"..upp(i)) end
+for i=0,25 do vim.keymap.set("n", "m"..upp(i), "m"..low(i)) end
+for i=0,25 do vim.keymap.set("n", "'"..low(i), "'"..upp(i)) end
+for i=0,25 do vim.keymap.set("n", "'"..upp(i), "'"..low(i)) end
+
 -- Misc
 vim.keymap.set("", "<leader>", "") -- disable plane space key
 local function open_explorer()
