@@ -248,33 +248,35 @@ vim.keymap.set(
 vim.keymap.set({ "n" }, "<leader>uh", require("ui").toggle_foldcolumn, { desc = "Toggle foldcolumn" })
 
 -- Autocomplete
+local cmp = require("cmp")
 vim.keymap.set("i", "<C-Space>", function()
-    if require("cmp").visible() == false then
-        require("cmp").complete()
+    if cmp.visible() == false then
+        cmp.complete()
     else
-        require("cmp").close()
+        cmp.close()
     end
 end)
 vim.keymap.set("i", "<C-p>", function()
-    if require("cmp").visible() == false then require("cmp").complete() end
-    require("cmp").select_prev_item()
+    if cmp.visible() == false then cmp.complete() end
+    cmp.select_prev_item()
 end)
 vim.keymap.set("i", "<C-n>", function()
-    if require("cmp").visible() == false then require("cmp").complete() end
-    require("cmp").select_next_item()
+    if cmp.visible() == false then cmp.complete() end
+    cmp.select_next_item()
 end)
-vim.keymap.set("i", "<C-u>", function() require("cmp").scroll_docs(-4) end)
-vim.keymap.set("i", "<C-d>", function() require("cmp").scroll_docs(4) end)
-vim.keymap.set("i", "<C-y>", function() require("cmp").confirm() end)
-vim.keymap.set("i", "<C-e>", function() require("cmp").abort() end)
+vim.keymap.set("i", "<C-u>", function() cmp.scroll_docs(-4) end)
+vim.keymap.set("i", "<C-d>", function() cmp.scroll_docs(4) end)
+vim.keymap.set("i", "<C-y>", function() cmp.confirm() end)
+vim.keymap.set("i", "<C-e>", function() cmp.abort() end)
 vim.keymap.set("i", "<Tab>", function()
-    if require("cmp").visible() == false then require("cmp").complete() end
-    require("cmp").select_next_item()
+    if cmp.visible() == false then cmp.complete() end
+    cmp.select_next_item()
 end)
 vim.keymap.set("i", "<S-Tab>", function()
-    if require("cmp").visible() == false then require("cmp").complete() end
-    require("cmp").select_next_item()
+    if cmp.visible() == false then cmp.complete() end
+    cmp.select_next_item()
 end)
+vim.keymap.set("i", "<C-l>", function() cmp.complete_common_string() end)
 
 -- Use lowercase for global marks and uppercase for local marks.
 local low = function(i) return string.char(97+i) end
