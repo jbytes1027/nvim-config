@@ -139,9 +139,20 @@ require("lazy").setup({
         "nvimtools/none-ls.nvim",
         dependencies = { "jay-babu/mason-null-ls.nvim" },
         config = function()
-            require("null-ls").setup({
-                sources = {
+            local null_ls = require("null-ls")
+            local dotnet_format = {
+                method = null_ls.methods.FORMATTING,
+                filetypes = { "cs" },
+                generator = null_ls.formatter({
+                    command = "dotnet",
+                    args = { "format", "--include", "$FILENAME" },
+                    to_stdin = false,
+                }),
+            }
+            null_ls.setup({
+                sources = { -- see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/HELPERS.md
                     -- Anything not supported by mason.
+                    dotnet_format,
                 },
             })
         end,
