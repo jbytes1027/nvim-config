@@ -179,6 +179,9 @@ require("lazy").setup({
     {
         "j-hui/fidget.nvim",
         opts = {
+            progress = {
+                ignore_empty_message = false, -- Ignore new tasks that don't contain a message
+            },
             notification = {
                 override_vim_notify = true, -- Automatically override vim.notify() with Fidget
             },
