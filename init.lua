@@ -225,6 +225,7 @@ require("lazy").setup({
         "hrsh7th/nvim-cmp",
         dependencies = {
             -- "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lsp",
@@ -244,6 +245,7 @@ require("lazy").setup({
                     -- { name = "luasnip",  priority = 750 },
                     { name = "buffer", priority = 500 },
                     { name = "path", priority = 250 },
+                    { name = "nvim_lsp_signature_help" },
                 }),
                 matching = {
                     disallow_fuzzy_matching = true,
