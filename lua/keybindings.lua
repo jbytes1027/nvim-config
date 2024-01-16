@@ -268,15 +268,10 @@ vim.keymap.set("i", "<C-u>", function() cmp.scroll_docs(-4) end)
 vim.keymap.set("i", "<C-d>", function() cmp.scroll_docs(4) end)
 vim.keymap.set("i", "<C-y>", function() cmp.confirm() end)
 vim.keymap.set("i", "<C-e>", function() cmp.abort() end)
-vim.keymap.set("i", "<Tab>", function()
+vim.keymap.set("i", "<C-l>", function()
     if cmp.visible() == false then cmp.complete() end
-    cmp.select_next_item()
+    cmp.complete_common_string()
 end)
-vim.keymap.set("i", "<S-Tab>", function()
-    if cmp.visible() == false then cmp.complete() end
-    cmp.select_next_item()
-end)
-vim.keymap.set("i", "<C-l>", function() cmp.complete_common_string() end)
 
 -- Use lowercase for global marks and uppercase for local marks.
 local low = function(i) return string.char(97+i) end
