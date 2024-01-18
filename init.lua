@@ -20,15 +20,7 @@ vim.opt.ignorecase = true -- ignore case by default when searching
 vim.opt.jumpoptions = "view"
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
-vim.diagnostic.config({
-    virtual_text = {
-        prefix = "🞙",
-    },
-})
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    signs = false, -- Disable signs
-})
-vim.lsp.set_log_level(vim.log.levels.WARN)
+vim.lsp.set_log_level(vim.log.levels.INFO)
 
 -- Config vindent keybindings
 vim.g.vindent_motion_OO_prev   = '[i' -- jump to prev block of same indent.
@@ -45,6 +37,8 @@ vim.g.vindent_object_XX_ii     = 'ii' -- select current block.
 vim.g.vindent_object_XX_ai     = 'ai' -- select current block + one extra line  at beginning.
 vim.g.vindent_object_XX_aI     = 'aI' -- select current block + two extra lines at beginning and end.
 vim.g.vindent_jumps            = 1    -- make vindent motion count as a |jump-motion| (works with |jumplist|).
+
+require('lsp').diagnostics_set_config()
 
 -- SETUP COLORS
 require("gruvbox").load()

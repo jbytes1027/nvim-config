@@ -43,14 +43,8 @@ function M.toggle_diagnostics(silent)
     end
 
     if vim.g.diagnostics_hidden == nil then vim.g.diagnostics_hidden = false end
-
-    if vim.g.diagnostics_hidden then
-        vim.g.diagnostics_hidden = false
-        vim.diagnostic.show()
-    else
-        vim.g.diagnostics_hidden = true
-        vim.diagnostic.hide()
-    end
+    vim.g.diagnostics_hidden = not vim.g.diagnostics_hidden
+    require('lsp').diagnostics_set_config()
     ui_notify(silent, string.format("diagnostics %s", bool2str(not vim.g.diagnostics_hidden)))
 end
 
