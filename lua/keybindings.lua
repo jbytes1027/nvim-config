@@ -306,3 +306,8 @@ vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "n" }, "<A-q>", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
 vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw")  -- enable ctrl-delete
+vim.keymap.set({"n", "v" }, "<A-.>", "zL")
+vim.keymap.set({"n", "v" }, "<A-,>", "zH")
+vim.keymap.set({"n", "v" }, "<S-ScrollWheelDown>", "zL")
+vim.keymap.set({"n", "v" }, "<S-ScrollWheelUp>", "zH")
+
