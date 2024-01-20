@@ -269,13 +269,21 @@ vim.keymap.set("i", "<C-l>", function()
 end)
 
 -- Use lowercase for global marks and uppercase for local marks.
-local low = function(i) return string.char(97+i) end
-local upp = function(i) return string.char(65+i) end
+local low = function(i) return string.char(97 + i) end
+local upp = function(i) return string.char(65 + i) end
 
-for i=0,25 do vim.keymap.set("n", "m"..low(i), "m"..upp(i)) end
-for i=0,25 do vim.keymap.set("n", "m"..upp(i), "m"..low(i)) end
-for i=0,25 do vim.keymap.set("n", "'"..low(i), "'"..upp(i)) end
-for i=0,25 do vim.keymap.set("n", "'"..upp(i), "'"..low(i)) end
+for i = 0, 25 do
+    vim.keymap.set("n", "m" .. low(i), "m" .. upp(i))
+end
+for i = 0, 25 do
+    vim.keymap.set("n", "m" .. upp(i), "m" .. low(i))
+end
+for i = 0, 25 do
+    vim.keymap.set("n", "'" .. low(i), "'" .. upp(i))
+end
+for i = 0, 25 do
+    vim.keymap.set("n", "'" .. upp(i), "'" .. low(i))
+end
 
 -- Misc
 vim.keymap.set("", "<leader>", "") -- disable plane space key
@@ -300,11 +308,10 @@ vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
 vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "n" }, "<A-q>", "<cmd>confirm qall<cr>", { desc = "Quit" })
 vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
-vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw")  -- enable ctrl-delete
-vim.keymap.set({"n", "v" }, "<A-.>", "zL")
-vim.keymap.set({"n", "v" }, "<A-,>", "zH")
-vim.keymap.set({"n", "v" }, "<S-ScrollWheelDown>", "zL")
-vim.keymap.set({"n", "v" }, "<S-ScrollWheelUp>", "zH")
-
+vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw") -- enable ctrl-delete
+vim.keymap.set({ "n", "v" }, "<A-.>", "zL")
+vim.keymap.set({ "n", "v" }, "<A-,>", "zH")
+vim.keymap.set({ "n", "v" }, "<S-ScrollWheelDown>", "zL")
+vim.keymap.set({ "n", "v" }, "<S-ScrollWheelUp>", "zH")
 vim.keymap.set({ "i", "c" }, "<C-v>", '<C-r>"')
 vim.keymap.set({ "i", "c" }, "<C-s>", "<C-v>")

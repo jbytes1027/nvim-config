@@ -4,7 +4,7 @@ M.diagnostics_set_config = function()
     local config = {
         signs = false,
         virtual_text = { prefix = "🞙" },
-        underline = true
+        underline = true,
     }
 
     if vim.g.diagnostics_hidden then

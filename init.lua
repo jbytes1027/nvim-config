@@ -38,7 +38,7 @@ vim.g.vindent_object_XX_ai     = 'ai' -- select current block + one extra line  
 vim.g.vindent_object_XX_aI     = 'aI' -- select current block + two extra lines at beginning and end.
 vim.g.vindent_jumps            = 1    -- make vindent motion count as a |jump-motion| (works with |jumplist|).
 
-require('lsp').diagnostics_set_config()
+require("lsp").diagnostics_set_config()
 
 -- SETUP COLORS
 require("gruvbox").load()
@@ -68,7 +68,6 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        -- stylua: ignore start
         config = function()
             require("nvim-treesitter.configs").setup({
                 -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -100,7 +99,6 @@ require("lazy").setup({
                 },
             })
         end,
-        -- stylua: ignore stop
     },
     {
         "folke/which-key.nvim",
