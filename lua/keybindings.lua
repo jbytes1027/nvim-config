@@ -43,12 +43,7 @@ vim.keymap.set(
     { desc = "Find workspace symbols" }
 )
 vim.keymap.set({ "n" }, "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Find keymaps" })
-vim.keymap.set(
-    { "n" },
-    "<leader>fm",
-    function() require("telescope.builtin").marks() end,
-    { desc = "Find man pages" }
-)
+vim.keymap.set({ "n" }, "<leader>fm", function() require("telescope.builtin").marks() end, { desc = "Find man pages" })
 vim.keymap.set({ "n" }, "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Find buffers" })
 vim.keymap.set(
     { "n" },
