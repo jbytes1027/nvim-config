@@ -198,6 +198,57 @@ require("lazy").setup({
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup({})
                 end,
+
+                -- Next, provide a dedicated handler for specific servers.
+                ["omnisharp"] = function()
+                    require("lspconfig").omnisharp.setup({
+                        cmd = { -- see https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options for options
+                            "omnisharp",
+                            "RoslynExtensionsOptions:EnableAnalyzersSupport=true",
+                            "RoslynExtensionsOptions:EnableImportCompletion=false", -- show items not imported - makes completion slower
+                            "RoslynExtensionsOptions:AnalyzeOpenDocumentsOnly=true",
+                            "RoslynExtensionsOptions:enableDecompilationSupport=true",
+                        },
+                        settings = {
+                            ["dotnet.completion.showCompletionItemsFromUnimportedNamespaces"] = true,
+                            ["dotnet.navigation.navigateToDecompiledSources"] = true,
+                            ["dotnet.symbolSearch.searchReferenceAssemblies"] = true,
+                            ["dotnet.quickInfo.showRemarksInQuickInfo"] = true,
+                            ["omnisharp.enableDecompilationSupport"] = true,
+                            ["omnisharp.enableAsyncCompletion"] = true,
+                        },
+                        handlers = {
+                            ["textDocument/definition"] = require("omnisharp_extended").handler,
+                        },
+                    })
+                end,
+                ["lua_ls"] = function()
+                    require("lspconfig").lua_ls.setup({ -- see https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options for options
+                        settings = {
+                            Lua = {
+                                format = {
+                                    enable = false, -- use style lua
+                                },
+                                runtime = {
+                                    -- Tell the language server which version of Lua you're using
+                                    -- (most likely LuaJIT in the case of Neovim)
+                                    version = "LuaJIT",
+                                },
+                                diagnostics = {
+                                    -- Get the language server to recognize the `vim` global
+                                    globals = {
+                                        "vim",
+                                        "require",
+                                    },
+                                },
+                                workspace = {
+                                    -- Make the server aware of Neovim runtime files
+                                    library = vim.api.nvim_get_runtime_file("", true),
+                                },
+                            },
+                        },
+                    })
+                end,
             },
         },
     },
