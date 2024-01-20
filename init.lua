@@ -20,7 +20,6 @@ vim.opt.ignorecase = true -- ignore case by default when searching
 vim.opt.jumpoptions = "view"
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
-vim.lsp.set_log_level(vim.log.levels.INFO)
 vim.o.pumheight = 20
 
 -- Config vindent keybindings
