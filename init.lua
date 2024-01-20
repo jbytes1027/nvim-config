@@ -21,6 +21,7 @@ vim.opt.jumpoptions = "view"
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.lsp.set_log_level(vim.log.levels.INFO)
+vim.o.pumheight = 20
 
 -- Config vindent keybindings
 vim.g.vindent_motion_OO_prev   = '[i' -- jump to prev block of same indent.
@@ -308,19 +309,18 @@ require("lazy").setup({
         config = function()
             require("cmp").setup({
                 performance = {
-                    debounce = 60,
-                    throttle = 30,
-                    fetching_timeout = 100,
+                    debounce = 100,
+                    throttle = 0,
+                    fetching_timeout = 200,
                     confirm_resolve_timeout = 1,
-                    async_budget = 1,
-                    max_view_entries = 20,
+                    async_budget = 200,
                 },
                 sources = require("cmp").config.sources({
+                    { name = "nvim_lsp_signature_help" },
                     { name = "nvim_lsp", priority = 1000 },
                     -- { name = "luasnip",  priority = 750 },
                     { name = "buffer", priority = 500 },
                     { name = "path", priority = 250 },
-                    { name = "nvim_lsp_signature_help" },
                 }),
                 matching = {
                     disallow_fuzzy_matching = true,
@@ -340,6 +340,11 @@ require("lazy").setup({
                 },
                 completion = {
                     autocomplete = false,
+                },
+                window = {
+                    completion = {
+                        scrollbar = true,
+                    },
                 },
             })
         end,
