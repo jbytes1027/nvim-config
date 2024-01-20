@@ -371,6 +371,7 @@ require("lazy").setup({
     },
 })
 
+require("cmds") -- load autocommands
 require("autocmds") -- load autocommands
 require("statusline") -- Setup status bar
 require("keybindings") -- load keybindings
