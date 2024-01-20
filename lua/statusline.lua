@@ -80,6 +80,19 @@ Stl_get_recording = function()
     return "RECORDING @" .. reg_recording .. "  "
 end
 
+Stl_get_search = function()
+    local search_status = vim.fn.searchcount()
+    if not vim.o.hlsearch then return "" end
+
+    local current_match = search_status.current
+    if current_match > 99 then current_match = ">99" end
+
+    local total_match = search_status.total
+    if total_match > 99 then total_match = ">99" end
+
+    return "Match " .. current_match .. "/" .. total_match .. "  "
+end
+
 vim.o.statusline = table.concat({
     "%t", -- file title
     "%{v:lua.Stl_get_modified()}",
@@ -89,6 +102,7 @@ vim.o.statusline = table.concat({
     "%{v:lua.Stl_get_left()}",
     "%=", -- right align following
     "%{v:lua.Stl_get_recording()}",
+    "%{v:lua.Stl_get_search()}",
     '%{&fenc==""?&enc:&fenc}', -- file encoding, otherwise encoding
     "  %l:%c", -- line:col
     "  %P", -- percentage in file by line
