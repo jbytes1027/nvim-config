@@ -62,7 +62,7 @@ vim.opt.rtp:prepend(lazypath)
 -- GET PLUGINS
 require("lazy").setup({
     {
-        "tommcdo/vim-ninja-feet"
+        "tommcdo/vim-ninja-feet",
     },
     {
         "jessekelighine/vindent.vim",
