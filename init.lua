@@ -22,7 +22,7 @@ vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.pumheight = 20
 vim.opt.shortmess:append("I") -- hide starup message
-vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP" 
+vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP"
 
 -- Config vindent keybindings
 vim.g.vindent_motion_OO_prev = "[i" -- jump to prev block of same indent.
