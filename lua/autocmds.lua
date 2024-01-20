@@ -4,6 +4,9 @@ vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
 })
 vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
     callback = function() vim.o.hlsearch = false end,
+
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, { -- highlight text on yank
+    callback = function() vim.opt.formatoptions:remove("o") end,
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, { -- highlight text on yank
