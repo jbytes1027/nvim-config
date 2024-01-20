@@ -20,9 +20,7 @@ function M.run(_trigger, _mode, buf)
     for i, mark in pairs(marks) do -- filter out non-alphabetical
         local key = mark.mark:sub(2, 2)
 
-        if key:match("%A") then
-            marks[i] = nil
-        end
+        if key:match("%A") then marks[i] = nil end
     end
 
     for _, mark in pairs(marks) do

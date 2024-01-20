@@ -300,7 +300,7 @@ require("lazy").setup({
     {
         enabled = jit.os ~= "Windows",
         "kelly-lin/ranger.nvim",
-        config = function() require("ranger-nvim").setup({ replace_netrw = true }) end,
+        opts = { replace_netrw = true },
     },
     {
         "mrjones2014/smart-splits.nvim",
