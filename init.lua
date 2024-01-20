@@ -110,10 +110,25 @@ require("lazy").setup({
             vim.o.timeout = true
             vim.o.timeoutlen = 1000
         end,
-        opts = {
-            -- See https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
+        opts = { -- See https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
             motions = {
                 count = false,
+            },
+            plugins = {
+                set_mark = true,
+            },
+            triggers_nowait = {
+                -- marks
+                "m",
+                "`",
+                "'",
+                "g`",
+                "g'",
+                -- registers
+                '"',
+                "<c-r>",
+                -- spelling
+                "z=",
             },
         },
     },
