@@ -148,6 +148,9 @@ require("lazy").setup({
         },
     },
     {
+        "Hoffs/omnisharp-extended-lsp.nvim",
+    },
+    {
         "williamboman/mason.nvim",
         opts = {}, -- force calling setup
     },
