@@ -1,9 +1,12 @@
--- highlight all results while searching (not just the next result)
-vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
-    callback = function() vim.o.hlsearch = true end,
-})
-vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
-    callback = function() vim.o.hlsearch = false end,
+vim.on_key(
+    function(char) -- highlight search when using from https://www.reddit.com/r/neovim/comments/zc720y/comment/iyvcdf0/
+        if vim.fn.mode() == "n" then
+            local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+            if vim.opt.hlsearch:get() ~= new_hlsearch then vim.opt.hlsearch = new_hlsearch end
+        end
+    end,
+    vim.api.nvim_create_namespace("auto_hlsearch")
+)
 
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, { -- highlight text on yank
     callback = function() vim.opt.formatoptions:remove("o") end,
