@@ -21,6 +21,7 @@ vim.opt.jumpoptions = "view"
 vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.pumheight = 20
+vim.o.listchars = "space:⋅,tab:→ ,eol:↴,nbsp:␣"
 vim.opt.shortmess:append("I") -- hide starup message
 vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP"
 

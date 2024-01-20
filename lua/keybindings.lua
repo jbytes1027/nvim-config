@@ -234,6 +234,7 @@ vim.keymap.set({ "n" }, "<leader>us", require("ui").toggle_spell, { desc = "Togg
 vim.keymap.set({ "n" }, "<leader>uS", require("ui").toggle_conceal, { desc = "Toggle conceal" })
 vim.keymap.set({ "n" }, "<leader>ut", require("ui").toggle_tabline, { desc = "Toggle tabline" })
 vim.keymap.set({ "n" }, "<leader>uw", require("ui").toggle_wrap, { desc = "Toggle wrap" })
+vim.keymap.set({ "n" }, "<leader>ua", "<cmd>set list!<cr>", { desc = "Toggle whitespace" })
 vim.keymap.set(
     { "n" },
     "<leader>uy",
