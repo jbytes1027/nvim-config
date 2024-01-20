@@ -306,3 +306,5 @@ vim.keymap.set({"n", "v" }, "<A-,>", "zH")
 vim.keymap.set({"n", "v" }, "<S-ScrollWheelDown>", "zL")
 vim.keymap.set({"n", "v" }, "<S-ScrollWheelUp>", "zH")
 
+vim.keymap.set({ "i", "c" }, "<C-v>", '<C-r>"')
+vim.keymap.set({ "i", "c" }, "<C-s>", "<C-v>")
