@@ -25,6 +25,10 @@ vim.o.listchars = "space:⋅,tab:→ ,eol:↴,nbsp:␣"
 vim.opt.shortmess:append("I") -- hide starup message
 vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP"
 
+-- remove the "How-to disable mouse" menu item and the separator above it: >vim
+vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
+vim.cmd("aunmenu PopUp.-1-")
+
 -- Config vindent keybindings
 vim.g.vindent_motion_OO_prev = "[i" -- jump to prev block of same indent.
 vim.g.vindent_motion_OO_next = "]i" -- jump to next block of same indent.
