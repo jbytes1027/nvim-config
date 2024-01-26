@@ -260,13 +260,45 @@ vim.keymap.set("i", "<C-n>", function()
     if cmp.visible() == false then cmp.complete() end
     cmp.select_next_item()
 end)
-vim.keymap.set("i", "<C-u>", function() cmp.scroll_docs(-4) end)
-vim.keymap.set("i", "<C-d>", function() cmp.scroll_docs(4) end)
-vim.keymap.set("i", "<C-y>", function() cmp.confirm() end)
-vim.keymap.set("i", "<C-e>", function() cmp.abort() end)
+vim.keymap.set("i", "<C-u>", function()
+    if cmp.visible() == true then
+        cmp.scroll_docs(-4)
+    else
+        local key = vim.api.nvim_replace_termcodes("<C-u>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
+end)
+vim.keymap.set("i", "<C-d>", function()
+    if cmp.visible() == true then
+        cmp.scroll_docs(4)
+    else
+        local key = vim.api.nvim_replace_termcodes("<C-d>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
+end)
+vim.keymap.set("i", "<C-y>", function()
+    if cmp.visible() == true then
+        cmp.confirm()
+    else
+        local key = vim.api.nvim_replace_termcodes("<C-y>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
+end)
+vim.keymap.set("i", "<C-e>", function()
+    if cmp.visible() == true then
+        cmp.abort()
+    else
+        local key = vim.api.nvim_replace_termcodes("<C-e>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
+end)
 vim.keymap.set("i", "<C-l>", function()
-    if cmp.visible() == false then cmp.complete() end
-    cmp.complete_common_string()
+    if cmp.visible() == true then
+        cmp.complete_common_string()
+    else
+        local key = vim.api.nvim_replace_termcodes("<C-l>", true, false, true)
+        vim.api.nvim_feedkeys(key, "n", true)
+    end
 end)
 
 -- Use lowercase for global marks and uppercase for local marks.
