@@ -315,13 +315,13 @@ vim.keymap.set({ "n", "v" }, "<A-,>", "zH")
 vim.keymap.set({ "n", "v" }, "<S-ScrollWheelDown>", "zL")
 vim.keymap.set({ "n", "v" }, "<S-ScrollWheelUp>", "zH")
 vim.keymap.set(
-    { "n", "v" },
+    { "n" },
     "yp",
     '<cmd>:let @" = expand("%:p")<cr><cmd>:let @+ = expand("%:p")<cr><cmd>:let @* = expand("%:p")<cr>',
     { desc = "Yank file path" }
 )
 vim.keymap.set(
-    { "n", "v" },
+    { "n" },
     "yd",
     '<cmd>:let @" = expand("%:p:h")<cr><cmd>:let @+ = expand("%:p:h")<cr><cmd>:let @* = expand("%:p:h")<cr>',
     { desc = "Yank file directory path" }
