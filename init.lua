@@ -234,6 +234,7 @@ require("lazy").setup({
                             "RoslynExtensionsOptions:EnableImportCompletion=false", -- show items not imported - makes completion slower
                             "RoslynExtensionsOptions:AnalyzeOpenDocumentsOnly=true",
                             "RoslynExtensionsOptions:enableDecompilationSupport=true",
+                            "omnisharp.enableEditorConfigSupport=true",
                         },
                         settings = {
                             ["dotnet.completion.showCompletionItemsFromUnimportedNamespaces"] = true,
