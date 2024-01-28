@@ -45,6 +45,7 @@ vim.g.vindent_object_XX_ai = "ai" -- select current block + one extra line  at b
 vim.g.vindent_object_XX_aI = "aI" -- select current block + two extra lines at beginning and end.
 vim.g.vindent_jumps = 1 -- make vindent motion count as a |jump-motion| (works with |jumplist|).
 
+vim.g.diagnostics_hidden = true
 require("lsp").diagnostics_set_config()
 
 -- SETUP COLORS
