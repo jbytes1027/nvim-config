@@ -89,7 +89,7 @@ end, { desc = "Search symbols" })
 -- Lsp
 vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
 vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
-vim.keymap.set({ "n" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
+vim.keymap.set({ "n", "v" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
 vim.keymap.set({ "n" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
 vim.keymap.set({ "v" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
 vim.keymap.set(
