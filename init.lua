@@ -12,6 +12,7 @@ vim.opt.breakindent = true -- wraped lines have the same intent level
 vim.opt.linebreak = true -- wrap lines at 'breakat'
 vim.opt.relativenumber = true -- relateive line numbers
 vim.opt.number = true -- fixed line numbers
+vim.opt.smartcase = true -- fixed line numbers
 vim.opt.tabstop = 4 -- tab is 4 spaces
 vim.opt.expandtab = true -- convert <tab> to spaces
 vim.opt.shiftwidth = 0 -- use tabstop value for shift operations
