@@ -267,7 +267,7 @@ require("lazy").setup({
             null_ls.setup({
                 sources = { -- see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/HELPERS.md
                     -- Anything not supported by mason.
-                    dotnet_format,
+                    -- dotnet_format,
                 },
             })
         end,
