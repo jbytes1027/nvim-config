@@ -359,3 +359,9 @@ vim.keymap.set(
     { desc = "Yank file directory path" }
 )
 vim.keymap.set({ "n" }, "<leader>gD", require("cmds").DiffOrg, { desc = "View Unsaved Changes Diff" })
+vim.keymap.set(
+    { "n", "v" },
+    "<leader>o",
+    function() require("aerial").toggle({ direction = "right" }) end,
+    { desc = "Open outline" }
+)
