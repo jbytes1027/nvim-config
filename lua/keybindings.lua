@@ -366,6 +366,26 @@ vim.keymap.set(
     { desc = "Open outline" }
 )
 
+vim.keymap.set(
+    { "n" },
+    "[u",
+    function() pcall(vim.cmd, "silent " .. vim.v.count1 .. "cprev") end,
+    { desc = "Prev quickfix item" }
+)
+vim.keymap.set(
+    { "n" },
+    "]u",
+    function() pcall(vim.cmd, "silent " .. vim.v.count1 .. "cnext") end,
+    { desc = "Next quickfix item" }
+)
+vim.keymap.set({ "n" }, "[U", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
+vim.keymap.set({ "n" }, "]U", "<cmd>clast<cr>", { desc = "Last quickfix item" })
+
+vim.keymap.set({ "n" }, "[l", "<cmd>lprev<cr>", { desc = "Prev location list item" })
+vim.keymap.set({ "n" }, "]l", "<cmd>lnext<cr>", { desc = "Next location list item" })
+vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
+vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
+
 if jit.os ~= "Windows" then
     vim.keymap.set({ "n", "v" }, "gx", function()
         local url = vim.fn.expand("<cfile>")
