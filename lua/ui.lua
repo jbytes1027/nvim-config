@@ -156,12 +156,10 @@ function M.change_number(silent)
     local relativenumber = vim.wo.relativenumber -- local to window
     if not number and not relativenumber then
         vim.wo.number = true
-    elseif number and not relativenumber then
         vim.wo.relativenumber = true
-    elseif number and relativenumber then
-        vim.wo.number = false
     else -- not number and relativenumber
         vim.wo.relativenumber = false
+        vim.wo.number = false
     end
     ui_notify(
         silent,
