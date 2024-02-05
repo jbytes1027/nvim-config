@@ -365,3 +365,18 @@ vim.keymap.set(
     function() require("aerial").toggle({ direction = "right" }) end,
     { desc = "Open outline" }
 )
+
+if jit.os ~= "Windows" then
+    vim.keymap.set({ "n", "v" }, "gx", function()
+        local url = vim.fn.expand("<cfile>")
+        if url ~= nil then
+            if vim.fn.has("macunix") == 1 then
+                vim.cmd(('silent !open "%s"'):format(url))
+            else
+                vim.cmd(('silent !xdg-open "%s"'):format(url))
+            end
+        else
+            print("No URL found in line.")
+        end
+    end)
+end
