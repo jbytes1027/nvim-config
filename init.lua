@@ -240,7 +240,7 @@ require("lazy").setup({
         "lewis6991/gitsigns.nvim",
         opts = {
             signcolumn = false,
-            numhl = true,
+            numhl = false,
             update_debounce = 200,
         },
     },
