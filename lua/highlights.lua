@@ -34,7 +34,7 @@ local groups = {
     NonText = { link = "Comment" },
     Whitespace = { link = "Comment" },
     SpecialKey = { ctermfg = cterm_colors.light_bg },
-    Visual = { ctermbg = cterm_colors.light_bg },
+    Visual = { ctermbg = cterm_colors.light_blue, ctermfg = cterm_colors.dark_bg },
     VisualNOS = { link = "Visual" },
     Search = { ctermbg = cterm_colors.light_yellow, ctermfg = cterm_colors.dark_bg },
     IncSearch = { ctermbg = cterm_colors.light_magenta, ctermfg = cterm_colors.dark_bg },
