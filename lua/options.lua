@@ -32,3 +32,4 @@ vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP"
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
 vim.cmd("aunmenu PopUp.-1-")
 
+require("ui").set_diagnostics(false) -- disable diagnostics displaying on startup
