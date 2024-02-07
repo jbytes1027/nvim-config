@@ -1,99 +1,55 @@
 return {
     {
         "stevearc/aerial.nvim",
-        opts = {
-            -- Priority list of preferred backends for aerial.
-            backends = { "treesitter", "lsp", "markdown", "man" },
-            post_jump_cmd = "normal! zt",
-            highlight_on_jump = false,
-            highlight_on_hover = false, -- Highlight the symbol in the source buffer when cursor is in the aerial win
-            autojump = true,
-            close_on_select = true, -- When true, aerial will automatically close after jumping to a symbol
-            preserve_equality = true,
-            default_direction = "right",
+        opts = function()
+            local aerial_keymap = require("keybindings").aerial_keymap
 
-            keymaps = {
-                ["?"] = false,
-                ["g?"] = "actions.show_help",
-                ["<CR>"] = "actions.jump",
-                ["<2-LeftMouse>"] = "actions.jump",
-                ["<C-v>"] = "actions.jump_vsplit",
-                ["<C-s>"] = "actions.jump_split",
-                ["p"] = "actions.scroll",
-                ["<C-j>"] = "actions.down_and_scroll",
-                ["<C-k>"] = "actions.up_and_scroll",
-                ["{"] = "actions.prev",
-                ["}"] = "actions.next",
-                ["["] = "actions.prev_up",
-                ["]"] = "actions.next_up",
-                ["q"] = "actions.close",
-                ["o"] = "actions.tree_toggle",
-                ["za"] = "actions.tree_toggle",
-                ["O"] = "actions.tree_toggle_recursive",
-                ["zA"] = "actions.tree_toggle_recursive",
-                ["l"] = "actions.tree_open",
-                ["zo"] = "actions.tree_open",
-                ["L"] = "actions.tree_open_recursive",
-                ["zO"] = "actions.tree_open_recursive",
-                ["h"] = "actions.tree_close",
-                ["zc"] = "actions.tree_close",
-                ["H"] = "actions.tree_close_recursive",
-                ["zC"] = "actions.tree_close_recursive",
-                ["zr"] = "actions.tree_increase_fold_level",
-                ["zR"] = "actions.tree_open_all",
-                ["zm"] = "actions.tree_decrease_fold_level",
-                ["zM"] = "actions.tree_close_all",
-                ["zx"] = "actions.tree_sync_folds",
-                ["zX"] = "actions.tree_sync_folds",
-            },
+            return {
+                -- Priority list of preferred backends for aerial.
+                backends = { "treesitter", "lsp", "markdown", "man" },
+                post_jump_cmd = "normal! zt",
+                highlight_on_jump = false,
+                highlight_on_hover = false, -- Highlight the symbol in the source buffer when cursor is in the aerial win
+                autojump = true,
+                close_on_select = true, -- When true, aerial will automatically close after jumping to a symbol
+                preserve_equality = true,
+                default_direction = "right",
 
-            layout = {
-                min_width = { 15 },
-                width = 40,
-                max_width = { 0.5 },
-                win_opts = {
-                    number = true,
-                    relativenumber = true,
+                keymaps = aerial_keymap,
+
+                layout = {
+                    min_width = { 15 },
+                    width = 40,
+                    max_width = { 0.5 },
+                    win_opts = {
+                        number = true,
+                        relativenumber = true,
+                    },
                 },
-            },
 
-            nav = {
-                min_height = { 20, 0.85 },
-                min_width = { 0.3, 20 },
-                -- max_width = 0.8,
-                -- max_height = 0.8,
+                nav = {
+                    min_height = { 20, 0.85 },
+                    min_width = { 0.3, 20 },
+                    -- max_width = 0.8,
+                    -- max_height = 0.8,
 
-                win_opts = {
-                    winblend = 0,
-                    winhl = "NormalFloat:Normal,FloatBorder:Normal",
-                    number = true,
-                    relativenumber = true,
+                    win_opts = {
+                        winblend = 0,
+                        winhl = "NormalFloat:Normal,FloatBorder:Normal",
+                        number = true,
+                        relativenumber = true,
+                    },
+                    preview = true,
                 },
-                preview = true,
-            },
-        },
+            }
+        end,
     },
     {
         "tommcdo/vim-ninja-feet",
     },
     {
         "jessekelighine/vindent.vim",
-        init = function()
-            vim.g.vindent_motion_OO_prev = "[i" -- jump to prev block of same indent.
-            vim.g.vindent_motion_OO_next = "]i" -- jump to next block of same indent.
-            vim.g.vindent_motion_more_prev = "[+" -- jump to prev line with more indent.
-            vim.g.vindent_motion_more_next = "]+" -- jump to next line with more indent.
-            vim.g.vindent_motion_less_prev = "[-" -- jump to prev line with less indent.
-            vim.g.vindent_motion_less_next = "]-" -- jump to next line with less indent.
-            vim.g.vindent_motion_diff_prev = "[;" -- jump to prev line with different indent.
-            vim.g.vindent_motion_diff_next = "];" -- jump to next line with different indent.
-            vim.g.vindent_motion_XX_ss = "[p" -- jump to start of the current block scope.
-            vim.g.vindent_motion_XX_se = "]p" -- jump to end   of the current block scope.
-            vim.g.vindent_object_XX_ii = "ii" -- select current block.
-            vim.g.vindent_object_XX_ai = "ai" -- select current block + one extra line  at beginning.
-            vim.g.vindent_object_XX_aI = "aI" -- select current block + two extra lines at beginning and end.
-            vim.g.vindent_jumps = 1 -- make vindent motion count as a |jump-motion| (works with |jumplist|).
-        end,
+        init = function() require("keybindings").set_vindent_keybindings() end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
