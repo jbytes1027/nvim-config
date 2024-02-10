@@ -6,7 +6,7 @@
     - Shows lsp diagnostic counts
     - Shows search and recording status
 - Uses marks to manage files
-    - Swapped global marks to be lowercase and local marks to be uppercase
+    - Swapped global marks to be lowercase, and local marks to be uppercase
     - Auto read and write shada on `FocusLost` and `FocusGained`
 - `cmdheight=0`
     - Uses fidget.nvim for `vim.notify`
@@ -32,4 +32,4 @@
 
 ## Plugins
 
-- See `lazy-lock.json`
+See `lazy-lock.json`
