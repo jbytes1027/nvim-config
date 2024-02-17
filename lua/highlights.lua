@@ -291,6 +291,7 @@ local groups = {
     NeogitDiffAdd = { link = "DiffAdd" },
     NeogitHunkHeader = { link = "WinBar" },
     NeogitHunkHeaderHighlight = { link = "WinBarNC" },
+    mkdLineBreak = { link = "None" },
     ["@none"] = { link = "Normal" }, -- used for C# format strings
     ["@string"] = { link = "String" },
     ["@string.regex"] = { link = "String" },
