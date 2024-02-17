@@ -17,6 +17,13 @@ return {
 
                 keymaps = aerial_keymap,
 
+                ignore = {
+                    unlisted_buffers = false,
+                    filetypes = {},
+                    buftypes = false,
+                    wintypes = "special",
+                },
+
                 layout = {
                     min_width = { 15 },
                     width = 40,
