@@ -21,7 +21,6 @@ if not vim.loop.fs_stat(lazypath) then -- install lazyvim if not found in lazypa
 end
 vim.opt.rtp:prepend(lazypath)
 
--- GET PLUGINS
 require("lazy").setup("plugins")
 
 require("cmds") -- load autocommands
