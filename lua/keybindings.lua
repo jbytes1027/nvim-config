@@ -127,9 +127,9 @@ end
 M.set_lsp_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
     vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
-    vim.keymap.set({ "n", "v" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
+    vim.keymap.set({ "n", "x" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
     vim.keymap.set({ "n" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
-    vim.keymap.set({ "v" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
+    vim.keymap.set({ "x" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
     vim.keymap.set(
         { "n" },
         "gd",
@@ -144,7 +144,7 @@ M.set_lsp_keybindings = function()
         { desc = "Implementation of current symbol" }
     )
     vim.keymap.set({ "n" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
-    vim.keymap.set({ "v" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format selection" })
+    vim.keymap.set({ "x" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format selection" })
     vim.keymap.set({ "n" }, "<leader>lc", function() vim.lsp.buf.incoming_calls() end, { desc = "View incoming calls" })
     vim.keymap.set({ "n" }, "<leader>lC", function() vim.lsp.buf.outgoing_calls() end, { desc = "View outgoing calls" })
     vim.keymap.set({ "n" }, "gr", function() vim.lsp.buf.references() end, { desc = "References of current symbol" })
@@ -246,7 +246,7 @@ M.set_git_keybindings = function()
     )
     vim.keymap.set({ "n" }, "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset Git hunk" })
     vim.keymap.set(
-        { "v" },
+        { "x" },
         "<leader>gr",
         function()
             require("gitsigns").reset_hunk({
@@ -264,7 +264,7 @@ M.set_git_keybindings = function()
     )
     vim.keymap.set({ "n" }, "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage Git hunk" })
     vim.keymap.set(
-        { "v" },
+        { "x" },
         "<leader>gs",
         function()
             require("gitsigns").stage_hunk({
@@ -410,7 +410,7 @@ M.set_misc_keybindings = function()
         function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
         { desc = "Toggle comment line" }
     )
-    vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", {
+    vim.keymap.set("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", {
         desc = "Toggle comment for selection",
     })
     vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
@@ -418,10 +418,10 @@ M.set_misc_keybindings = function()
     vim.keymap.set({ "n" }, "<A-q>", "<cmd>confirm qall<cr>", { desc = "Quit" })
     vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
     vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw") -- enable ctrl-delete
-    vim.keymap.set({ "n", "v" }, "<A-.>", "zL")
-    vim.keymap.set({ "n", "v" }, "<A-,>", "zH")
-    vim.keymap.set({ "n", "v" }, "<S-ScrollWheelDown>", "zL")
-    vim.keymap.set({ "n", "v" }, "<S-ScrollWheelUp>", "zH")
+    vim.keymap.set({ "n", "x" }, "<A-.>", "zL")
+    vim.keymap.set({ "n", "x" }, "<A-,>", "zH")
+    vim.keymap.set({ "n", "x" }, "<S-ScrollWheelDown>", "zL")
+    vim.keymap.set({ "n", "x" }, "<S-ScrollWheelUp>", "zH")
     vim.keymap.set(
         { "n" },
         "yp",
@@ -436,7 +436,7 @@ M.set_misc_keybindings = function()
     )
     vim.keymap.set({ "n" }, "<leader>gD", require("cmds").DiffOrg, { desc = "View Unsaved Changes Diff" })
     vim.keymap.set(
-        { "n", "v" },
+        { "n", "x" },
         "<leader>o",
         function() require("aerial").toggle({ direction = "right" }) end,
         { desc = "Open outline" }
@@ -463,7 +463,7 @@ M.set_misc_keybindings = function()
     vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
 
     if jit.os ~= "Windows" then
-        vim.keymap.set({ "n", "v" }, "gx", function()
+        vim.keymap.set({ "n", "x" }, "gx", function()
             local url = vim.fn.expand("<cfile>")
             if url ~= nil then
                 if vim.fn.has("macunix") == 1 then
