@@ -175,10 +175,21 @@ return {
                     to_stdin = false,
                 }),
             }
+            local gdformat = {
+                method = null_ls.methods.FORMATTING,
+                filetypes = { "gdscript" },
+                generator = null_ls.formatter({
+                    command = "gdformat",
+                    args = { "$FILENAME" },
+                    to_temp_file = true,
+                    from_temp_file = true,
+                }),
+            }
             null_ls.setup({
                 sources = { -- see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/HELPERS.md
                     -- Anything not supported by mason.
                     -- dotnet_format,
+                    gdformat,
                 },
             })
         end,
