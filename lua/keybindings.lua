@@ -152,7 +152,7 @@ M.set_lsp_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>lr", function() vim.lsp.buf.rename() end, { desc = "Rename current symbol" })
     vim.keymap.set({ "n" }, "<leader>lh", function() vim.lsp.buf.signature_help() end, { desc = "Signature help" })
     vim.keymap.set({ "n" }, "<leader>ll", vim.lsp.codelens.refresh, { desc = "LSP CodeLens refresh" })
-    vim.keymap.set({ "n" }, "<leader>lL", vim.lsp.codelens.run, { desc = "LSP CodeLens run" })
+    vim.keymap.set({ "n", "x" }, "<leader>lL", vim.lsp.codelens.run, { desc = "LSP CodeLens run" })
     vim.keymap.set({ "n" }, "gy", function() vim.lsp.buf.type_definition() end, { desc = "Definition of current type" })
     vim.keymap.set({ "n" }, "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" })
     vim.keymap.set(
