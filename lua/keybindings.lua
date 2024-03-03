@@ -34,7 +34,7 @@ M.set_searching_keybindings = function()
     vim.keymap.set(
         { "n" },
         "<leader>fD",
-        function() require("telescope.builtin").diagnostics() end,
+        function() require("telescope.builtin").diagnostics({ root_dir = true }) end,
         { desc = "Find all diagnostics" }
     )
     vim.keymap.set(

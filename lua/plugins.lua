@@ -131,6 +131,7 @@ return {
             -- see https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
             require("telescope").setup({
                 defaults = {
+                    scroll_strategy = "limit",
                     sorting_strategy = "ascending",
                     path_display = { "truncate" },
                     layout_config = {
@@ -140,6 +141,19 @@ return {
                         i = {
                             ["<esc>"] = require("telescope.actions").close,
                             ["<C-h>"] = function() vim.api.nvim_input("<C-w>") end, -- enable ctrl-backspace
+                            ["<C-f>"] = require("telescope.actions").results_scrolling_down,
+                            ["<C-b>"] = require("telescope.actions").results_scrolling_up,
+                            ["<C-/>"] = require("telescope.actions").which_key,
+                            ["<C-u>"] = { "<C-o>dd", type = "command" },
+                        },
+                    },
+                },
+                pickers = {
+                    buffers = {
+                        mappings = {
+                            i = {
+                                ["<C-e>"] = require("telescope.actions").delete_buffer,
+                            },
                         },
                     },
                 },
