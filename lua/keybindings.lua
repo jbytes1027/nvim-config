@@ -125,18 +125,29 @@ M.set_searching_keybindings = function()
 end
 
 M.set_lsp_keybindings = function()
+    local buff_has_lsp = function() return next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil end
+
     vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
     vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
     vim.keymap.set({ "n", "x" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
     vim.keymap.set({ "n" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
     vim.keymap.set({ "x" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
-    vim.keymap.set(
-        { "n" },
-        "gd",
-        function() vim.lsp.buf.definition() end,
-        { desc = "Show the definition of current symbol" }
-    )
-    vim.keymap.set({ "n" }, "gD", function() vim.lsp.buf.declaration() end, { desc = "Declaration of current symbol" })
+    vim.keymap.set({ "n", "x" }, "gd", function()
+        if buff_has_lsp() then
+            vim.lsp.buf.definition()
+        else
+            local key = vim.api.nvim_replace_termcodes("gd", true, false, true)
+            vim.api.nvim_feedkeys(key, "n", true)
+        end
+    end, { desc = "Show the definition of current symbol" })
+    vim.keymap.set({ "n", "x" }, "gD", function()
+        if buff_has_lsp() then
+            vim.lsp.buf.declaration()
+        else
+            local key = vim.api.nvim_replace_termcodes("gD", true, false, true)
+            vim.api.nvim_feedkeys(key, "n", true)
+        end
+    end, { desc = "Declaration of current symbol" })
     vim.keymap.set(
         { "n" },
         "gI",
