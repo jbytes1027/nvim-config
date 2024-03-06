@@ -5,7 +5,7 @@ end
 
 require("options")
 require("gruvbox").load()
-require("highlights").setup()
+vim.cmd("colorscheme custom")
 
 -- SETUP LAZY
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

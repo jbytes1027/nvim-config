@@ -349,13 +349,7 @@ local groups = {
     ["Delimiter"] = {},
 }
 
-local M = {}
-
-M.setup = function()
-    vim.o.background = "dark" -- prevents colors from being reset
-    for group, settings in pairs(groups) do
-        vim.api.nvim_set_hl(0, group, settings)
-    end
+vim.o.background = "dark" -- prevents colors from being reset
+for group, settings in pairs(groups) do
+    vim.api.nvim_set_hl(0, group, settings)
 end
-
-return M
