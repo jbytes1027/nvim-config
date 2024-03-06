@@ -4,8 +4,8 @@ if vim.version().minor < 9 then
 end
 
 require("options")
-require("highlights")
 require("gruvbox").load()
+require("highlights").setup()
 
 -- SETUP LAZY
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

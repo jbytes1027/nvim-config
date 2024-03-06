@@ -40,8 +40,8 @@ local groups = {
     IncSearch = { ctermbg = cterm_colors.light_magenta, ctermfg = cterm_colors.dark_bg },
     CurSearch = { link = "IncSearch" },
     QuickFixLine = { ctermfg = cterm_colors.light_magenta },
-    Underlined = { underline = true },
     LineNr = { ctermfg = cterm_colors.dark_fg },
+    Underlined = { underline = true },
     StatusLine = { ctermfg = cterm_colors.light_fg, ctermbg = cterm_colors.light_bg },
     StatusLineNC = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.light_bg },
     WinSeparator = { ctermfg = cterm_colors.light_bg, ctermbg = cterm_colors.dark_bg },
@@ -349,6 +349,13 @@ local groups = {
     ["Delimiter"] = {},
 }
 
-for group, settings in pairs(groups) do
-    vim.api.nvim_set_hl(0, group, settings)
+local M = {}
+
+M.setup = function()
+    vim.o.background = "dark" -- prevents colors from being reset
+    for group, settings in pairs(groups) do
+        vim.api.nvim_set_hl(0, group, settings)
+    end
 end
+
+return M
