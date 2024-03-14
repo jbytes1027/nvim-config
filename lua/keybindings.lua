@@ -1,7 +1,7 @@
--- NOTES
--- Emulate a key for passthrough with the following
--- local key = vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
--- vim.api.nvim_feedkeys(key, "n", true)
+local feedkeys = function(keys, mode)
+    local replaced_key = vim.api.nvim_replace_termcodes(keys, true, false, true)
+    vim.api.nvim_feedkeys(replaced_key, mode, true)
+end
 
 local M = {}
 
@@ -136,16 +136,14 @@ M.set_lsp_keybindings = function()
         if buff_has_lsp() then
             vim.lsp.buf.definition()
         else
-            local key = vim.api.nvim_replace_termcodes("gd", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("gd", "n")
         end
     end, { desc = "Show the definition of current symbol" })
     vim.keymap.set({ "n", "x" }, "gD", function()
         if buff_has_lsp() then
             vim.lsp.buf.declaration()
         else
-            local key = vim.api.nvim_replace_termcodes("gD", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("gD", "n")
         end
     end, { desc = "Declaration of current symbol" })
     vim.keymap.set(
@@ -345,44 +343,53 @@ M.set_autocomplete_keybindings = function()
         if cmp.visible() == false then cmp.complete() end
         cmp.select_next_item()
     end)
+    vim.keymap.set("i", "<C-f>", function()
+        if cmp.visible() == true then
+            cmp.select_next_item({ count = vim.o.pumheight })
+        else
+            feedkeys("<C-f>", "n")
+        end
+    end)
+    vim.keymap.set("i", "<C-b>", function()
+        if cmp.visible() == true then
+            cmp.select_prev_item({ count = vim.o.pumheight })
+        else
+            feedkeys("<C-b>", "n")
+        end
+    end)
     vim.keymap.set("i", "<C-u>", function()
         if cmp.visible() == true then
             cmp.scroll_docs(-4)
         else
-            local key = vim.api.nvim_replace_termcodes("<C-u>", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("<C-u>", "n")
         end
     end)
     vim.keymap.set("i", "<C-d>", function()
         if cmp.visible() == true then
             cmp.scroll_docs(4)
         else
-            local key = vim.api.nvim_replace_termcodes("<C-d>", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("<C-d>", "n")
         end
     end)
     vim.keymap.set("i", "<C-y>", function()
         if cmp.visible() == true then
             cmp.confirm()
         else
-            local key = vim.api.nvim_replace_termcodes("<C-y>", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("<C-y>", "n")
         end
     end)
     vim.keymap.set("i", "<C-e>", function()
         if cmp.visible() == true then
             cmp.abort()
         else
-            local key = vim.api.nvim_replace_termcodes("<C-e>", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("<C-e>", "n")
         end
     end)
     vim.keymap.set("i", "<C-l>", function()
         if cmp.visible() == true then
             cmp.complete_common_string()
         else
-            local key = vim.api.nvim_replace_termcodes("<C-l>", true, false, true)
-            vim.api.nvim_feedkeys(key, "n", true)
+            feedkeys("<C-l>", "n")
         end
     end)
 end
