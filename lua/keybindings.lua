@@ -463,12 +463,14 @@ M.set_misc_keybindings = function()
     vim.keymap.set(
         { "n" },
         "[u",
+        ---@diagnostic disable-next-line: param-type-mismatch
         function() pcall(vim.cmd, "silent " .. vim.v.count1 .. "cprev") end,
         { desc = "Prev quickfix item" }
     )
     vim.keymap.set(
         { "n" },
         "]u",
+        ---@diagnostic disable-next-line: param-type-mismatch
         function() pcall(vim.cmd, "silent " .. vim.v.count1 .. "cnext") end,
         { desc = "Next quickfix item" }
     )
