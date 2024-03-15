@@ -325,7 +325,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            -- "saadparwaiz1/cmp_luasnip",
+            "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -343,10 +343,12 @@ return {
                 sources = require("cmp").config.sources({
                     { name = "nvim_lsp_signature_help" },
                     { name = "nvim_lsp", priority = 1000 },
-                    -- { name = "luasnip",  priority = 750 },
                     { name = "buffer", priority = 500 },
                     { name = "path", priority = 250 },
                 }),
+                snippet = {
+                    expand = function(args) require("luasnip").lsp_expand(args.body) end,
+                },
                 matching = {
                     disallow_fuzzy_matching = true,
                     disallow_fullfuzzy_matching = true,
@@ -371,6 +373,38 @@ return {
                         scrollbar = true,
                     },
                 },
+            })
+        end,
+    },
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*",
+        config = function()
+            local ls = require("luasnip")
+            ls.setup({})
+
+            local s = ls.snippet
+            local sn = ls.snippet_node
+            local t = ls.text_node
+            local i = ls.insert_node
+            local f = ls.function_node
+            local c = ls.choice_node
+            local d = ls.dynamic_node
+            local fmta = require("luasnip.extras.fmt").fmta
+            ls.add_snippets("cs", {
+                s(
+                    "svm",
+                    fmta(
+                        [[
+                    static void Main(string[] args)
+                    {
+                        <>
+                    }
+                    ]],
+                        i(1)
+                    )
+                ),
             })
         end,
     },

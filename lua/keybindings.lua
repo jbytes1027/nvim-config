@@ -327,6 +327,7 @@ M.set_toggle_keybindings = function()
 end
 
 M.set_autocomplete_keybindings = function()
+    local ls = require("luasnip")
     local cmp = require("cmp")
     vim.keymap.set("i", "<C-Space>", function()
         if cmp.visible() == false then
@@ -388,8 +389,30 @@ M.set_autocomplete_keybindings = function()
     vim.keymap.set("i", "<C-l>", function()
         if cmp.visible() == true then
             cmp.complete_common_string()
+        elseif ls.expandable() then
+            ls.expand()
         else
-            feedkeys("<C-l>", "n")
+            cmp.complete({
+                config = {
+                    sources = {
+                        { name = "luasnip" },
+                    },
+                },
+            })
+        end
+    end)
+    vim.keymap.set("i", "<Tab>", function()
+        if ls.jumpable(1) then
+            ls.jump(1)
+        else
+            feedkeys("<Tab>", "n")
+        end
+    end)
+    vim.keymap.set("i", "<S-Tab>", function()
+        if ls.jumpable(-1) then
+            ls.jump(-1)
+        else
+            feedkeys("<S-Tab>", "n")
         end
     end)
 end
