@@ -293,6 +293,8 @@ local groups = {
     Done = {},
 
     -- Code Highlighting Extensions
+    markdownCode = { link = "Constant" },
+    markdownEscape = { link = "None" },
     mkdLineBreak = { link = "None" },
     helpExample = { link = "Normal" },
     ["@field"] = { link = "@property" },
