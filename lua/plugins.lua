@@ -55,8 +55,10 @@ return {
         "tommcdo/vim-ninja-feet",
     },
     {
-        "jessekelighine/vindent.vim",
-        init = function() require("keybindings").set_vindent_keybindings() end,
+        "michaeljsmith/vim-indent-object",
+    },
+    {
+        "jeetsukumaran/vim-indentwise",
     },
     {
         "nvim-treesitter/nvim-treesitter",
