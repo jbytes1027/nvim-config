@@ -27,6 +27,8 @@ vim.o.pumheight = 20
 vim.o.listchars = "space:⋅,tab:→ ,eol:↴,nbsp:␣"
 vim.opt.shortmess:append("I") -- hide starup message
 vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP"
+vim.opt.foldmethod = "indent"
+vim.opt.foldenable = false
 
 -- remove the "How-to disable mouse" menu item and the separator above it: >vim
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
