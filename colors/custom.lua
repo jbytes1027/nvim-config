@@ -262,6 +262,7 @@ local groups = {
     NeogitHunkHeader = { link = "WinBar" },
     NeogitHunkHeaderHighlight = { link = "WinBarNC" },
     LspInlayHint = { link = "comment" },
+    AerialConstructorIcon = {},
 
     -- Code Highlighting Base
     Title = { ctermfg = cterm_colors.light_green, bold = config.bold },
@@ -356,6 +357,8 @@ local groups = {
     ["@lsp.type.type"] = { link = "@type" },
     ["@lsp.type.typeParameter"] = { link = "@type.definition" },
     ["@lsp.type.variable"] = { link = "@variable" },
+    ["@markup.heading"] = { link = "Title" },
+    ["@markup.link"] = { link = "Underlined" },
     ["Delimiter"] = {},
 }
 
