@@ -471,6 +471,12 @@ M.set_misc_keybindings = function()
     )
     vim.keymap.set(
         { "n" },
+        "yP",
+        '<cmd>:let @" = expand("%:t")<cr><cmd>:let @+ = expand("%:t")<cr><cmd>:let @* = expand("%:t")<cr>',
+        { desc = "Yank file name" }
+    )
+    vim.keymap.set(
+        { "n" },
         "yd",
         '<cmd>:let @" = expand("%:p:h")<cr><cmd>:let @+ = expand("%:p:h")<cr><cmd>:let @* = expand("%:p:h")<cr>',
         { desc = "Yank file directory path" }
