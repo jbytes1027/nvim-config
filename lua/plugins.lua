@@ -424,6 +424,47 @@ return {
                 s("<ex", fmt([[<exception cref="{}">{}</exception>]], { i(1), i(2) })),
                 s("<ret", fmt([[<returns>{}</returns>]], i(1))),
                 s("<rem", fmt([[<remarks>{}</remarks>]], i(1))),
+                s(
+                    "[F",
+                    fmta(
+                        [[
+                        [Fact]
+                        public async void <>()
+                        {
+                            // Arrange
+                            <>
+
+                            // Act
+                            <>
+
+                            // Assert
+                            <>
+                        }
+                ]],
+                        { i(1), i(2), i(3), i(4) }
+                    )
+                ),
+                s(
+                    "[T",
+                    fmta(
+                        [[
+                        [Theory]
+                        [InlineData(<>)]<>
+                        public async void <>
+                        {
+                            // Arrange
+                            <>
+
+                            // Act
+                            <>
+
+                            // Assert
+                            <>
+                        }
+                ]],
+                        { i(1), i(2), i(3), i(4), i(5), i(6) }
+                    )
+                ),
             })
         end,
     },
