@@ -1,4 +1,4 @@
-local feedkeys = function(keys, mode)
+local function feedkeys(keys, mode)
     local replaced_key = vim.api.nvim_replace_termcodes(keys, true, false, true)
     vim.api.nvim_feedkeys(replaced_key, mode, true)
 end
