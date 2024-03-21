@@ -537,6 +537,11 @@ M.set_misc_keybindings = function()
     vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
     vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
 
+    vim.keymap.set({ "n", "x" }, "zM", function()
+        vim.wo.foldenable = true
+        vim.wo.foldlevel = vim.v.count
+    end, { desc = "Set fold level" })
+
     if jit.os ~= "Windows" then
         vim.keymap.set({ "n", "x" }, "gx", function()
             local url = vim.fn.expand("<cfile>")
