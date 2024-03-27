@@ -331,6 +331,7 @@ local groups = {
     ["@text.literal"] = { link = "String" },
     ["@tag"] = { link = "Tag" },
     ["@property"] = {}, -- class properties and lhs of json properties
+    ["@property.json"] = { link = "Tag" }, -- class properties and lhs of json properties
     ["editorconfigUnknownProperty"] = { link = "Identifier" },
     ["@text.title.1.html"] = {},
     ["@text.title.2.html"] = {},
