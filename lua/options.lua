@@ -2,7 +2,7 @@
 
 vim.g.mapleader = " "
 vim.opt.wrap = false
-vim.opt.scrolloff = 4
+vim.opt.scrolloff = 1
 vim.o.exrc = true -- load cd configs
 vim.opt.hidden = true -- allow hidden buffers
 vim.opt.mouse = "a" -- enable mouse for all modes
