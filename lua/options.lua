@@ -2,7 +2,7 @@
 
 vim.g.mapleader = " "
 vim.opt.wrap = false
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 4
 vim.o.exrc = true -- load cd configs
 vim.opt.hidden = true -- allow hidden buffers
 vim.opt.mouse = "a" -- enable mouse for all modes
@@ -29,6 +29,7 @@ vim.opt.shortmess:append("I") -- hide starup message
 vim.opt.shortmess:append("s") -- hide "search hit BOTTOM, continuing at TOP"
 vim.opt.foldmethod = "indent"
 vim.opt.foldenable = false
+vim.opt.foldignore = ""
 
 -- remove the "How-to disable mouse" menu item and the separator above it: >vim
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
