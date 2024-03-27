@@ -168,6 +168,12 @@ return {
             signcolumn = false,
             numhl = false,
             update_debounce = 200,
+            preview_config = {
+                border = "none",
+                relative = "cursor",
+                row = 1,
+                col = 0,
+            },
         },
     },
     {
