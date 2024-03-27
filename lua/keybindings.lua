@@ -240,10 +240,10 @@ M.set_git_keybindings = function()
         end
     end, { desc = "Jump to prev hunk" })
 
-    vim.keymap.set({ "n" }, "<leader>gl", function() require("gitsigns").blame_line() end, { desc = "View git blame" })
+    vim.keymap.set({ "n" }, "<leader>gb", function() require("gitsigns").blame_line() end, { desc = "View git blame" })
     vim.keymap.set(
         { "n" },
-        "<leader>gL",
+        "<leader>gB",
         function() require("gitsigns").blame_line({ full = true }) end,
         { desc = "View full git blame" }
     )
@@ -482,7 +482,6 @@ M.set_misc_keybindings = function()
     })
     vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
     vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
-    vim.keymap.set({ "n" }, "<A-q>", "<cmd>confirm qall<cr>", { desc = "Quit" })
     vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
     vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw") -- enable ctrl-delete
     vim.keymap.set({ "n", "x" }, "<A-.>", "zL")
