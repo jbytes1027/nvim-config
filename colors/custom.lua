@@ -294,7 +294,8 @@ local groups = {
     Done = {},
 
     -- Code Highlighting Extensions
-    jsonKeyword = { link = "Tag" },
+    ["@property.yaml"] = { link = "Identifier" },
+    jsonKeyword = { link = "Identifier" },
     markdownCode = { link = "Constant" },
     markdownEscape = { link = "None" },
     mkdLineBreak = { link = "None" },
