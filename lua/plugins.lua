@@ -300,6 +300,7 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        enabled = vim.opt.cmdheight == 0,
         opts = {
             progress = {
                 ignore_empty_message = false, -- Ignore new tasks that don't contain a message
