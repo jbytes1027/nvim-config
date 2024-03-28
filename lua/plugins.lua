@@ -326,7 +326,14 @@ return {
     {
         enabled = jit.os ~= "Windows",
         "kelly-lin/ranger.nvim",
-        opts = { replace_netrw = true },
+        opts = {
+            replace_netrw = true,
+            ui = {
+                height = 0.9,
+                width = 0.9,
+                border = "rounded",
+            },
+        },
     },
     {
         "mrjones2014/smart-splits.nvim",
