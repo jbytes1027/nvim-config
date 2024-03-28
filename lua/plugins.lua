@@ -334,7 +334,6 @@ return {
         "hrsh7th/nvim-cmp",
         dependencies = {
             "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lsp",
@@ -349,7 +348,6 @@ return {
                     async_budget = 200,
                 },
                 sources = require("cmp").config.sources({
-                    { name = "nvim_lsp_signature_help" },
                     { name = "nvim_lsp", priority = 1000 },
                     { name = "buffer", priority = 500 },
                     { name = "path", priority = 250 },
