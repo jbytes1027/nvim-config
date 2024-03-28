@@ -25,8 +25,8 @@ local config = {
 local groups = {
     Normal = { ctermfg = cterm_colors.light_fg },
     NormalNC = {},
-    TabLineFill = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.dark_bg, reverse = config.invert_tabline },
-    TabLineSel = { ctermfg = cterm_colors.light_green, ctermbg = cterm_colors.dark_bg, reverse = config.invert_tabline },
+    TabLineFill = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.dark_bg, reverse = true },
+    TabLineSel = { ctermfg = cterm_colors.white, ctermbg = cterm_colors.dark_bg, bold = true },
     TabLine = { link = "TabLineFill" },
     MatchParen = { ctermbg = cterm_colors.light_bg },
     ColorColumn = { ctermbg = cterm_colors.light_bg },
@@ -55,7 +55,6 @@ local groups = {
     SignColumn = { ctermbg = cterm_colors.dark_bg },
     Folded = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.light_bg, italic = true },
     FoldColumn = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.dark_bg },
-    Cursor = { ctermbg = cterm_colors.light_fg },
     Error = { ctermfg = cterm_colors.light_red, bold = config.bold, reverse = true },
     vCursor = { link = "Cursor" },
     iCursor = { link = "Cursor" },
@@ -92,6 +91,8 @@ local groups = {
         ctermbg = cterm_colors.dark_bg,
         reverse = config.invert_signs,
     },
+
+    -- Extensions
     DiffDelete = { ctermbg = cterm_colors.dark_red, ctermfg = cterm_colors.dark_red },
     DiffAdd = { ctermbg = cterm_colors.dark_green, ctermfg = cterm_colors.dark_bg },
     DiffChange = {},
