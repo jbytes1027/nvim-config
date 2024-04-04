@@ -15,25 +15,6 @@ local function bool2str(bool) return bool and "on" or "off" end
 
 local function ui_notify(silent, ...) return not silent and vim.notify(...) end
 
---- Toggle autopairs
----@param silent? boolean if true then don't sent a notification
-function M.toggle_autopairs(silent)
-    local ok, autopairs = pcall(require, "nvim-autopairs")
-    if ok then
-        if autopairs.state.disabled then
-            autopairs.enable()
-        else
-            autopairs.disable()
-        end
-        vim.g.autopairs_enabled = autopairs.state.disabled
-        ui_notify(silent, string.format("autopairs %s", bool2str(not autopairs.state.disabled)))
-    else
-        ui_notify(silent, "autopairs not available")
-    end
-end
-
--- vim.diagnostic.hide()
---
 --- Toggle diagnostics
 ---@param silent? boolean if true then don't sent a notification
 function M.toggle_diagnostics(silent)
