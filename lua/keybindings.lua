@@ -312,14 +312,13 @@ M.set_toggle_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>ud", require("ui").toggle_diagnostics, { desc = "Toggle diagnostics" })
     vim.keymap.set({ "n" }, "<leader>ug", require("ui").toggle_signcolumn, { desc = "Toggle signcolumn" })
     vim.keymap.set({ "n" }, "<leader>ui", require("ui").set_indent, { desc = "Change indent setting" })
-    vim.keymap.set({ "n" }, "<leader>ul", require("ui").toggle_statusline, { desc = "Toggle statusline" })
     vim.keymap.set({ "n" }, "<leader>un", require("ui").change_number, { desc = "Change line numbering" })
     vim.keymap.set({ "n" }, "<leader>up", require("ui").toggle_paste, { desc = "Toggle paste mode" })
     vim.keymap.set({ "n" }, "<leader>us", require("ui").toggle_spell, { desc = "Toggle spellcheck" })
     vim.keymap.set({ "n" }, "<leader>uc", require("ui").toggle_conceal, { desc = "Toggle conceal" })
     vim.keymap.set({ "n" }, "<leader>ut", require("ui").toggle_tabline, { desc = "Toggle tabline" })
     vim.keymap.set({ "n" }, "<leader>uw", require("ui").toggle_wrap, { desc = "Toggle wrap" })
-    vim.keymap.set({ "n" }, "<leader>ua", "<cmd>set list!<cr>", { desc = "Toggle whitespace" })
+    vim.keymap.set({ "n" }, "<leader>ul", "<cmd>set list!<cr>", { desc = "Toggle whitespace" })
     vim.keymap.set(
         { "n" },
         "<leader>uy",

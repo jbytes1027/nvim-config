@@ -87,24 +87,6 @@ function M.toggle_conceal(silent)
     ui_notify(silent, string.format("conceal %s", bool2str(vim.opt.conceallevel:get() == 2)))
 end
 
---- Toggle laststatus=3|2|0
----@param silent? boolean if true then don't sent a notification
-function M.toggle_statusline(silent)
-    local laststatus = vim.opt.laststatus:get()
-    local status
-    if laststatus == 0 then
-        vim.opt.laststatus = 2
-        status = "local"
-    elseif laststatus == 2 then
-        vim.opt.laststatus = 3
-        status = "global"
-    elseif laststatus == 3 then
-        vim.opt.laststatus = 0
-        status = "off"
-    end
-    ui_notify(silent, string.format("statusline %s", status))
-end
-
 --- Toggle signcolumn="auto"|"no"
 ---@param silent? boolean if true then don't sent a notification
 function M.toggle_signcolumn(silent)
