@@ -23,11 +23,22 @@ function Stl_get_diag()
     return table.concat(out, ",")
 end
 
-Stl_get_git = function()
+Stl_get_git_total_changed = function()
     local git_info = vim.b.gitsigns_status_dict
     if not git_info or git_info.head == "" then return "" end
 
-    local out = {}
+    local total_changes = git_info.added + git_info.changed + git_info.removed
+
+    if total_changes ~= 0 then
+        return "~" .. total_changes
+    else
+        return ""
+    end
+end
+
+Stl_get_git = function()
+    local git_info = vim.b.gitsigns_status_dict
+    if not git_info or git_info.head == "" then return "" end
 
     if git_info.added and git_info.added ~= 0 then table.insert(out, "+" .. git_info.added) end
     if git_info.changed and git_info.changed ~= 0 then table.insert(out, "~" .. git_info.changed) end
@@ -56,7 +67,7 @@ end
 Stl_get_left = function()
     local ret = ""
 
-    local git = Stl_get_git()
+    local git = Stl_get_git_total_changed()
     if git ~= "" then ret = ret .. "  " .. git end
 
     local diag = Stl_get_diag()
