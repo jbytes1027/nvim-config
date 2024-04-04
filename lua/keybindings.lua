@@ -28,13 +28,17 @@ M.set_searching_keybindings = function()
     vim.keymap.set(
         { "n" },
         "<leader>fd",
-        function() require("telescope.builtin").diagnostics({ bufnr = 0, severity_limit = vim.diagnostic.severity.WARN }) end,
+        function()
+            require("telescope.builtin").diagnostics({ bufnr = 0, severity_limit = vim.diagnostic.severity.WARN })
+        end,
         { desc = "Find buffer diagnostics" }
     )
     vim.keymap.set(
         { "n" },
         "<leader>fD",
-        function() require("telescope.builtin").diagnostics({ root_dir = true, severity_limit = vim.diagnostic.severity.WARN }) end,
+        function()
+            require("telescope.builtin").diagnostics({ root_dir = true, severity_limit = vim.diagnostic.severity.WARN })
+        end,
         { desc = "Find all diagnostics" }
     )
     vim.keymap.set(
