@@ -15,8 +15,8 @@ function Stl_get_diag()
 
     if count["errors"] ~= 0 then table.insert(out, count["errors"] .. "E") end
     if count["warnings"] ~= 0 then table.insert(out, count["warnings"] .. "W") end
-    if count["hints"] ~= 0 then table.insert(out, count["hints"] .. "H") end
-    if count["info"] ~= 0 then table.insert(out, count["info"] .. "I") end
+    -- if count["hints"] ~= 0 then table.insert(out, count["hints"] .. "H") end
+    -- if count["info"] ~= 0 then table.insert(out, count["info"] .. "I") end
 
     if next(out) == nil then return "" end
 
