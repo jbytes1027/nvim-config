@@ -138,6 +138,8 @@ return {
                     path_display = { "truncate" },
                     layout_config = {
                         horizontal = { prompt_position = "top" },
+                        height = 0.90,
+                        width = 0.90,
                     },
                     mappings = {
                         i = {
