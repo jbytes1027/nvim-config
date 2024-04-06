@@ -27,7 +27,11 @@ Stl_get_git_total_changed = function()
     local git_info = vim.b.gitsigns_status_dict
     if not git_info or git_info.head == "" then return "" end
 
-    local total_changes = git_info.added + git_info.changed + git_info.removed
+    local total_changes = 0
+
+    if git_info.added and git_info.added ~= 0 then total_changes = total_changes + git_info.added end
+    if git_info.changed and git_info.changed ~= 0 then total_changes = total_changes + git_info.changed end
+    if git_info.removed and git_info.removed ~= 0 then total_changes = total_changes + git_info.removed end
 
     if total_changes ~= 0 then
         return "~" .. total_changes
