@@ -171,13 +171,13 @@ M.set_lsp_keybindings = function()
     vim.keymap.set(
         { "n" },
         "[d",
-        function() vim.diagnostic.goto_prev({ float = true }) end,
+        function() vim.diagnostic.goto_prev({ float = true, severity = { min = vim.diagnostic.severity.WARN } }) end,
         { desc = "Previous diagnostic" }
     )
     vim.keymap.set(
         { "n" },
         "]d",
-        function() vim.diagnostic.goto_next({ float = true }) end,
+        function() vim.diagnostic.goto_next({ float = true, severity = { min = vim.diagnostic.severity.WARN } }) end,
         { desc = "Next diagnostic" }
     )
 end
