@@ -31,6 +31,7 @@ vim.opt.ruler = false -- for hiding ruler in cmdline for popup windows
 vim.opt.foldignore = ""
 -- vim.opt.foldtext = ""
 vim.o.shortmess = "aoOtTIs"
+vim.o.smoothscroll = true
 
 -- remove the "How-to disable mouse" menu item and the separator above it: >vim
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")

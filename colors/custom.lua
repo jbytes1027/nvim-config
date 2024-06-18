@@ -67,6 +67,8 @@ local groups = {
     PmenuSel = { ctermfg = cterm_colors.light_bg, ctermbg = cterm_colors.light_blue, bold = config.bold },
     PmenuSbar = { ctermbg = cterm_colors.light_bg },
     PmenuThumb = { ctermbg = cterm_colors.dark_fg },
+    FloatBorder = { link = "WinSeparator" },
+    NormalFloat = { link = "Pmenu" },
     DiagnosticError = { ctermfg = cterm_colors.light_red },
     DiagnosticSignError = {
         ctermfg = cterm_colors.light_red,
@@ -97,6 +99,11 @@ local groups = {
     DiffAdd = { ctermbg = cterm_colors.dark_green, ctermfg = cterm_colors.dark_bg },
     DiffChange = {},
     DiffText = { ctermbg = cterm_colors.dark_green, ctermfg = cterm_colors.dark_bg },
+    ["@attribute.diff"] = { ctermfg = cterm_colors.light_magenta },
+    ["@diff.plus"] = { ctermfg = cterm_colors.dark_green },
+    ["@diff.minus"] = { ctermfg = cterm_colors.dark_red },
+    -- ["@diff.plus"] = { ctermbg = cterm_colors.dark_green, ctermfg = cterm_colors.dark_bg },
+    -- ["@diff.minus"] = { ctermbg = cterm_colors.dark_red, ctermfg = cterm_colors.dark_bg },
     diagnosticvirtualtexterror = { ctermbg = cterm_colors.light_red, ctermfg = cterm_colors.dark_bg, bold = true },
     diagnosticvirtualtextwarn = { ctermbg = cterm_colors.light_yellow, ctermfg = cterm_colors.dark_bg, bold = true },
     diagnosticvirtualtextinfo = { ctermbg = cterm_colors.light_blue, ctermfg = cterm_colors.dark_bg, bold = true },
@@ -313,6 +320,8 @@ local groups = {
     ["@boolean"] = { link = "Boolean" },
     ["@number"] = { link = "Number" },
     ["@float"] = { link = "Float" },
+    ["@module"] = {},
+    ["@module.builtin"] = { link = "@module" },
     ["@function"] = { link = "Function" },
     ["@function.builtin"] = { link = "Function" },
     ["@function.macro"] = { link = "Function" },
@@ -327,13 +336,19 @@ local groups = {
     ["@include"] = { link = "Include" },
     ["@exception"] = { link = "Exception" },
     ["@type"] = { link = "Type" },
+    ["@type.builtin"] = { link = "@type" },
     ["@attribute"] = { link = "Attribute" },
+    ["@attribute.builtin"] = { link = "@attribute" },
     ["@variable"] = {},
+    ["@variable.builtin"] = { link = "@variable" },
+    ["@variable.parameter.builtin"] = { link = "@variable" },
     ["@constant.builtin"] = { link = "Constant" },
     ["@text.literal"] = { link = "String" },
     ["@tag"] = { link = "Tag" },
+    ["@tag.builtin"] = { link = "@tag" },
     ["@property"] = {}, -- class properties and lhs of json properties
     ["@property.json"] = { link = "Tag" }, -- class properties and lhs of json properties
+    ["@property.jsonc"] = { link = "Tag" }, -- class properties and lhs of jsonc properties
     ["editorconfigUnknownProperty"] = { link = "Identifier" },
     ["@text.title.1.html"] = {},
     ["@text.title.2.html"] = {},
@@ -363,9 +378,18 @@ local groups = {
     ["@lsp.type.variable"] = { link = "@variable" },
     ["@markup.heading"] = { link = "Title" },
     ["@markup.link"] = { link = "Underlined" },
+    ["@markup.quote"] = { link = "String" },
+    ["@markup.math"] = { link = "String" },
+    ["@markup.raw"] = { link = "String" },
+    ["@markup.raw.block"] = { link = "@raw" },
+    ["@markup.list"] = { link = "String" },
+    ["@markup.list.checked"] = { link = "@markup.list" },
+    ["@markup.list.unchecked"] = { link = "@markup.list" },
+    ["@punctuation.special.markdown"] = { link = "@punctuation" },
     ["Delimiter"] = {},
 }
 
+vim.o.termguicolors = false
 vim.o.background = "dark" -- prevents colors from being reset
 for group, settings in pairs(groups) do
     vim.api.nvim_set_hl(0, group, settings)

@@ -133,7 +133,6 @@ M.set_lsp_keybindings = function()
 
     vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
     vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
-    vim.keymap.set({ "n", "x" }, "K", function() vim.lsp.buf.hover() end, { desc = "Hover symbol details" })
     vim.keymap.set({ "i" }, "<C-k>", function() vim.lsp.buf.signature_help() end, { desc = "Show signature" })
     vim.keymap.set({ "n", "x" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
     vim.keymap.set({ "n", "x" }, "gd", function()
@@ -474,15 +473,6 @@ M.set_misc_keybindings = function()
         end
     end
     vim.keymap.set({ "n" }, "<leader>e", "", { callback = open_explorer, noremap = true, desc = "Open explorer" })
-    vim.keymap.set(
-        "n",
-        "<leader>/",
-        function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
-        { desc = "Toggle comment line" }
-    )
-    vim.keymap.set("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", {
-        desc = "Toggle comment for selection",
-    })
     vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
     vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
     vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>") -- enable ctrl-backspace
@@ -543,17 +533,6 @@ M.set_misc_keybindings = function()
         vim.wo.foldenable = true
         vim.wo.foldlevel = vim.v.count
     end, { desc = "Set fold level" })
-
-    if jit.os ~= "Windows" then
-        vim.keymap.set({ "n", "x" }, "gx", function()
-            local url = vim.fn.expand("<cfile>")
-            if url ~= nil then
-                open(url)
-            else
-                print("No URL found in line.")
-            end
-        end)
-    end
 end
 
 M.aerial_keymap = {
