@@ -163,8 +163,11 @@ function M.toggle_buffer_syntax(bufnr, silent)
     bufnr = (bufnr and bufnr ~= 0) and bufnr or vim.api.nvim_win_get_buf(0)
     local ts_avail, parsers = pcall(require, "nvim-treesitter.parsers")
     if vim.bo[bufnr].syntax == "off" then
-        if ts_avail and parsers.has_parser() then vim.treesitter.start(bufnr) end
-        vim.bo[bufnr].syntax = "on"
+        if ts_avail and parsers.has_parser() then
+            vim.treesitter.start(bufnr)
+        else
+            vim.bo[bufnr].syntax = "on"
+        end
         if not vim.b[bufnr].semantic_tokens_enabled then M.toggle_buffer_semantic_tokens(bufnr, true) end
     else
         if ts_avail and parsers.has_parser() then vim.treesitter.stop(bufnr) end
