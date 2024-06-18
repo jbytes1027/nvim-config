@@ -387,6 +387,8 @@ local groups = {
     ["@lsp.type.variable"] = { link = "@variable" },
     ["@markup.heading"] = { link = "Title" },
     ["@markup.link"] = { link = "Underlined" },
+    ["@markup.link.markdown_inline"] = {},
+    ["@markup.link.label.markdown_inline"] = {},
     ["@markup.quote"] = { link = "String" },
     ["@markup.math"] = { link = "String" },
     ["@markup.raw"] = { link = "String" },
