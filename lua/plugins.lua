@@ -323,16 +323,36 @@ return {
         },
     },
     {
-        enabled = jit.os ~= "Windows",
-        "kelly-lin/ranger.nvim",
-        opts = {
-            replace_netrw = true,
-            ui = {
-                height = 0.9,
-                width = 0.9,
-                border = "rounded",
-            },
-        },
+        "is0n/fm-nvim",
+        opts = function()
+            -- Replace netrw
+            vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
+            vim.api.nvim_create_autocmd("VimEnter", {
+                pattern = "*",
+                callback = function()
+                    if vim.fn.isdirectory(vim.fn.argv(0)) == 1 then vim.cmd("Lf") end
+                    return true
+                end,
+            })
+
+            return {
+                ui = {
+                    float = {
+                        -- Floating window border (see ':h nvim_open_win')
+                        border = "single",
+
+                        -- Highlight group for floating window/border (see ':h winhl')
+                        float_hl = "Normal",
+                        border_hl = "FloatBorder",
+
+                        -- Num from 0 - 1 for measurements
+                        height = 0.9,
+                        width = 0.9,
+                    },
+                },
+            }
+        end,
     },
     {
         "mrjones2014/smart-splits.nvim",
