@@ -466,8 +466,8 @@ M.set_misc_keybindings = function()
     end
 
     local function open_explorer()
-        if vim.api.nvim_get_commands({})["Lf"] ~= nil then
-            vim.cmd("Lf")
+        if require("lazy.core.config").spec.plugins["plain-lf.nvim"] ~= nil then
+            require("plain-lf-nvim").open(true)
         else
             vim.cmd("Explore")
         end
