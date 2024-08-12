@@ -502,8 +502,14 @@ M.set_misc_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>gD", require("cmds").DiffOrg, { desc = "View Unsaved Changes Diff" })
     vim.keymap.set(
         { "n", "x" },
+        "gO",
+        function() require("aerial").open({ focus = true, direction = "right" }) end,
+        { desc = "Focus outline" }
+    )
+    vim.keymap.set(
+        { "n", "x" },
         "<leader>o",
-        function() require("aerial").toggle({ direction = "right" }) end,
+        function() require("aerial").toggle({ focus = false, direction = "right" }) end,
         { desc = "Open outline" }
     )
 
