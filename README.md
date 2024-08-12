@@ -9,10 +9,10 @@
     - Auto read and write shada on `FocusLost` and `FocusGained`
 - Custom highlights that use only the basic 16 terminal colors
 - `hlsearch` is active while using relevant keymaps
-- **ranger** is the default file manager
+- [lf](https://github.com/gokcehan/lf) is the default file manager
 - Misc keybindings
     - `Alt` + `h/j/k/l` for moving window focus
-    - `Alt` + `Shifg` + `h/j/k/l` for moving windows
+    - `Alt` + `Shift` + `h/j/k/l` for moving windows
     - `Ctrl` + `h/j/k/l` for resizing windows
     - `<leader>` + `f` for finding things
     - `<leader>` + `l` for lsp related actions
