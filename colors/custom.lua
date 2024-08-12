@@ -49,7 +49,7 @@ local groups = {
     WildMenu = { ctermfg = cterm_colors.light_blue, ctermbg = cterm_colors.light_bg, bold = config.bold },
     ErrorMsg = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.light_red, bold = config.bold },
     MoreMsg = { ctermfg = cterm_colors.light_yellow, bold = config.bold },
-    ModeMsg = { ctermfg = cterm_colors.light_yellow, bold = config.bold },
+    ModeMsg = { ctermfg = cterm_colors.light_fg, bold = config.bold },
     Question = { ctermfg = cterm_colors.light_magenta, bold = config.bold },
     WarningMsg = { ctermfg = cterm_colors.light_red, bold = config.bold },
     SignColumn = { ctermbg = cterm_colors.dark_bg },
