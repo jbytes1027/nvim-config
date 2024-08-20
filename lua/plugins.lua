@@ -291,28 +291,6 @@ return {
         },
     },
     {
-        "j-hui/fidget.nvim",
-        enabled = vim.opt.cmdheight == 0,
-        opts = {
-            progress = {
-                ignore_empty_message = false, -- Ignore new tasks that don't contain a message
-            },
-            notification = {
-                override_vim_notify = true, -- Automatically override vim.notify() with Fidget
-                window = {
-                    x_padding = 0,
-                    normal_hl = "NormalFloat",
-                    border_hl = "NormalFloat",
-                    winblend = 0,
-                    border = { "", "", "", " ", "", "", "", " " },
-                },
-                view = {
-                    group_separator = false,
-                },
-            },
-        },
-    },
-    {
         "jbytes1027/plain-lf.nvim",
         enabled = vim.fn.executable("lf") == 1,
         opts = {
