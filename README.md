@@ -1,4 +1,3 @@
-# My Neovim Config
 ## Notable Customizations
 
 - Overrides `statusline`
