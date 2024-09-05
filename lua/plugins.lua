@@ -239,6 +239,7 @@ return {
                 -- Next, provide a dedicated handler for specific servers.
                 ["omnisharp"] = function()
                     require("lspconfig").omnisharp.setup({
+                        filetypes = {"cs", "vb", "csx"},
                         cmd = { -- see https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options for options
                             "omnisharp",
                             "RoslynExtensionsOptions:EnableAnalyzersSupport=true",
@@ -246,6 +247,7 @@ return {
                             "RoslynExtensionsOptions:AnalyzeOpenDocumentsOnly=true",
                             "RoslynExtensionsOptions:enableDecompilationSupport=true",
                             "omnisharp.enableEditorConfigSupport=true",
+                            "script:enabled=true",
                         },
                         settings = {
                             ["dotnet.completion.showCompletionItemsFromUnimportedNamespaces"] = true,
