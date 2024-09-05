@@ -114,6 +114,9 @@ return {
             plugins = {
                 set_mark = true,
             },
+            icons = {
+                mappings = false,
+            }
         },
     },
     {
