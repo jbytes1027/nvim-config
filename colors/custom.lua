@@ -218,6 +218,7 @@ local groups = {
     ["@parameter"] = {},
     ["@keyword"] = {},
     ["@keyword.directive"] = { link = "Keyword" },
+    ["@keyword.directive.markdown"] = {},
     ["@keyword.import"] = { link = "Keyword" },
     ["@keyword.return"] = { link = "Keyword" },
     ["@keyword.function"] = { link = "Type" },
