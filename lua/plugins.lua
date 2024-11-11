@@ -1,6 +1,7 @@
 return {
     {
         "stevearc/aerial.nvim",
+        event = "VeryLazy",
         opts = function()
             local aerial_keymap = require("keybindings").aerial_keymap
 
@@ -53,12 +54,15 @@ return {
     },
     {
         "tommcdo/vim-ninja-feet",
+        event = "VeryLazy",
     },
     {
         "michaeljsmith/vim-indent-object",
+        event = "VeryLazy",
     },
     {
         "jeetsukumaran/vim-indentwise",
+        event = "VeryLazy",
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -121,6 +125,7 @@ return {
     },
     {
         "nvim-telescope/telescope.nvim",
+        event = "VeryLazy",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             -- see https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
@@ -159,6 +164,7 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
+        event = "VeryLazy",
         opts = {
             signcolumn = false,
             numhl = false,
@@ -173,13 +179,16 @@ return {
     },
     {
         "Hoffs/omnisharp-extended-lsp.nvim",
+        event = "VeryLazy",
     },
     {
         "williamboman/mason.nvim",
+        event = "VeryLazy",
         opts = {}, -- force calling setup
     },
     {
         "nvimtools/none-ls.nvim",
+        event = "VeryLazy",
         dependencies = { "jay-babu/mason-null-ls.nvim" },
         config = function()
             local null_ls = require("null-ls")
@@ -213,6 +222,7 @@ return {
     },
     {
         "jay-babu/mason-null-ls.nvim",
+        event = "VeryLazy",
         cmd = { "NullLsInstall", "NullLsUninstall" },
         dependencies = { "williamboman/mason.nvim" },
         opts = {
@@ -225,9 +235,11 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        event = "VeryLazy",
     },
     {
         "williamboman/mason-lspconfig.nvim",
+        event = "VeryLazy",
         dependencies = {
             "williamboman/mason.nvim",
             "neovim/nvim-lspconfig",
@@ -306,9 +318,11 @@ return {
     },
     {
         "mrjones2014/smart-splits.nvim",
+        event = "VeryLazy",
     },
     {
         "hrsh7th/nvim-cmp",
+        event = "VeryLazy",
         dependencies = {
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-buffer",
@@ -361,6 +375,7 @@ return {
     },
     {
         "L3MON4D3/LuaSnip",
+        event = "VeryLazy",
         -- follow latest release.
         version = "v2.*",
         config = function()
