@@ -220,11 +220,11 @@ M.set_window_and_buffer_keybindings = function()
         function() require("smart-splits").swap_buf_right({ move_cursor = true }) end,
         { desc = "Window move right" }
     )
-    vim.keymap.set({ "n" }, "<C-h>", require("smart-splits").resize_left, { desc = "Resize split right" })
-    vim.keymap.set({ "n" }, "<C-j>", require("smart-splits").resize_down, { desc = "Resize split down" })
-    vim.keymap.set({ "n" }, "<C-k>", require("smart-splits").resize_up, { desc = "Resize split up" })
-    vim.keymap.set({ "n" }, "<C-l>", require("smart-splits").resize_right, { desc = "Resize split left" })
-    vim.keymap.set({ "n" }, "<C-l>", require("smart-splits").resize_right, { desc = "Resize split left" })
+    vim.keymap.set({ "n" }, "<C-h>", function() require("smart-splits").resize_left() end, { desc = "Resize split right" })
+    vim.keymap.set({ "n" }, "<C-j>", function() require("smart-splits").resize_down() end, { desc = "Resize split down" })
+    vim.keymap.set({ "n" }, "<C-k>", function() require("smart-splits").resize_up() end, { desc = "Resize split up" })
+    vim.keymap.set({ "n" }, "<C-l>", function() require("smart-splits").resize_right() end, { desc = "Resize split left" })
+    vim.keymap.set({ "n" }, "<C-l>", function() require("smart-splits").resize_right() end, { desc = "Resize split left" })
 end
 
 M.set_git_keybindings = function()
@@ -328,9 +328,8 @@ M.set_toggle_keybindings = function()
 end
 
 M.set_autocomplete_keybindings = function()
-    local ls = require("luasnip")
-    local cmp = require("cmp")
     vim.keymap.set("i", "<C-Space>", function()
+        local cmp = require("cmp")
         if cmp.visible() == false then
             cmp.complete()
         else
@@ -338,14 +337,17 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-p>", function()
+        local cmp = require("cmp")
         if cmp.visible() == false then cmp.complete() end
         cmp.select_prev_item()
     end)
     vim.keymap.set("i", "<C-n>", function()
+        local cmp = require("cmp")
         if cmp.visible() == false then cmp.complete() end
         cmp.select_next_item()
     end)
     vim.keymap.set("i", "<C-f>", function()
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.select_next_item({ count = vim.o.pumheight })
         else
@@ -353,6 +355,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-b>", function()
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.select_prev_item({ count = vim.o.pumheight })
         else
@@ -360,6 +363,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-u>", function()
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.scroll_docs(-4)
         else
@@ -367,6 +371,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-d>", function()
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.scroll_docs(4)
         else
@@ -374,6 +379,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-y>", function()
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.confirm()
         else
@@ -381,6 +387,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-e>", function()
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.abort()
         else
@@ -388,6 +395,8 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<C-l>", function()
+        local ls = require("luasnip")
+        local cmp = require("cmp")
         if cmp.visible() == true then
             cmp.complete_common_string()
         elseif ls.expandable() then
@@ -403,6 +412,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<Tab>", function()
+        local ls = require("luasnip")
         if ls.jumpable(1) then
             ls.jump(1)
         else
@@ -410,6 +420,7 @@ M.set_autocomplete_keybindings = function()
         end
     end)
     vim.keymap.set("i", "<S-Tab>", function()
+        local ls = require("luasnip")
         if ls.jumpable(-1) then
             ls.jump(-1)
         else

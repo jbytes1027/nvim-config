@@ -7,6 +7,11 @@ require("options")
 require("gruvbox").load()
 vim.cmd("colorscheme custom")
 
+require("cmds") -- load autocommands
+require("autocmds") -- load autocommands
+require("statusline") -- Setup status bar
+require("keybindings").setup() -- load keybindings
+
 -- SETUP LAZY
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then -- install lazyvim if not found in lazypath
@@ -29,7 +34,3 @@ require("lazy").setup("plugins", {
     },
 })
 
-require("cmds") -- load autocommands
-require("autocmds") -- load autocommands
-require("statusline") -- Setup status bar
-require("keybindings").setup() -- load keybindings
