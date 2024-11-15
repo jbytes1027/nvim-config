@@ -20,6 +20,7 @@ local cterm_colors = {
 local config = {
     invert_signs = false,
     bold = true,
+    italic = false,
 }
 
 local groups = {
@@ -53,7 +54,7 @@ local groups = {
     Question = { ctermfg = cterm_colors.light_magenta, bold = config.bold },
     WarningMsg = { ctermfg = cterm_colors.light_red, bold = config.bold },
     SignColumn = {},
-    Folded = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.light_bg, italic = true },
+    Folded = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.light_bg, italic = config.italic },
     FoldColumn = { ctermfg = cterm_colors.dark_fg },
     Error = { ctermfg = cterm_colors.light_red, bold = config.bold, reverse = true },
     vCursor = { link = "Cursor" },
@@ -259,6 +260,7 @@ local groups = {
     ["@markup.quote"] = { link = "String" },
     ["@markup.math"] = { link = "String" },
     ["@markup.raw"] = { link = "String" },
+    ["@markup.italic"] = { italic = config.italic },
     ["@markup.raw.block"] = { link = "@markup.raw" },
     ["@markup.list"] = { link = "Type" },
     ["@markup.list.checked"] = { link = "@markup.list" },
