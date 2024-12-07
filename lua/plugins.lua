@@ -380,6 +380,22 @@ return {
         version = "v2.*",
         config = function()
             local ls = require("luasnip")
+            local types = require("luasnip.util.types")
+            ls.setup({
+                ext_opts = {
+                    [types.insertNode] = {
+                        unvisited = {
+                            virt_text = { { " ", "SnippetTabstop" } },
+                            virt_text_pos = "inline",
+                        },
+                    },
+                    [types.exitNode] = {
+                        unvisited = {
+                            virt_text = { { " ", "SnippetTabstop" } },
+                            virt_text_pos = "inline",
+                        },
+                    },
+                },
             })
             require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets/" })
         end,
