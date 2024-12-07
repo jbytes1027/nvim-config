@@ -120,7 +120,7 @@ return {
             },
             icons = {
                 mappings = false,
-            }
+            },
         },
     },
     {
@@ -254,7 +254,7 @@ return {
                 -- Next, provide a dedicated handler for specific servers.
                 ["omnisharp"] = function()
                     require("lspconfig").omnisharp.setup({
-                        filetypes = {"cs", "vb", "csx"},
+                        filetypes = { "cs", "vb", "csx" },
                         single_file_support = true,
                         cmd = { -- see https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options for options
                             "omnisharp",
