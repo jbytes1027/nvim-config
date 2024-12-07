@@ -380,88 +380,8 @@ return {
         version = "v2.*",
         config = function()
             local ls = require("luasnip")
-            ls.setup({})
-
-            local s = ls.snippet
-            local sn = ls.snippet_node
-            local t = ls.text_node
-            local i = ls.insert_node
-            local f = ls.function_node
-            local c = ls.choice_node
-            local d = ls.dynamic_node
-            local fmt = require("luasnip.extras.fmt").fmt
-            local fmta = require("luasnip.extras.fmt").fmta
-            ls.add_snippets("cs", {
-                s(
-                    "svm",
-                    fmta(
-                        [[
-                    static void Main(string[] args)
-                    {
-                        <>
-                    }
-                    ]],
-                        i(1)
-                    )
-                ),
-                s("cwl", fmta([[ Console.WriteLine(<>); ]], i(1))),
-                s(
-                    "///",
-                    fmt(
-                        [[
-                    /// <summary>
-                    /// {}
-                    /// </summary>
-                    ]],
-                        i(1)
-                    )
-                ),
-                s("<p", fmt([[<param name="{}">{}</param>]], { i(1), i(2) })),
-                s("<ex", fmt([[<exception cref="{}">{}</exception>]], { i(1), i(2) })),
-                s("<ret", fmt([[<returns>{}</returns>]], i(1))),
-                s("<rem", fmt([[<remarks>{}</remarks>]], i(1))),
-                s(
-                    "[F",
-                    fmta(
-                        [[
-                        [Fact]
-                        public async void <>()
-                        {
-                            // Arrange
-                            <>
-
-                            // Act
-                            <>
-
-                            // Assert
-                            <>
-                        }
-                ]],
-                        { i(1), i(2), i(3), i(4) }
-                    )
-                ),
-                s(
-                    "[T",
-                    fmta(
-                        [[
-                        [Theory]
-                        [InlineData(<>)]<>
-                        public async void <>
-                        {
-                            // Arrange
-                            <>
-
-                            // Act
-                            <>
-
-                            // Assert
-                            <>
-                        }
-                ]],
-                        { i(1), i(2), i(3), i(4), i(5), i(6) }
-                    )
-                ),
             })
+            require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets/" })
         end,
     },
 }
