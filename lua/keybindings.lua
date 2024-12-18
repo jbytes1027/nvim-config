@@ -550,6 +550,8 @@ M.set_misc_keybindings = function()
         vim.wo.foldenable = true
         vim.wo.foldlevel = vim.v.count
     end, { desc = "Set fold level" })
+
+    vim.keymap.set({ "n" }, "<esc>", "<cmd>nohlsearch<cr>")
 end
 
 M.aerial_keymap = {
