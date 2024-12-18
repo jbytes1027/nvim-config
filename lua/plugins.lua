@@ -147,6 +147,7 @@ return {
                             ["<C-b>"] = require("telescope.actions").results_scrolling_up,
                             ["<C-/>"] = require("telescope.actions").which_key,
                             ["<C-u>"] = { "<C-o>dd", type = "command" },
+                            ["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
                         },
                     },
                 },
