@@ -456,15 +456,19 @@ M.set_lowercase_marks_keybindings = function()
 
     for i = 0, 25 do
         vim.keymap.set("n", "m" .. low(i), "m" .. upp(i))
-    end
-    for i = 0, 25 do
         vim.keymap.set("n", "m" .. upp(i), "m" .. low(i))
-    end
-    for i = 0, 25 do
+
         vim.keymap.set("n", "'" .. low(i), "'" .. upp(i))
-    end
-    for i = 0, 25 do
         vim.keymap.set("n", "'" .. upp(i), "'" .. low(i))
+
+        vim.keymap.set("n", "`" .. low(i), "`" .. upp(i))
+        vim.keymap.set("n", "`" .. upp(i), "`" .. low(i))
+
+        vim.keymap.set("n", "g'" .. low(i), "g'" .. upp(i))
+        vim.keymap.set("n", "g'" .. upp(i), "g'" .. low(i))
+
+        vim.keymap.set("n", "g`" .. low(i), "g`" .. upp(i))
+        vim.keymap.set("n", "g`" .. upp(i), "g`" .. low(i))
     end
 end
 
