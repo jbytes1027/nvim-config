@@ -114,14 +114,50 @@ return {
             vim.o.timeout = true
             vim.o.timeoutlen = 1000
         end,
-        opts = { -- See https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
-            plugins = {
-                set_mark = true,
-            },
-            icons = {
-                mappings = false,
-            },
-        },
+        opts = function()
+            local opts = { -- See https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
+                plugins = {
+                    marks = false,
+                    marks_custom = true,
+                },
+                icons = {
+                    mappings = false,
+                    separator = "→",
+                    keys = {},
+                },
+            }
+
+            local spec_marks = {
+                mode = { "n" },
+                -- Filled out below
+            }
+
+            local low = function(i) return string.char(97 + i) end
+            local upp = function(i) return string.char(65 + i) end
+
+            for i = 0, 25 do
+                table.insert(spec_marks, { "m" .. upp(i), hidden = true })
+                table.insert(spec_marks, { "m" .. low(i), hidden = true })
+
+                table.insert(spec_marks, { "'" .. upp(i), hidden = true })
+                table.insert(spec_marks, { "'" .. low(i), hidden = true })
+
+                table.insert(spec_marks, { "`" .. upp(i), hidden = true })
+                table.insert(spec_marks, { "`" .. low(i), hidden = true })
+
+                table.insert(spec_marks, { "g'" .. upp(i), hidden = true })
+                table.insert(spec_marks, { "g'" .. low(i), hidden = true })
+
+                table.insert(spec_marks, { "g`" .. upp(i), hidden = true })
+                table.insert(spec_marks, { "g`" .. low(i), hidden = true })
+            end
+
+            if opts.spec == nil then opts.spec = {} end
+
+            table.insert(opts.spec, spec_marks)
+
+            return opts
+        end,
     },
     {
         "nvim-telescope/telescope.nvim",
