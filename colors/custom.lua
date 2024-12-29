@@ -267,6 +267,22 @@ local groups = {
     ["@markup.list.unchecked"] = { link = "@markup.list" },
     ["@punctuation.special.markdown"] = { link = "@punctuation" },
     ["Delimiter"] = {},
+
+    -- Clear html inline markup
+    ["@markup.heading.html"] = {},
+    ["@markup.heading.1.html"] = {},
+    ["@markup.heading.2.html"] = {},
+    ["@markup.heading.3.html"] = {},
+    ["@markup.heading.4.html"] = {},
+    ["@markup.heading.5.html"] = {},
+    ["@markup.heading.6.html"] = {},
+    ["@markup.strong.html"] = {},
+    ["@markup.italic.html"] = {},
+    ["@markup.underline.html"] = {},
+    ["@markup.strikethrough.html"] = {},
+    ["@markup.strikethrough.html"] = {},
+    ["@markup.link.label.html"] = {},
+    ["@markup.raw.html"] = {},
 }
 
 vim.o.termguicolors = false
@@ -274,3 +290,4 @@ vim.o.background = "dark" -- prevents colors from being reset
 for group, settings in pairs(groups) do
     vim.api.nvim_set_hl(0, group, settings)
 end
+
