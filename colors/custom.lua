@@ -296,7 +296,6 @@ local groups = {
     ["@markup.italic.html"] = {},
     ["@markup.underline.html"] = {},
     ["@markup.strikethrough.html"] = {},
-    ["@markup.strikethrough.html"] = {},
     ["@markup.link.label.html"] = {},
     ["@markup.raw.html"] = {},
 }
