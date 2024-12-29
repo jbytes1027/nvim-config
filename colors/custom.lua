@@ -101,10 +101,26 @@ local groups = {
     ["@diff.minus"] = { ctermfg = cterm_colors.dark_red },
     -- ["@diff.plus"] = { ctermbg = cterm_colors.dark_green, ctermfg = cterm_colors.dark_bg },
     -- ["@diff.minus"] = { ctermbg = cterm_colors.dark_red, ctermfg = cterm_colors.dark_bg },
-    DiagnosticVirtualTextError = { ctermbg = cterm_colors.light_red, ctermfg = cterm_colors.dark_bg, bold = config.bold },
-    DiagnosticVirtualTextWarn = { ctermbg = cterm_colors.light_yellow, ctermfg = cterm_colors.dark_bg, bold = config.bold },
-    DiagnosticVirtualTextInfo = { ctermbg = cterm_colors.light_blue, ctermfg = cterm_colors.dark_bg, bold = config.bold },
-    DiagnosticVirtualTextHint = { ctermbg = cterm_colors.light_cyan, ctermfg = cterm_colors.dark_bg, bold = config.bold },
+    DiagnosticVirtualTextError = {
+        ctermbg = cterm_colors.light_red,
+        ctermfg = cterm_colors.dark_bg,
+        bold = config.bold,
+    },
+    DiagnosticVirtualTextWarn = {
+        ctermbg = cterm_colors.light_yellow,
+        ctermfg = cterm_colors.dark_bg,
+        bold = config.bold,
+    },
+    DiagnosticVirtualTextInfo = {
+        ctermbg = cterm_colors.light_blue,
+        ctermfg = cterm_colors.dark_bg,
+        bold = config.bold,
+    },
+    DiagnosticVirtualTextHint = {
+        ctermbg = cterm_colors.light_cyan,
+        ctermfg = cterm_colors.dark_bg,
+        bold = config.bold,
+    },
     DiagnosticOk = { ctermfg = cterm_colors.light_green, reverse = config.invert_signs },
     LspReferenceRead = { ctermfg = cterm_colors.light_yellow, bold = config.bold },
     LspReferenceText = { ctermfg = cterm_colors.light_yellow, bold = config.bold },
@@ -290,4 +306,3 @@ vim.o.background = "dark" -- prevents colors from being reset
 for group, settings in pairs(groups) do
     vim.api.nvim_set_hl(0, group, settings)
 end
-

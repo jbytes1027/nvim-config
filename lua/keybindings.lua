@@ -220,11 +220,31 @@ M.set_window_and_buffer_keybindings = function()
         function() require("smart-splits").swap_buf_right({ move_cursor = true }) end,
         { desc = "Window move right" }
     )
-    vim.keymap.set({ "n" }, "<C-h>", function() require("smart-splits").resize_left() end, { desc = "Resize split right" })
-    vim.keymap.set({ "n" }, "<C-j>", function() require("smart-splits").resize_down() end, { desc = "Resize split down" })
+    vim.keymap.set(
+        { "n" },
+        "<C-h>",
+        function() require("smart-splits").resize_left() end,
+        { desc = "Resize split right" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "<C-j>",
+        function() require("smart-splits").resize_down() end,
+        { desc = "Resize split down" }
+    )
     vim.keymap.set({ "n" }, "<C-k>", function() require("smart-splits").resize_up() end, { desc = "Resize split up" })
-    vim.keymap.set({ "n" }, "<C-l>", function() require("smart-splits").resize_right() end, { desc = "Resize split left" })
-    vim.keymap.set({ "n" }, "<C-l>", function() require("smart-splits").resize_right() end, { desc = "Resize split left" })
+    vim.keymap.set(
+        { "n" },
+        "<C-l>",
+        function() require("smart-splits").resize_right() end,
+        { desc = "Resize split left" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "<C-l>",
+        function() require("smart-splits").resize_right() end,
+        { desc = "Resize split left" }
+    )
 end
 
 M.set_git_keybindings = function()
