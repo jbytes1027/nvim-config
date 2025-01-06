@@ -509,7 +509,6 @@ M.set_misc_keybindings = function()
     end
     vim.keymap.set({ "n" }, "<leader>e", "", { callback = open_explorer, noremap = true, desc = "Open explorer" })
     vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
-    vim.keymap.set({ "n" }, "<leader>q", "<cmd>confirm qall<cr>", { desc = "Quit" })
     vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw") -- enable ctrl-delete
     vim.keymap.set({ "n", "x" }, "<A-.>", "zL")
     vim.keymap.set({ "n", "x" }, "<A-,>", "zH")
