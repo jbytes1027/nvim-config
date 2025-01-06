@@ -293,22 +293,54 @@ return {
                     require("lspconfig").omnisharp.setup({
                         filetypes = { "cs", "vb", "csx" },
                         single_file_support = true,
-                        cmd = { -- see https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options for options
-                            "omnisharp",
-                            "RoslynExtensionsOptions:EnableAnalyzersSupport=true",
-                            "RoslynExtensionsOptions:EnableImportCompletion=false", -- show items not imported - makes completion slower
-                            "RoslynExtensionsOptions:AnalyzeOpenDocumentsOnly=true",
-                            "RoslynExtensionsOptions:enableDecompilationSupport=true",
-                            "omnisharp.enableEditorConfigSupport=true",
-                            "script:enabled=true",
-                        },
-                        settings = {
-                            ["dotnet.completion.showCompletionItemsFromUnimportedNamespaces"] = true,
-                            ["dotnet.navigation.navigateToDecompiledSources"] = true,
-                            ["dotnet.symbolSearch.searchReferenceAssemblies"] = true,
-                            ["dotnet.quickInfo.showRemarksInQuickInfo"] = true,
-                            ["omnisharp.enableDecompilationSupport"] = true,
-                            ["omnisharp.enableAsyncCompletion"] = true,
+                        settings = { -- see https://github.com/OmniSharp/omnisharp-roslyn/tree/master/src/OmniSharp.Shared/Options for options
+                            RoslynExtensionsOptions = {
+                                DocumentAnalysisTimeoutMs = 30000,
+                                EnableDecompilationSupport = true,
+                                -- Enables support for showing unimported types and unimported extension
+                                -- methods in completion lists. When committed, the appropriate using
+                                -- directive will be added at the top of the current file. This option can
+                                -- have a negative impact on initial completion responsiveness,
+                                -- particularly for the first few completion sessions after opening a
+                                -- solution.
+                                EnableImportCompletion = true,
+                                EnableAsyncCompletion = true,
+                                -- Enables support for roslyn analyzers, code fixes and rulesets.
+                                EnableAnalyzersSupport = true,
+                                -- Only run analyzers against open files when 'enableRoslynAnalyzers' is true
+                                AnalyzeOpenDocumentsOnly = true,
+                                InlayHintsOptions = {
+                                    EnableForParameters = true,
+                                    ForLiteralParameters = true,
+                                    ForIndexerParameters = true,
+                                    ForObjectCreationParameters = true,
+                                    ForOtherParameters = true,
+                                    SuppressForParametersThatDifferOnlyBySuffix = false,
+                                    SuppressForParametersThatMatchMethodIntent = false,
+                                    SuppressForParametersThatMatchArgumentName = false,
+                                    EnableForTypes = true,
+                                    ForImplicitVariableTypes = true,
+                                    ForLambdaParameterTypes = true,
+                                    ForImplicitObjectCreation = true,
+                                },
+                            },
+                            Script = {
+                                Enabled = true,
+                                DefaultTargetFramework = "net461",
+                                EnableScriptNuGetReferences = false,
+                            },
+                            FormattingOptions = {
+                                EnableEditorConfigSupport = true,
+                            },
+                            MsBuild = {
+                                -- If true, MSBuild project system will only load projects for files that
+                                -- were opened in the editor. This setting is useful for big C# codebases
+                                -- and allows for faster initialization of code navigation features only
+                                -- for projects that are relevant to code that is being edited. With this
+                                -- setting enabled OmniSharp may load fewer projects and may thus display
+                                -- incomplete reference lists for symbols.
+                                LoadProjectsOnDemand = nil,
+                            },
                         },
                         handlers = {
                             ["textDocument/definition"] = require("omnisharp_extended").handler,
