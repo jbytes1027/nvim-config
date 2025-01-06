@@ -172,8 +172,8 @@ return {
                     path_display = { "truncate" },
                     layout_config = {
                         horizontal = { prompt_position = "top" },
-                        height = 0.90,
-                        width = 0.90,
+                        height = 0.95,
+                        width = 0.95,
                     },
                     mappings = {
                         i = {
@@ -383,6 +383,10 @@ return {
         opts = {
             enable_cmds = true,
             replace_netrw = true,
+            ui = {
+                height = 0.95,
+                width = 0.95,
+            },
         },
     },
     {
