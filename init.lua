@@ -12,6 +12,8 @@ require("autocmds") -- load autocommands
 require("statusline") -- Setup status bar
 require("keybindings").setup() -- load keybindings
 
+vim.cmd("packadd cfilter")
+
 -- SETUP LAZY
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then -- install lazyvim if not found in lazypath
