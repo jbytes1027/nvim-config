@@ -8,7 +8,7 @@
 --     vim.api.nvim_create_namespace("auto_hlsearch")
 -- )
 
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, { -- highlight text on yank
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     callback = function() vim.opt.formatoptions:remove("o") end,
 })
 
