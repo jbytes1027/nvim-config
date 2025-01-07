@@ -116,6 +116,10 @@ return {
         end,
         opts = function()
             local opts = { -- See https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
+                preset = "helix",
+                win = {
+                    border = "none",
+                },
                 plugins = {
                     marks = false,
                     marks_custom = true,
