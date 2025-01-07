@@ -40,7 +40,6 @@ local groups = {
     Search = { ctermbg = cterm_colors.light_yellow, ctermfg = cterm_colors.dark_bg },
     IncSearch = { ctermbg = cterm_colors.light_magenta, ctermfg = cterm_colors.dark_bg },
     CurSearch = { link = "IncSearch" },
-    QuickFixLine = { ctermfg = cterm_colors.light_magenta },
     LineNr = { ctermfg = cterm_colors.dark_fg },
     Underlined = { underline = true },
     Directory = { ctermfg = cterm_colors.light_blue, bold = config.bold },
@@ -305,6 +304,11 @@ local groups = {
     ["@markup.strikethrough.html"] = {},
     ["@markup.link.label.html"] = {},
     ["@markup.raw.html"] = {},
+
+    -- Quickfix list
+    QuickFixLine = { ctermfg = cterm_colors.light_magenta },
+    QfFileName = { link = 'Normal' },
+    QfLineNr = { link = 'Normal' },
 }
 
 vim.o.termguicolors = false
