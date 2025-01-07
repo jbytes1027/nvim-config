@@ -472,6 +472,82 @@ M.set_lowercase_marks_keybindings = function()
     end
 end
 
+M.set_quickfix_keybindings = function()
+    vim.keymap.set("n", "p", function()
+        local win_id = vim.api.nvim_get_current_win()
+        if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
+            feedkeys("<CR><C-w>p", "n")
+        else
+            feedkeys("p", "n")
+        end
+    end, { desc = "Preview quickfix item" })
+
+    vim.keymap.set("n", "x", function()
+        local win_id = vim.api.nvim_get_current_win()
+        if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
+            if vim.fn.getwininfo(win_id)[1]["loclist"] == 1 then
+                local loc_list = vim.fn.getloclist(0)
+                local current_idx = vim.fn.getloclist(0, { idx = 0 }).idx
+
+                -- Check if we're in a location list and valid line
+                if loc_list[current_idx] then
+                    table.remove(loc_list, current_idx)
+                    vim.fn.setloclist(0, loc_list, "r")
+                    if current_idx == 1 then
+                        vim.cmd("silent! lfirst | wincmd p")
+                    else
+                        vim.cmd("silent! " .. current_idx - 1 .. "lnext | wincmd p")
+                    end
+                end
+            else
+                local qf_list = vim.fn.getqflist()
+                local current_idx = vim.fn.getqflist({ idx = 0 }).idx
+
+                -- Check if we're in a location list and valid line
+                if qf_list[current_idx] then
+                    table.remove(qf_list, current_idx)
+                    vim.fn.setqflist(qf_list, "r")
+                    if current_idx == 1 then
+                        vim.cmd("silent! cfirst | wincmd p")
+                    else
+                        vim.cmd("silent! " .. current_idx - 1 .. "cnext | wincmd p")
+                    end
+                end
+            end
+        else
+            feedkeys("x", "n")
+        end
+    end, { desc = "Delete selected quickfix line" })
+
+    vim.keymap.set("n", "<C-n>", function()
+        local win_id = vim.api.nvim_get_current_win()
+        if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
+            if vim.fn.getwininfo(win_id)[1]["loclist"] == 1 then
+                pcall(vim.cmd, "silent " .. vim.v.count1 .. "lnext | wincmd p")
+            else
+                pcall(vim.cmd, "silent " .. vim.v.count1 .. "cnext | wincmd p")
+            end
+        else
+            feedkeys("<C-n>", "n")
+        end
+    end, { desc = "Go to the next quickfix item" })
+
+    vim.keymap.set("n", "<C-p>", function()
+        local win_id = vim.api.nvim_get_current_win()
+        if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
+            if vim.fn.getwininfo(win_id)[1]["loclist"] == 1 then
+                if table.getn(vim.fn.getloclist(0)) then
+                    pcall(vim.cmd, "silent " .. vim.v.count1 .. "lprev | wincmd p")
+                end
+            else
+                pcall(vim.cmd, "silent " .. vim.v.count1 .. "cprev | wincmd p")
+            end
+        else
+            feedkeys("<C-p>", "n")
+        end
+    end, { desc = "Go to the previous quickfix item" })
+end
+
 M.set_misc_keybindings = function()
     local function open(uri)
         local cmd
@@ -628,6 +704,7 @@ M.setup = function()
     M.set_autocomplete_keybindings()
     M.set_lowercase_marks_keybindings()
     M.set_misc_keybindings()
+    M.set_quickfix_keybindings()
 end
 
 return M
