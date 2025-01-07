@@ -21,9 +21,3 @@ vim.api.nvim_create_autocmd("LspAttach", { -- disable semantic highlighting
         client.server_capabilities.semanticTokensProvider = nil
     end,
 })
-vim.api.nvim_create_autocmd({ "FocusGained" }, { -- read shada file when focusing instance
-    callback = function() vim.cmd.rshada() end,
-})
-vim.api.nvim_create_autocmd({ "FocusLost" }, { -- write shada file when unfocusing instance
-    callback = function() vim.cmd.wshada() end,
-})
