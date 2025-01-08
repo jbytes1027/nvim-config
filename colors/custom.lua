@@ -178,7 +178,7 @@ local groups = {
     Label = { link = "Statement" }, -- case, default, etc.
     Keyword = { link = "Statement" },
     Operator = {}, -- "sizeof", "+", "*", etc.
-    Function = { link = "Normal" }, -- function name (also: methods for classes) (both definitions and calls)
+    Function = { link = "None" }, -- function name (also: methods for classes) (both definitions and calls)
     Special = { ctermfg = cterm_colors.light_magenta },
     Todo = {},
     Done = {},
@@ -186,10 +186,10 @@ local groups = {
     -- Code Highlighting Extensions
     ["@property.yaml"] = { link = "Identifier" },
     jsonKeyword = { link = "Identifier" },
-    helpExample = { link = "Normal" },
+    helpExample = { link = "None" },
     ["@field"] = { link = "@property" },
     ["@constructor"] = { link = "Function" },
-    ["@none"] = { link = "Normal" }, -- used for C# format strings
+    ["@none"] = { link = "None" }, -- used for C# format strings
     ["@string"] = { link = "String" },
     ["@string.regex"] = { link = "String" },
     ["@string.escape"] = { link = "String" },
@@ -277,12 +277,13 @@ local groups = {
     ["Delimiter"] = {},
 
     -- Markdown
-    htmlItalic = { italic = config.italic },
+    htmlItalic = { link = "None", italic = config.italic },
     mkdLink = { link = "Constant" },
     mkdUrl = { link = "Comment" },
     mkdInlineUrl = { link = "Constant" },
     markdownCode = { link = "Constant" },
     markdownEscape = { link = "None" },
+    mkdLineBreak = { link = "None" },
     mkdLineBreak = { link = "None" },
     ["@keyword.directive.markdown"] = {},
     ["@punctuation.special.markdown"] = { link = "@punctuation" },
@@ -307,8 +308,8 @@ local groups = {
 
     -- Quickfix list
     QuickFixLine = { ctermfg = cterm_colors.light_magenta },
-    QfFileName = { link = 'Normal' },
-    QfLineNr = { link = 'Normal' },
+    QfFileName = { link = 'None' },
+    QfLineNr = { link = 'None' },
 }
 
 vim.o.termguicolors = false

@@ -156,8 +156,8 @@ if get(g:, 'vim_markdown_strikethrough', 0)
     HtmlHiLink mkdStrike        htmlStrike
 endif
 
-syn cluster mkdHeadingContent contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdLink,mkdInlineURL,mkdStrike
-syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,mkdStrike
+syn cluster mkdHeadingContent contains=mkdFootnotes,mkdLink,mkdInlineURL
+syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString           String
@@ -186,3 +186,4 @@ let b:current_syntax = 'mkd'
 
 delcommand HtmlHiLink
 " vim: ts=8
+
