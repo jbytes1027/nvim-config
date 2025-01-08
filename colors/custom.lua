@@ -277,7 +277,9 @@ local groups = {
     ["Delimiter"] = {},
 
     -- Markdown
+    mkdFootnotes = { link = "Constant" },
     htmlItalic = { link = "None", italic = config.italic },
+    htmlTagName = { link = "Type" },
     mkdLink = { link = "Constant" },
     mkdUrl = { link = "Comment" },
     mkdInlineUrl = { link = "Constant" },
@@ -285,10 +287,13 @@ local groups = {
     markdownEscape = { link = "None" },
     mkdLineBreak = { link = "None" },
     mkdLineBreak = { link = "None" },
+    mkdID = { link = "Comment" },
     ["@keyword.directive.markdown"] = {},
     ["@punctuation.special.markdown"] = { link = "@punctuation" },
     ["@markup.link.markdown_inline"] = {},
-    ["@markup.link.url.markdown_inline"] = { link = "Constant" },
+    ["@markup.link.url.markdown"] = { link = "Comment" },
+    ["@markup.link.url.markdown_inline"] = { link = "Comment" },
+    ["@markup.link.label.markdown"] = { link = "Comment" },
     ["@markup.link.label.markdown_inline"] = { link = "Constant" },
 
     -- Clear html inline markup
