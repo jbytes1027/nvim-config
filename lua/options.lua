@@ -34,6 +34,7 @@ vim.o.smoothscroll = true
 vim.o.confirm = true
 vim.o.shada = ""
 vim.o.fixendofline = false
+vim.o.title = true
 
 -- remove the "How-to disable mouse" menu item and the separator above it: >vim
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
