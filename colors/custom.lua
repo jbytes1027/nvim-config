@@ -286,7 +286,6 @@ local groups = {
     markdownCode = { link = "Constant" },
     markdownEscape = { link = "None" },
     mkdLineBreak = { link = "None" },
-    mkdLineBreak = { link = "None" },
     mkdID = { link = "Comment" },
     ["@keyword.directive.markdown"] = {},
     ["@punctuation.special.markdown"] = { link = "@punctuation" },
