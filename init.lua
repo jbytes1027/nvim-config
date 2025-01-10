@@ -9,10 +9,9 @@ vim.cmd("colorscheme custom")
 
 require("cmds") -- load autocommands
 require("autocmds") -- load autocommands
+require("commands") -- Load commands
 require("statusline") -- Setup status bar
 require("keybindings").setup() -- load keybindings
-
-vim.cmd("packadd cfilter")
 
 -- SETUP LAZY
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
