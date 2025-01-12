@@ -409,7 +409,7 @@ return {
         config = function()
             require("cmp").setup({
                 performance = {
-                    debounce = 100,
+                    debounce = 10,
                     throttle = 0,
                     fetching_timeout = 200,
                     confirm_resolve_timeout = 1,
