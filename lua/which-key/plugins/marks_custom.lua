@@ -35,16 +35,14 @@ function M.expand()
 
     local items = {} ---@type wk.Plugin.item[]
 
+    table.insert(items, { key = "Q", desc = mark_desc_pairs["Q"] })
+    table.insert(items, { key = "W", desc = mark_desc_pairs["W"] })
+    table.insert(items, { key = "E", desc = mark_desc_pairs["E"] })
+    table.insert(items, { key = "R", desc = mark_desc_pairs["R"] })
     table.insert(items, { key = "A", desc = mark_desc_pairs["A"] })
     table.insert(items, { key = "S", desc = mark_desc_pairs["S"] })
     table.insert(items, { key = "D", desc = mark_desc_pairs["D"] })
     table.insert(items, { key = "F", desc = mark_desc_pairs["F"] })
-    table.insert(items, { key = "G", desc = mark_desc_pairs["G"] })
-    table.insert(items, { key = "H", desc = mark_desc_pairs["H"] })
-    table.insert(items, { key = "J", desc = mark_desc_pairs["J"] })
-    table.insert(items, { key = "K", desc = mark_desc_pairs["K"] })
-    table.insert(items, { key = "K", desc = mark_desc_pairs["K"] })
-    table.insert(items, { key = "L", desc = mark_desc_pairs["L"] })
 
     return items
 end
