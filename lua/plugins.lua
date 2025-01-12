@@ -193,6 +193,11 @@ return {
                         height = 0.95,
                         width = 0.95,
                     },
+                    preview = {
+                        check_mime_type = false,
+                        filesize_limit = 5, -- in MB
+                        treesitter = false,
+                    },
                     mappings = {
                         i = {
                             ["<esc>"] = require("telescope.actions").close,
