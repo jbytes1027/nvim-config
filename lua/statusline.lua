@@ -116,7 +116,8 @@ vim.o.statusline = table.concat({
     "%<", -- when squeezed, cut off everything after
     "%{v:lua.Stl_get_left()}",
     "%=", -- right align following
-    '%{&fenc==""?&enc:&fenc}', -- file encoding, otherwise encoding
+    '%{&fileformat}',
+    -- '%{&fenc==""?&enc:&fenc}', -- file encoding, otherwise encoding
     "  %l:%c", -- line:col
     "  %P", -- percentage in file by line
 })
