@@ -177,6 +177,51 @@ function M.toggle_buffer_syntax(bufnr, silent)
     ui_notify(silent, string.format("syntax %s", vim.bo[bufnr].syntax))
 end
 
+--- Pretty display for quickfix and location list
+--- From github.com/kevinhwang91/nvim-bqf
+---@param info table<string, any>
+---@return table<string>
+function M.quickfixtextfunc(info)
+    local ret = {}
+    local items
+
+    if info.quickfix == 1 then
+        items = vim.fn.getqflist({ id = info.id, items = 0 }).items
+    else
+        items = vim.fn.getloclist(info.winid, { id = info.id, items = 0 }).items
+    end
+    for i = info.start_idx, info.end_idx do
+        local curr_item = items[i]
+        ---@type string|nil
+        local fname = ""
+        local str = ""
+        if curr_item.valid == 1 then
+            if curr_item.bufnr > 0 then
+                fname = vim.fn.bufname(curr_item.bufnr)
+                if not fname then
+                    fname = "[No Name]"
+                else
+                    fname = fname:gsub("^" .. vim.env.HOME, "~")
+                end
+            end
+            local lnum = curr_item.lnum > 99999 and -1 or curr_item.lnum
+            local col = curr_item.col > 999 and -1 or curr_item.col
+            print(curr_item.type)
+            local qtype = curr_item.type == "" and "" or "" .. curr_item.type:sub(1, 1):upper()
+
+            if qtype ~= "" then
+                str = fname .. ":" .. lnum .. ":" .. col .. ":" .. qtype .. ":" .. curr_item.text
+            else
+                str = fname .. ":" .. lnum .. ":" .. col .. ":" .. curr_item.text
+            end
+        else
+            str = curr_item.text
+        end
+        table.insert(ret, str)
+    end
+    return ret
+end
+
 local last_active_foldcolumn
 --- Toggle foldcolumn=0|1
 ---@param silent? boolean if true then don't sent a notification
