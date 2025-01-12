@@ -290,6 +290,14 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = "VeryLazy",
+        init = function()
+            require("lspconfig").util.default_config =
+                vim.tbl_extend("keep", require("lspconfig").util.default_config, {
+                    on_attach = function(client, bufnr)
+                        client.server_capabilities.semanticTokensProvider = nil
+                    end,
+                })
+        end,
     },
     {
         "williamboman/mason-lspconfig.nvim",
