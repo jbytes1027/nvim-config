@@ -663,8 +663,20 @@ M.set_misc_keybindings = function()
     vim.keymap.set({ "n" }, "[Q", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
     vim.keymap.set({ "n" }, "]Q", "<cmd>clast<cr>", { desc = "Last quickfix item" })
 
-    vim.keymap.set({ "n" }, "[l", "<cmd>lprev<cr>", { desc = "Prev location list item" })
-    vim.keymap.set({ "n" }, "]l", "<cmd>lnext<cr>", { desc = "Next location list item" })
+    vim.keymap.set(
+        { "n" },
+        "[l",
+        ---@diagnostic disable-next-line: param-type-mismatch
+        function() pcall(vim.cmd, vim.v.count1 .. "lprev") end,
+        { desc = "Prev location list item" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "]l",
+        ---@diagnostic disable-next-line: param-type-mismatch
+        function() pcall(vim.cmd, vim.v.count1 .. "lnext") end,
+        { desc = "Next location list item" }
+    )
     vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
     vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
 
