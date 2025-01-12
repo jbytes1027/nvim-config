@@ -537,9 +537,11 @@ M.set_quickfix_keybindings = function()
         local win_id = vim.api.nvim_get_current_win()
         if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
             if vim.fn.getwininfo(win_id)[1]["loclist"] == 1 then
-                pcall(vim.cmd, "silent " .. vim.v.count1 .. "lnext | wincmd p")
+                ---@diagnostic disable-next-line: param-type-mismatch
+                pcall(vim.cmd, vim.v.count1 .. "lnext | wincmd p")
             else
-                pcall(vim.cmd, "silent " .. vim.v.count1 .. "cnext | wincmd p")
+                ---@diagnostic disable-next-line: param-type-mismatch
+                pcall(vim.cmd, vim.v.count1 .. "cnext | wincmd p")
             end
         else
             feedkeys("<C-n>", "n")
@@ -551,10 +553,12 @@ M.set_quickfix_keybindings = function()
         if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
             if vim.fn.getwininfo(win_id)[1]["loclist"] == 1 then
                 if table.getn(vim.fn.getloclist(0)) then
-                    pcall(vim.cmd, "silent " .. vim.v.count1 .. "lprev | wincmd p")
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    pcall(vim.cmd, vim.v.count1 .. "lprev | wincmd p")
                 end
             else
-                pcall(vim.cmd, "silent " .. vim.v.count1 .. "cprev | wincmd p")
+                ---@diagnostic disable-next-line: param-type-mismatch
+                pcall(vim.cmd, vim.v.count1 .. "cprev | wincmd p")
             end
         else
             feedkeys("<C-p>", "n")
@@ -646,14 +650,14 @@ M.set_misc_keybindings = function()
         { "n" },
         "[q",
         ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, "silent " .. vim.v.count1 .. "cprev") end,
+        function() pcall(vim.cmd, vim.v.count1 .. "cprev") end,
         { desc = "Prev quickfix item" }
     )
     vim.keymap.set(
         { "n" },
         "]q",
         ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, "silent " .. vim.v.count1 .. "cnext") end,
+        function() pcall(vim.cmd, vim.v.count1 .. "cnext") end,
         { desc = "Next quickfix item" }
     )
     vim.keymap.set({ "n" }, "[Q", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
