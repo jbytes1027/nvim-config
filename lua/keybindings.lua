@@ -530,6 +530,42 @@ M.set_quickfix_keybindings = function()
         end
     end, { desc = "Preview quickfix item" })
 
+    -- Add current line to quickfix list
+    vim.keymap.set("n", "yq", function()
+        local current_line = vim.api.nvim_get_current_line()
+        local current_file = vim.api.nvim_buf_get_name(0)
+        local line_num = vim.api.nvim_win_get_cursor(0)[1]
+
+        vim.fn.setqflist({
+            {
+                filename = current_file,
+                lnum = line_num,
+                col = 1,
+                text = current_line,
+            },
+        }, "a") -- 'a' means append to the quickfix list
+
+        print("Added line " .. line_num .. " to quickfix list")
+    end)
+
+    -- Add current line to location list
+    vim.keymap.set("n", "yQ", function()
+        local current_line = vim.api.nvim_get_current_line()
+        local current_file = vim.api.nvim_buf_get_name(0)
+        local line_num = vim.api.nvim_win_get_cursor(0)[1]
+
+        vim.fn.setloclist(0, {
+            {
+                filename = current_file,
+                lnum = line_num,
+                col = 1,
+                text = current_line,
+            },
+        }, "a") -- 'a' means append to the quickfix list
+
+        print("Added line " .. line_num .. " to location list")
+    end)
+
     vim.keymap.set("n", "x", function()
         local win_id = vim.api.nvim_get_current_win()
         if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
