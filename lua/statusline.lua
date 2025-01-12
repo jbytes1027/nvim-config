@@ -77,6 +77,9 @@ Stl_get_left = function()
     local diag = Stl_get_diag()
     if diag ~= "" then ret = ret .. "  " .. diag end
 
+    local lsp = Stl_get_lsp()
+    if lsp ~= "" then ret = ret .. "  " .. lsp end
+
     return ret
 end
 
@@ -93,6 +96,14 @@ Stl_get_recording = function()
     if reg_recording == "" then return "" end
 
     return "RECORDING @" .. reg_recording .. "  "
+end
+
+Stl_get_lsp = function()
+    if vim.b.lsp_statusline_text then
+        return vim.b.lsp_statusline_text
+    else
+        return ""
+    end
 end
 
 Stl_get_search = function()
