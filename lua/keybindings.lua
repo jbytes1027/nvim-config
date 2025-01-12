@@ -484,6 +484,40 @@ M.set_lowercase_marks_keybindings = function()
 end
 
 M.set_quickfix_keybindings = function()
+    vim.keymap.set(
+        { "n" },
+        "[q",
+        ---@diagnostic disable-next-line: param-type-mismatch
+        function() pcall(vim.cmd, vim.v.count1 .. "cprev") end,
+        { desc = "Prev quickfix item" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "]q",
+        ---@diagnostic disable-next-line: param-type-mismatch
+        function() pcall(vim.cmd, vim.v.count1 .. "cnext") end,
+        { desc = "Next quickfix item" }
+    )
+    vim.keymap.set({ "n" }, "[Q", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
+    vim.keymap.set({ "n" }, "]Q", "<cmd>clast<cr>", { desc = "Last quickfix item" })
+
+    vim.keymap.set(
+        { "n" },
+        "[l",
+        ---@diagnostic disable-next-line: param-type-mismatch
+        function() pcall(vim.cmd, vim.v.count1 .. "lprev") end,
+        { desc = "Prev location list item" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "]l",
+        ---@diagnostic disable-next-line: param-type-mismatch
+        function() pcall(vim.cmd, vim.v.count1 .. "lnext") end,
+        { desc = "Next location list item" }
+    )
+    vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
+    vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
+
     vim.keymap.set("n", "<leader>Q", "<cmd>lopen<CR>", { desc = "Open location list" })
     vim.keymap.set("n", "<leader>q", "<cmd>copen<CR>", { desc = "Open quickfix list" })
 
@@ -645,40 +679,6 @@ M.set_misc_keybindings = function()
         function() require("aerial").toggle({ focus = false, direction = "right" }) end,
         { desc = "Open outline" }
     )
-
-    vim.keymap.set(
-        { "n" },
-        "[q",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "cprev") end,
-        { desc = "Prev quickfix item" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "]q",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "cnext") end,
-        { desc = "Next quickfix item" }
-    )
-    vim.keymap.set({ "n" }, "[Q", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
-    vim.keymap.set({ "n" }, "]Q", "<cmd>clast<cr>", { desc = "Last quickfix item" })
-
-    vim.keymap.set(
-        { "n" },
-        "[l",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "lprev") end,
-        { desc = "Prev location list item" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "]l",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "lnext") end,
-        { desc = "Next location list item" }
-    )
-    vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
-    vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
 
     vim.keymap.set({ "n", "x" }, "zM", function()
         vim.wo.foldenable = true
