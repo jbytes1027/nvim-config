@@ -107,17 +107,28 @@ M.set_searching_keybindings = function()
         function() require("telescope.builtin").live_grep() end,
         { desc = "Find words" }
     )
+    vim.keymap.set({ "n" }, "<leader>fW", function()
+        require("telescope.builtin").live_grep({
+            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        })
+    end, { desc = "Find words in all files" })
+    vim.keymap.set(
+        { "x" },
+        "<leader>fw",
+        function() require("telescope.builtin").grep_string() end,
+        { desc = "Find words" }
+    )
+    vim.keymap.set({ "x" }, "<leader>fW", function()
+        require("telescope.builtin").grep_string({
+            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        })
+    end, { desc = "Find words in all files" })
     vim.keymap.set(
         { "n" },
         "<leader>fl",
         function() require("telescope.builtin").resume() end,
         { desc = "Resume last search" }
     )
-    vim.keymap.set({ "n" }, "<leader>fW", function()
-        require("telescope.builtin").live_grep({
-            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-        })
-    end, { desc = "Find words in all files" })
     vim.keymap.set({ "n" }, "<leader>ls", function()
         local aerial_avail, _ = pcall(require, "aerial")
         if aerial_avail then
