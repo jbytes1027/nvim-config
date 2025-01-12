@@ -311,8 +311,8 @@ return {
                                 EnableAsyncCompletion = true,
                                 -- Enables support for roslyn analyzers, code fixes and rulesets.
                                 EnableAnalyzersSupport = true,
-                                -- Only run analyzers against open files when 'enableRoslynAnalyzers' is true
-                                AnalyzeOpenDocumentsOnly = true,
+                                -- Only run roslyn analyzers against open files
+                                AnalyzeOpenDocumentsOnly = false,
                                 InlayHintsOptions = {
                                     EnableForParameters = true,
                                     ForLiteralParameters = true,
@@ -335,15 +335,6 @@ return {
                             },
                             FormattingOptions = {
                                 EnableEditorConfigSupport = true,
-                            },
-                            MsBuild = {
-                                -- If true, MSBuild project system will only load projects for files that
-                                -- were opened in the editor. This setting is useful for big C# codebases
-                                -- and allows for faster initialization of code navigation features only
-                                -- for projects that are relevant to code that is being edited. With this
-                                -- setting enabled OmniSharp may load fewer projects and may thus display
-                                -- incomplete reference lists for symbols.
-                                LoadProjectsOnDemand = nil,
                             },
                         },
                         handlers = {
