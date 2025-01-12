@@ -312,8 +312,8 @@ local groups = {
 
     -- Quickfix list
     QuickFixLine = { ctermfg = cterm_colors.light_magenta },
-    QfFileName = { link = 'None' },
-    QfLineNr = { link = 'None' },
+    QfFileName = { link = "None" },
+    QfLineNr = { link = "None" },
 }
 
 vim.o.termguicolors = false
