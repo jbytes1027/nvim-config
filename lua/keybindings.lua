@@ -473,6 +473,9 @@ M.set_lowercase_marks_keybindings = function()
 end
 
 M.set_quickfix_keybindings = function()
+    vim.keymap.set("n", "<leader>Q", "<cmd>lopen<CR>", { desc = "Open location list" })
+    vim.keymap.set("n", "<leader>q", "<cmd>copen<CR>", { desc = "Open quickfix list" })
+
     vim.keymap.set("n", "p", function()
         local win_id = vim.api.nvim_get_current_win()
         if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
