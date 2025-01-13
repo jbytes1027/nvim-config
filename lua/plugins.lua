@@ -372,6 +372,38 @@ return {
                         if client.server_capabilities.semanticTokensProvider then
                             client.server_capabilities.semanticTokensProvider = nil
                         end
+                        if client.server_capabilities.signatureHelpProvider then
+                            require("lsp-overloads").setup(client, {
+                                -- UI options are mostly the same as those passed to vim.lsp.util.open_floating_preview
+                                ui = {
+                                    border = "none", -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
+                                    wrap = true, -- Wrap long lines
+                                    wrap_at = nil, -- Character to wrap at for computing height when wrap enabled
+                                    max_width = nil, -- Maximum signature popup width
+                                    max_height = nil, -- Maximum signature popup height
+                                    -- Events that will close the signature popup window: use {"CursorMoved", "CursorMovedI", "InsertCharPre"} to hide the window when typing
+                                    close_events = { "CursorMoved", "BufHidden", "InsertLeave" },
+                                    focusable = true, -- Make the popup float focusable
+                                    focus = false, -- If focusable is also true, and this is set to true, navigating through overloads will focus into the popup window (probably not what you want)
+                                    silent = true, -- Prevents noisy notifications (make false to help debug why signature isn't working)
+                                },
+                                keymaps = {
+                                    next_signature = "<C-j>",
+                                    previous_signature = "<C-k>",
+                                    next_parameter = "<C-l>",
+                                    previous_parameter = "<C-h>",
+                                    close_signature = "<A-s>",
+                                    vim.api.nvim_buf_set_keymap(
+                                        bufnr,
+                                        "i",
+                                        "<C-k>",
+                                        "<cmd>LspOverloadsSignature<CR>",
+                                        {}
+                                    ),
+                                },
+                                display_automatically = false, -- Uses trigger characters to automatically display the signature overloads when typing a method signature
+                            })
+                        end
                     end,
                     on_exit = function(code, signal, client_id) vim.b.lsp_statusline_text = "" end,
                 })
@@ -486,6 +518,9 @@ return {
     {
         "mrjones2014/smart-splits.nvim",
         event = "VeryLazy",
+    },
+    {
+        "Issafalcon/lsp-overloads.nvim",
     },
     {
         "hrsh7th/nvim-cmp",
