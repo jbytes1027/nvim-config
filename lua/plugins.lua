@@ -368,7 +368,11 @@ return {
                 vim.tbl_extend("keep", require("lspconfig").util.default_config, {
                     before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
                     on_init = function(client, results) vim.b.lsp_statusline_text = "LSP" end,
-                    on_attach = function(client, bufnr) client.server_capabilities.semanticTokensProvider = nil end,
+                    on_attach = function(client, bufnr)
+                        if client.server_capabilities.semanticTokensProvider then
+                            client.server_capabilities.semanticTokensProvider = nil
+                        end
+                    end,
                     on_exit = function(code, signal, client_id) vim.b.lsp_statusline_text = "" end,
                 })
         end,
