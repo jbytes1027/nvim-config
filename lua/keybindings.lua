@@ -632,7 +632,7 @@ M.set_misc_keybindings = function()
     )
     vim.keymap.set(
         { "n" },
-        "yF",
+        "ys",
         '<cmd>:let @" = expand("%:t")<cr><cmd>:let @+ = expand("%:t")<cr><cmd>:let @* = expand("%:t")<cr>',
         { desc = "Yank file name" }
     )
