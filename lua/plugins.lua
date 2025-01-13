@@ -362,14 +362,14 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         init = function()
             require("lspconfig").util.default_config =
                 vim.tbl_extend("keep", require("lspconfig").util.default_config, {
                     before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
                     on_init = function(client, results) vim.b.lsp_statusline_text = "LSP" end,
                     on_attach = function(client, bufnr)
-                        if client.server_capabilities.semanticTokensProvider then
+                        if client.server_capabilities.semanticTokensProvider ~= nil then
                             client.server_capabilities.semanticTokensProvider = nil
                         end
                         if client.server_capabilities.signatureHelpProvider then
@@ -411,7 +411,7 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         dependencies = {
             "williamboman/mason.nvim",
             "neovim/nvim-lspconfig",
