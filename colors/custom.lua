@@ -125,7 +125,7 @@ local groups = {
     LspReferenceText = { ctermfg = cterm_colors.light_yellow, bold = config.bold },
     LspReferenceWrite = { ctermfg = cterm_colors.light_magenta, bold = config.bold },
     LspCodeLens = { ctermfg = cterm_colors.light_bg },
-    LspSignatureActiveParameter = { link = "Search" },
+    LspSignatureActiveParameter = { link = "Visual" },
     LspInlayHint = { link = "comment" },
     gitcommitSelectedFile = { ctermfg = cterm_colors.light_green },
     gitcommitDiscardedFile = { ctermfg = cterm_colors.light_red },
@@ -166,9 +166,9 @@ local groups = {
     Type = { ctermfg = cterm_colors.light_green },
     Attribute = { ctermfg = cterm_colors.light_green },
     Identifier = { ctermfg = cterm_colors.light_green }, -- any variable name, includes html tags
-    PreCondit = { ctermfg = cterm_colors.light_cyan },
-    Structure = { ctermfg = cterm_colors.light_cyan },
-    PreProc = { ctermfg = cterm_colors.light_magenta },
+    PreCondit = { ctermfg = cterm_colors.light_fg },
+    Structure = { ctermfg = cterm_colors.light_fg },
+    PreProc = { ctermfg = cterm_colors.light_fg },
     Tag = { link = "Identifier" },
     Comment = { ctermfg = cterm_colors.dark_fg },
     Include = { ctermfg = cterm_colors.light_red },
@@ -177,7 +177,7 @@ local groups = {
     Conditional = { link = "Statement" }, -- if, then, else, endif, switch, etc.
     Exception = { link = "Statement" },
     Label = { link = "Statement" }, -- case, default, etc.
-    Keyword = { link = "Statement" },
+    Keyword = { link = "None" },
     Operator = {}, -- "sizeof", "+", "*", etc.
     Function = { link = "None" }, -- function name (also: methods for classes) (both definitions and calls)
     Special = { ctermfg = cterm_colors.light_magenta },
@@ -185,16 +185,47 @@ local groups = {
     Done = {},
 
     -- Code Highlighting Extensions
-    ["@property.yaml"] = { link = "Identifier" },
+    luaFunc = { link = "Function" },
     jsonKeyword = { link = "Identifier" },
+    csAccess = { link = "None" },
+    csNew = { link = "None" },
+    csUnspecifiedStatement = { link = "None" },
+    csUnsupportedStatement = { link = "None" },
+    csUnspecifiedKeyword = { link = "None" },
+    csLabel = { link = "None" }, -- matches to 'default' which is used in places other that switch statements
+    csStorage = { link = "Type" },
+    csXhtmlTag = { link = "None" },
+    csXmlTag = { link = "Comment" },
+    csXmlAttrib = { link = "Comment" },
+    csClass = { link = "Type" },
     helpExample = { link = "None" },
+    cssIdentifier = { link = "Identifier" },
+    cssSelectorOp = { link = "None" },
+    cssClassName = { link = "Type" },
+    cssClassNameDot = { link = "Type" },
+    cssSelectorOp1 = { link = "None" },
+    cssAttrComma = { link = "None" },
+    cssProp = { link = "None" },
+    cssAttrRegion = { link = "Constant" },
+    htmlSpecialTagName = { link = "Tag" },
+    htmlEndTag = { link = "None" },
+    htmlArg = { link = "Delimiter" },
+    htmlError = { link = "None" },
+    javascript = { link = "None" },
+    javaConceptKind = { link = "Type" },
+    shQuote = { link = "String" },
+    docbkKeyword = { link = "Type" },
+    xmlEntityPunct = { link = "Special" },
+    xmlEntity = { link = "Special" },
+    xmlAttrib = { link = "None" },
     ["@field"] = { link = "@property" },
     ["@constructor"] = { link = "Function" },
     ["@none"] = { link = "None" }, -- used for C# format strings
     ["@string"] = { link = "String" },
     ["@string.regex"] = { link = "String" },
-    ["@string.escape"] = { link = "String" },
+    ["@string.escape"] = { link = "Special" },
     ["@string.special"] = { link = "String" },
+    ["@string.special.url"] = { link = "String" },
     ["@character"] = { link = "Character" },
     ["@character.special"] = { link = "SpecialChar" },
     ["@boolean"] = { link = "Boolean" },
@@ -206,11 +237,11 @@ local groups = {
     ["@function.builtin"] = { link = "Function" },
     ["@function.macro"] = { link = "Function" },
     ["@method"] = { link = "Function" },
-    ["@parameter"] = {},
-    ["@keyword"] = {},
-    ["@keyword.directive"] = { link = "Keyword" },
-    ["@keyword.import"] = { link = "Keyword" },
-    ["@keyword.return"] = { link = "Keyword" },
+    ["@parameter"] = { link = "None" },
+    ["@keyword"] = { link = "Keyword" },
+    ["@keyword.directive"] = { link = "Statement" },
+    ["@keyword.import"] = { link = "Statement" },
+    ["@keyword.return"] = { link = "Statement" },
     ["@keyword.function"] = { link = "Type" },
     ["@keyword.modifier"] = { link = "Type" },
     ["@keyword.type"] = { link = "Type" },
@@ -236,6 +267,7 @@ local groups = {
     ["@tag"] = { link = "Tag" },
     ["@tag.builtin"] = { link = "@tag" },
     ["@property"] = {}, -- class properties and lhs of json properties
+    ["@property.yaml"] = { link = "Identifier" },
     ["@property.json"] = { link = "Tag" }, -- class properties and lhs of json properties
     ["@property.jsonc"] = { link = "Tag" }, -- class properties and lhs of jsonc properties
     ["editorconfigUnknownProperty"] = { link = "Identifier" },
@@ -347,6 +379,8 @@ local groups = {
     gitDiffAdded = { link = "diffAdded" },
     gitDiffRemoved = { link = "diffRemoved" },
 }
+
+vim.g.html_no_rendering = 1
 
 vim.o.termguicolors = false
 vim.o.background = "dark" -- prevents colors from being reset
