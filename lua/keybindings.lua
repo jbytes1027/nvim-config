@@ -382,13 +382,11 @@ M.set_autocomplete_keybindings = function()
             feedkeys("<C-e>", "n")
         end
     end)
-    vim.keymap.set("i", "<C-l>", function()
+    vim.keymap.set("i", "<C-]>", function()
         local ls = require("luasnip")
         local cmp = require("cmp")
-        if cmp.visible() == true then
-            cmp.complete_common_string()
-        elseif ls.expandable() then
-            ls.expand()
+        if ls.expand_or_jumpable() then
+            ls.expand_or_jump()
         else
             cmp.complete({
                 config = {
@@ -397,22 +395,7 @@ M.set_autocomplete_keybindings = function()
                     },
                 },
             })
-        end
-    end)
-    vim.keymap.set("i", "<Tab>", function()
-        local ls = require("luasnip")
-        if ls.jumpable(1) then
-            ls.jump(1)
-        else
-            feedkeys("<Tab>", "n")
-        end
-    end)
-    vim.keymap.set("i", "<S-Tab>", function()
-        local ls = require("luasnip")
-        if ls.jumpable(-1) then
-            ls.jump(-1)
-        else
-            feedkeys("<S-Tab>", "n")
+            cmp.select_next_item()
         end
     end)
 end
