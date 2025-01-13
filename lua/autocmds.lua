@@ -8,8 +8,9 @@
 --     vim.api.nvim_create_namespace("auto_hlsearch")
 -- )
 
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-    callback = function() vim.opt.formatoptions:remove("o") end,
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+    -- See https://github.com/L3MON4D3/LuaSnip/issues/258
+    callback = function() require("luasnip").unlink_current() end,
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, { -- highlight text on yank
