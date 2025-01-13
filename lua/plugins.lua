@@ -1,5 +1,117 @@
 return {
     {
+        "ibhagwan/fzf-lua",
+        opts = function()
+            return {
+                defaults = {
+                    header = false,
+                    file_icons = false,
+                },
+                winopts = {
+                    height = 0.95,
+                    width = 0.95,
+                    row = 0.5,
+                    col = 0.5,
+                    border = "rounded",
+                    backdrop = 0,
+                    fullscreen = false,
+                    treesitter = {
+                        enabled = false,
+                    },
+                    preview = {
+                        default = "builtin", -- builtin|bat|cat|head
+                        wrap = false,
+                        vertical = "down:45%", -- up|down:size
+                        horizontal = "right:50%", -- right|left:size
+                        layout = "flex", -- horizontal|vertical|flex
+                        flip_columns = 120, -- #cols to switch to horizontal on flex
+                        title = true, -- preview border title (file/buf)?
+                        scrollbar = false, -- `false` or string:'float|border'
+                        delay = 20, -- delay(ms) displaying the preview. prevents lag on fast scrolling
+                        winopts = { -- builtin previewer window options
+                            number = false,
+                            relativenumber = false,
+                            cursorline = true,
+                            cursorlineopt = "both",
+                            cursorcolumn = false,
+                            signcolumn = "no",
+                            list = false,
+                            foldenable = false,
+                            foldmethod = "manual",
+                        },
+                    },
+                },
+                hls = {
+                    -- builtin preview only
+                    cursor = "Cursor",
+                    cursorline = "Visual",
+                    cursorlinenr = "Visual",
+                    search = "IncSearch",
+                },
+                previewers = {
+                    builtin = {
+                        syntax = true,
+                        treesitter = {
+                            enabled = false,
+                        },
+                    },
+                },
+                files = {
+                    git_icons = false,
+                    cwd_prompt = false,
+                },
+                grep = {
+                    rg_opts = "--ignore --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+
+                    actions = {
+                        -- actions inherit from 'actions.files' and merge
+                        -- this action toggles between 'grep' and 'live_grep'
+                        ["ctrl-g"] = { require("fzf-lua").actions.grep_lgrep },
+                        -- uncomment to enable '.gitignore' toggle for grep
+                        ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
+                    },
+                },
+                lsp = {
+                    cwd_only = false, -- LSP/diagnostics for cwd only?
+                    symbols = {
+                        prompt = " ",
+                        symbol_style = 3, -- style for document/workspace symbols. false: disable, 1: icon+kind 2: icon only, 3: kind only
+                        symbol_fmt = function(s, opts) return "[" .. s .. "]" end,
+                        child_prefix = true,
+                    },
+                },
+                keymap = {
+                    -- Below are the default binds, setting any value in these tables will override
+                    -- the defaults, to inherit from the defaults change [1] from `false` to `true`
+                    builtin = {
+                        ["<M-w>"] = "toggle-preview-wrap",
+                        ["<M-p>"] = "toggle-preview",
+                        ["<M-r>"] = "toggle-preview-cw", -- Rotate preview clockwise
+                        ["<M-d>"] = "preview-page-down",
+                        ["<M-u>"] = "preview-page-up",
+                        ["<M-e>"] = "preview-down",
+                        ["<M-y>"] = "preview-up",
+                    },
+                    fzf = {
+                        -- fzf '--bind=' options
+                        ["ctrl-z"] = "abort",
+                        ["ctrl-u"] = "unix-line-discard",
+                        ["ctrl-f"] = "half-page-down",
+                        ["ctrl-b"] = "half-page-up",
+                        ["ctrl-a"] = "beginning-of-line",
+                        ["ctrl-e"] = "end-of-line",
+                        ["alt-a"] = "toggle-all",
+                        ["alt-g"] = "first",
+                        ["alt-G"] = "last",
+                        ["ctrl-q"] = "select-all+accept",
+                        -- Only valid with fzf previewers (bat/cat/git/etc)
+                        ["alt-p"] = "toggle-preview",
+                    },
+                },
+            }
+        end,
+    },
+    {
         "Darazaki/indent-o-matic",
         opts = {
             -- Number of lines without indentation before giving up (use -1 for infinite)
@@ -178,51 +290,6 @@ return {
         end,
     },
     {
-        "nvim-telescope/telescope.nvim",
-        event = "VeryLazy",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            -- see https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
-            require("telescope").setup({
-                defaults = {
-                    scroll_strategy = "limit",
-                    sorting_strategy = "ascending",
-                    path_display = { "truncate" },
-                    layout_config = {
-                        horizontal = { prompt_position = "top" },
-                        height = 0.95,
-                        width = 0.95,
-                    },
-                    preview = {
-                        check_mime_type = false,
-                        filesize_limit = 5, -- in MB
-                        treesitter = false,
-                    },
-                    mappings = {
-                        i = {
-                            ["<esc>"] = require("telescope.actions").close,
-                            ["<C-h>"] = function() vim.api.nvim_input("<C-w>") end, -- enable ctrl-backspace
-                            ["<C-f>"] = require("telescope.actions").results_scrolling_down,
-                            ["<C-b>"] = require("telescope.actions").results_scrolling_up,
-                            ["<C-/>"] = require("telescope.actions").which_key,
-                            ["<C-u>"] = { "<C-o>dd", type = "command" },
-                            ["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
-                        },
-                    },
-                },
-                pickers = {
-                    buffers = {
-                        mappings = {
-                            i = {
-                                ["<C-e>"] = require("telescope.actions").delete_buffer,
-                            },
-                        },
-                    },
-                },
-            })
-        end,
-    },
-    {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
         opts = {
@@ -249,7 +316,7 @@ return {
     {
         "nvimtools/none-ls.nvim",
         event = "VeryLazy",
-        dependencies = { "jay-babu/mason-null-ls.nvim" },
+        dependencies = { "jay-babu/mason-null-ls.nvim", "nvim-lua/plenary.nvim" },
         config = function()
             local null_ls = require("null-ls")
             local dotnet_format = {

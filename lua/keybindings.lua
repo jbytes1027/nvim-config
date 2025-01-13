@@ -9,134 +9,91 @@ M.set_searching_keybindings = function()
     vim.keymap.set(
         { "n" },
         "<leader>ff",
-        function() require("telescope.builtin").find_files() end,
+        function()
+            require("fzf-lua").files({
+                fd_opts = [[--color=never --type f --hidden --follow --exclude .git]],
+            })
+        end,
         { desc = "Find files" }
     )
-    vim.keymap.set({ "n" }, "<A-f>", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
     vim.keymap.set(
         { "n" },
         "<leader>fF",
-        function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end,
-        { desc = "Find all files" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<A-F>",
-        function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end,
+        function()
+            require("fzf-lua").files({
+                fd_opts = [[--no-ignore --color=never --type f --hidden --follow --exclude .git]],
+            })
+        end,
         { desc = "Find all files" }
     )
     vim.keymap.set(
         { "n" },
         "<leader>fd",
-        function()
-            require("telescope.builtin").diagnostics({ bufnr = 0, severity_limit = vim.diagnostic.severity.WARN })
-        end,
+        function() require("fzf-lua").diagnostics_document({ severity_limit = "warn" }) end,
         { desc = "Find buffer diagnostics" }
     )
     vim.keymap.set(
         { "n" },
         "<leader>fD",
-        function()
-            require("telescope.builtin").diagnostics({ root_dir = true, severity_limit = vim.diagnostic.severity.WARN })
-        end,
+        function() require("fzf-lua").diagnostics_workspace({ severity_limit = "warn" }) end,
         { desc = "Find all diagnostics" }
     )
     vim.keymap.set(
         { "n" },
         "<leader>fs",
-        function() require("telescope.builtin").lsp_document_symbols() end,
+        function() require("fzf-lua").lsp_document_symbols() end,
         { desc = "Find buffer symbols" }
     )
     vim.keymap.set(
         { "n" },
         "<leader>fS",
-        function() require("telescope.builtin").lsp_workspace_symbols() end,
+        function() require("fzf-lua").lsp_live_workspace_symbols() end,
         { desc = "Find workspace symbols" }
     )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fk",
-        function() require("telescope.builtin").keymaps() end,
-        { desc = "Find keymaps" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fm",
-        function() require("telescope.builtin").marks() end,
-        { desc = "Find man pages" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fb",
-        function() require("telescope.builtin").buffers() end,
-        { desc = "Find buffers" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fc",
-        function() require("telescope.builtin").grep_string() end,
-        { desc = "Find word under cursor" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fC",
-        function() require("telescope.builtin").commands() end,
-        { desc = "Find commands" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fh",
-        function() require("telescope.builtin").help_tags() end,
-        { desc = "Find help" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fo",
-        function() require("telescope.builtin").oldfiles() end,
-        { desc = "Find history" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>fr",
-        function() require("telescope.builtin").registers() end,
-        { desc = "Find registers" }
-    )
+    vim.keymap.set({ "n" }, "<leader>fb", function() require("fzf-lua").buffers() end, { desc = "Find buffers" })
+    vim.keymap.set({ "n" }, "<leader>fh", function() require("fzf-lua").helptags() end, { desc = "Find help" })
+    vim.keymap.set({ "n" }, "<leader>fo", function() require("fzf-lua").oldfiles() end, { desc = "Find history" })
     vim.keymap.set(
         { "n" },
         "<leader>fw",
-        function() require("telescope.builtin").live_grep() end,
+        function()
+            require("fzf-lua").live_grep({
+                rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+            })
+        end,
         { desc = "Find words" }
     )
-    vim.keymap.set({ "n" }, "<leader>fW", function()
-        require("telescope.builtin").live_grep({
-            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-        })
-    end, { desc = "Find words in all files" })
+    vim.keymap.set(
+        { "n" },
+        "<leader>fW",
+        function()
+            require("fzf-lua").live_grep({
+                rg_opts = "--no-ignore --hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+            })
+        end,
+        { desc = "Find words in all files" }
+    )
     vim.keymap.set(
         { "x" },
         "<leader>fw",
-        function() require("telescope.builtin").grep_string() end,
+        function()
+            require("fzf-lua").grep_visual({
+                rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+            })
+        end,
         { desc = "Find words" }
     )
-    vim.keymap.set({ "x" }, "<leader>fW", function()
-        require("telescope.builtin").grep_string({
-            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-        })
-    end, { desc = "Find words in all files" })
     vim.keymap.set(
-        { "n" },
-        "<leader>fl",
-        function() require("telescope.builtin").resume() end,
-        { desc = "Resume last search" }
+        { "x" },
+        "<leader>fW",
+        function()
+            require("fzf-lua").grep_visual({
+                rg_opts = "--no-ignore --hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+            })
+        end,
+        { desc = "Find words in all files" }
     )
-    vim.keymap.set({ "n" }, "<leader>ls", function()
-        local aerial_avail, _ = pcall(require, "aerial")
-        if aerial_avail then
-            require("telescope").extensions.aerial.aerial()
-        else
-            require("telescope.builtin").lsp_document_symbols()
-        end
-    end, { desc = "Search symbols" })
+    vim.keymap.set({ "n" }, "<leader>fl", function() require("fzf-lua").resume() end, { desc = "Resume last search" })
 end
 
 M.set_lsp_keybindings = function()
