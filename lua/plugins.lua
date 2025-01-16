@@ -426,6 +426,7 @@ return {
                 -- Next, provide a dedicated handler for specific servers.
                 ["omnisharp"] = function()
                     require("lspconfig").omnisharp.setup({
+                        autostart = false,
                         filetypes = { "cs", "vb", "csx" },
                         single_file_support = true,
                         settings = { -- see https://github.com/OmniSharp/omnisharp-roslyn/tree/master/src/OmniSharp.Shared/Options for options
