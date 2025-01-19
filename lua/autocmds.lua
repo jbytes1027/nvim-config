@@ -16,3 +16,8 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 vim.api.nvim_create_autocmd({ "TextYankPost" }, { -- highlight text on yank
     callback = function() vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 }) end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { -- highlight text on yank
+    pattern = "*.cshtml",
+    command = "setf razor",
+})
