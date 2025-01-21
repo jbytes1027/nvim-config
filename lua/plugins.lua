@@ -369,6 +369,7 @@ return {
                     before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
                     on_init = function(client, results) vim.b.lsp_statusline_text = "LSP" end,
                     on_attach = function(client, bufnr)
+                        vim.b.lsp_statusline_text = "LSP"
                         if client.server_capabilities.semanticTokensProvider ~= nil then
                             client.server_capabilities.semanticTokensProvider = nil
                         end
