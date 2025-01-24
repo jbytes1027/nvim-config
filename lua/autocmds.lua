@@ -21,3 +21,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = "*.cshtml",
     command = "setf razor",
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = "*.min.*",
+    command = "TSDisable highlight | syntax off",
+})
