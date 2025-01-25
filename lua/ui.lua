@@ -18,7 +18,7 @@ local function ui_notify(silent, ...) return not silent and vim.notify(...) end
 --- Toggle diagnostics
 ---@param silent? boolean if true then don't sent a notification
 function M.toggle_diagnostics(silent)
-    if vim.diagnostic.is_disabled() then
+    if not vim.diagnostic.is_enabled() then
         ui_notify(silent, string.format("diagnostics are disabled"))
         return
     end
