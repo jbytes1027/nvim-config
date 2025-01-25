@@ -540,6 +540,7 @@ return {
             require("plain-lf").setup({
                 enable_cmds = true,
                 replace_netrw = true,
+                ---@diagnostic disable-next-line: missing-fields
                 ui = {
                     height = 0.95,
                     width = 0.95,
