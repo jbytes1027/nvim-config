@@ -152,8 +152,6 @@ local groups = {
     CmpItemAbbrMatch = { ctermfg = cterm_colors.light_blue },
     CmpItemMenu = { ctermfg = cterm_colors.light_bg },
     CmpItemKind = { ctermfg = cterm_colors.dark_fg },
-    AerialConstructorIcon = { link = "None" },
-    AerialClassIcon = { link = "None" },
 
     -- Code Highlighting Base
     Title = { ctermfg = cterm_colors.light_green, bold = config.bold },
