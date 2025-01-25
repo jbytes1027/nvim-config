@@ -1,8 +1,3 @@
-if vim.version().minor < 9 then
-    print("NVIM 9 or above required to load config")
-    return
-end
-
 require("options")
 require("gruvbox").load()
 vim.cmd("colorscheme custom")

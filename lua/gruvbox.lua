@@ -65,11 +65,6 @@ end
 
 --- main load function
 Gruvbox.load = function()
-    if vim.version().minor < 8 then
-        vim.notify_once("gruvbox.nvim: you must use neovim 0.8 or higher")
-        return
-    end
-
     local groups = get_groups()
 
     -- add highlights
