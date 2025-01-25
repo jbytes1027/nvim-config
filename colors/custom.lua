@@ -225,7 +225,7 @@ local groups = {
     rInherits = { link = "Statement" },
     ["@field"] = { link = "@property" },
     ["@constructor"] = { link = "Function" },
-    ["@none"] = { link = "None" }, -- used for C# format strings
+    ["@none"] = { link = "Normal" }, -- used for C# format strings
     ["@string"] = { link = "String" },
     ["@string.regex"] = { link = "String" },
     ["@string.escape"] = { link = "Special" },
@@ -313,6 +313,7 @@ local groups = {
     ["@markup.list.checked"] = { link = "@markup.list" },
     ["@markup.list.unchecked"] = { link = "@markup.list" },
     ["Delimiter"] = {},
+    ["@punctuation.special.c_sharp"] = { link = "@none" },
 
     -- Markdown
     mkdFootnotes = { link = "Constant" },
