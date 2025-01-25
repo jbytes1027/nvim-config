@@ -40,5 +40,3 @@ vim.o.quickfixtextfunc = "{args -> v:lua.require'ui'.quickfixtextfunc(args)}"
 -- remove the "How-to disable mouse" menu item and the separator above it: >vim
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
 vim.cmd("aunmenu PopUp.-1-")
-
-require("ui").set_diagnostics(false) -- disable diagnostics displaying on startup
