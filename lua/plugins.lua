@@ -461,6 +461,19 @@ return {
                         },
                     })
                 end,
+                ["markdown_oxide"] = function()
+                    local capabilities =
+                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+                    require("lspconfig").markdown_oxide.setup({
+                        capabilities = vim.tbl_deep_extend("force", capabilities, {
+                            workspace = {
+                                didChangeWatchedFiles = {
+                                    dynamicRegistration = true,
+                                },
+                            },
+                        }),
+                    })
+                end,
             },
         },
     },
@@ -514,7 +527,14 @@ return {
                     async_budget = 200,
                 },
                 sources = require("cmp").config.sources({
-                    { name = "nvim_lsp", priority = 1000 },
+                    {
+                        name = "nvim_lsp",
+                        option = {
+                            markdown_oxide = {
+                                keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+                            },
+                        },
+                    },
                     { name = "buffer", priority = 500 },
                     { name = "path", priority = 250 },
                 }),
