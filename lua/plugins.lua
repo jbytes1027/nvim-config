@@ -1,8 +1,10 @@
 return {
     {
         "ibhagwan/fzf-lua",
-        opts = function()
-            return {
+        config = function()
+            require("keybindings").setup_fzf_lua_keybindings()
+
+            require("fzf-lua").setup({
                 defaults = {
                     header = false,
                     file_icons = false,
@@ -108,7 +110,7 @@ return {
                         ["alt-p"] = "toggle-preview",
                     },
                 },
-            }
+            })
         end,
     },
     {
@@ -127,10 +129,21 @@ return {
     {
         "stevearc/aerial.nvim",
         event = "VeryLazy",
-        opts = function()
-            local aerial_keymap = require("keybindings").aerial_keymap
+        config = function()
+            vim.keymap.set(
+                { "n", "x" },
+                "gO",
+                function() require("aerial").open({ focus = true, direction = "right" }) end,
+                { desc = "Focus outline" }
+            )
+            vim.keymap.set(
+                { "n", "x" },
+                "<leader>o",
+                function() require("aerial").toggle({ focus = false, direction = "right" }) end,
+                { desc = "Open outline" }
+            )
 
-            return {
+            require("aerial").setup({
                 -- Priority list of preferred backends for aerial.
                 backends = { "treesitter", "lsp", "markdown", "man" },
                 post_jump_cmd = "normal! zt",
@@ -141,7 +154,7 @@ return {
                 preserve_equality = true,
                 default_direction = "right",
 
-                keymaps = aerial_keymap,
+                keymaps = require("keybindings").aerial_keymap,
 
                 ignore = {
                     unlisted_buffers = false,
@@ -174,7 +187,7 @@ return {
                     },
                     preview = true,
                 },
-            }
+            })
         end,
     },
     {
@@ -292,17 +305,21 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
-        opts = {
-            signcolumn = false,
-            numhl = false,
-            update_debounce = 200,
-            preview_config = {
-                border = "none",
-                relative = "cursor",
-                row = 1,
-                col = 0,
-            },
-        },
+        config = function()
+            require("keybindings").setup_gitsigns_keybindings()
+
+            require("gitsigns").setup({
+                signcolumn = false,
+                numhl = false,
+                update_debounce = 200,
+                preview_config = {
+                    border = "none",
+                    relative = "cursor",
+                    row = 1,
+                    col = 0,
+                },
+            })
+        end,
     },
     {
         "Hoffs/omnisharp-extended-lsp.nvim",
@@ -318,6 +335,8 @@ return {
         event = "VeryLazy",
         dependencies = { "jay-babu/mason-null-ls.nvim", "nvim-lua/plenary.nvim" },
         config = function()
+            vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
+
             local null_ls = require("null-ls")
             local dotnet_format = {
                 method = null_ls.methods.FORMATTING,
@@ -369,6 +388,8 @@ return {
                     before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
                     on_init = function(client, results) vim.b.lsp_statusline_text = "LSP" end,
                     on_attach = function(client, bufnr)
+                        require("keybindings").set_lsp_keybindings()
+
                         vim.b.lsp_statusline_text = "LSP"
                         if client.server_capabilities.semanticTokensProvider ~= nil then
                             client.server_capabilities.semanticTokensProvider = nil
@@ -508,18 +529,28 @@ return {
     {
         "jbytes1027/plain-lf.nvim",
         enabled = vim.fn.executable("lf") == 1,
-        opts = {
-            enable_cmds = true,
-            replace_netrw = true,
-            ui = {
-                height = 0.95,
-                width = 0.95,
-            },
-        },
+        config = function()
+            vim.keymap.set({ "n" }, "<leader>e", function() require("plain-lf").open(true) end, {
+                noremap = true,
+                desc = "Open explorer",
+            })
+
+            require("plain-lf").setup({
+                enable_cmds = true,
+                replace_netrw = true,
+                ui = {
+                    height = 0.95,
+                    width = 0.95,
+                },
+            })
+        end,
     },
     {
         "mrjones2014/smart-splits.nvim",
         event = "VeryLazy",
+        config = function()
+            require("keybindings").setup_smart_splits_keybindings()
+        end,
     },
     {
         "Issafalcon/lsp-overloads.nvim",
@@ -534,6 +565,8 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
+            require("keybindings").setup_autocomplete_keybindings()
+
             require("cmp").setup({
                 performance = {
                     debounce = 10,

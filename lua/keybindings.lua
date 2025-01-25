@@ -5,7 +5,7 @@ end
 
 local M = {}
 
-M.set_searching_keybindings = function()
+M.setup_fzf_lua_keybindings = function()
     vim.keymap.set(
         { "n" },
         "<leader>ff",
@@ -100,7 +100,6 @@ M.set_lsp_keybindings = function()
     local buff_has_lsp = function() return next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil end
 
     vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
-    vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
     vim.keymap.set({ "i" }, "<C-k>", function() vim.lsp.buf.signature_help() end, { desc = "Show signature" })
     vim.keymap.set({ "n", "x" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
     vim.keymap.set({ "n", "x" }, "gd", function()
@@ -149,7 +148,7 @@ M.set_lsp_keybindings = function()
     )
 end
 
-M.set_window_and_buffer_keybindings = function()
+M.setup_window_and_buffer_keybindings = function()
     -- Buffer
     vim.keymap.set({ "n" }, "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
     vim.keymap.set({ "n" }, "]B", "<cmd>blast<cr>", { desc = "Last buffer" })
@@ -164,6 +163,9 @@ M.set_window_and_buffer_keybindings = function()
     vim.keymap.set({ "n" }, "<A-j>", "<cmd>wincmd j<cr>", { desc = "Down window navigation" })
     vim.keymap.set({ "n" }, "<A-k>", "<cmd>wincmd k<cr>", { desc = "Up window navigation" })
     vim.keymap.set({ "n" }, "<A-l>", "<cmd>wincmd l<cr>", { desc = "Right window navigation" })
+end
+
+M.setup_smart_splits_keybindings = function()
     vim.keymap.set(
         { "n" },
         "<A-S-h>",
@@ -215,7 +217,7 @@ M.set_window_and_buffer_keybindings = function()
     )
 end
 
-M.set_git_keybindings = function()
+M.setup_gitsigns_keybindings = function()
     vim.keymap.set({ "n" }, "]c", function()
         if vim.wo.diff then
             vim.cmd("normal! ]c")
@@ -295,7 +297,7 @@ M.set_git_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
 end
 
-M.set_toggle_keybindings = function()
+M.setup_toggle_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>ud", require("ui").toggle_diagnostics, { desc = "Toggle diagnostics" })
     vim.keymap.set({ "n" }, "<leader>ug", require("ui").toggle_signcolumn, { desc = "Toggle signcolumn" })
     vim.keymap.set({ "n" }, "<leader>ui", require("ui").set_indent, { desc = "Change indent setting" })
@@ -315,7 +317,7 @@ M.set_toggle_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>uf", require("ui").toggle_foldcolumn, { desc = "Toggle foldcolumn" })
 end
 
-M.set_autocomplete_keybindings = function()
+M.setup_autocomplete_keybindings = function()
     vim.keymap.set("i", "<C-Space>", function()
         local cmp = require("cmp")
         if cmp.visible() == false then
@@ -400,7 +402,7 @@ M.set_autocomplete_keybindings = function()
     end)
 end
 
-M.set_lowercase_marks_keybindings = function()
+M.setup_lowercase_marks_keybindings = function()
     -- Use lowercase for global marks and uppercase for local marks.
     local low = function(i) return string.char(97 + i) end
     local upp = function(i) return string.char(65 + i) end
@@ -423,7 +425,7 @@ M.set_lowercase_marks_keybindings = function()
     end
 end
 
-M.set_quickfix_keybindings = function()
+M.setup_quickfix_keybindings = function()
     vim.keymap.set(
         { "n" },
         "[q",
@@ -576,7 +578,7 @@ M.set_quickfix_keybindings = function()
     end, { desc = "Go to the previous quickfix item" })
 end
 
-M.set_misc_keybindings = function()
+M.setup_misc_keybindings = function()
     local function open(uri)
         local cmd
         if vim.fn.has("win32") == 1 then
@@ -604,14 +606,6 @@ M.set_misc_keybindings = function()
         end
     end
 
-    local function open_explorer()
-        if require("lazy.core.config").spec.plugins["plain-lf.nvim"] ~= nil then
-            require("plain-lf-nvim").open(true)
-        else
-            vim.cmd("Explore")
-        end
-    end
-    vim.keymap.set({ "n" }, "<leader>e", "", { callback = open_explorer, noremap = true, desc = "Open explorer" })
     vim.keymap.set({ "n" }, "<leader>n", "<cmd>enew<cr>", { desc = "New file" })
     vim.keymap.set({ "i" }, "<C-Del>", "<C-o>dw") -- enable ctrl-delete
     vim.keymap.set({ "n", "x" }, "<A-.>", "zL")
@@ -643,18 +637,6 @@ M.set_misc_keybindings = function()
         { desc = "Yank file directory path" }
     )
     vim.keymap.set({ "n" }, "<leader>gD", require("cmds").DiffOrg, { desc = "View Unsaved Changes Diff" })
-    vim.keymap.set(
-        { "n", "x" },
-        "gO",
-        function() require("aerial").open({ focus = true, direction = "right" }) end,
-        { desc = "Focus outline" }
-    )
-    vim.keymap.set(
-        { "n", "x" },
-        "<leader>o",
-        function() require("aerial").toggle({ focus = false, direction = "right" }) end,
-        { desc = "Open outline" }
-    )
 
     vim.keymap.set({ "n", "x" }, "zM", function()
         vim.wo.foldenable = true
@@ -702,15 +684,11 @@ M.aerial_keymap = {
 M.setup = function()
     vim.keymap.set("", "<leader>", "") -- disable plane space key
 
-    M.set_searching_keybindings()
-    M.set_lsp_keybindings()
-    M.set_window_and_buffer_keybindings()
-    M.set_git_keybindings()
-    M.set_toggle_keybindings()
-    M.set_autocomplete_keybindings()
-    M.set_lowercase_marks_keybindings()
-    M.set_misc_keybindings()
-    M.set_quickfix_keybindings()
+    M.setup_window_and_buffer_keybindings()
+    M.setup_toggle_keybindings()
+    M.setup_lowercase_marks_keybindings()
+    M.setup_misc_keybindings()
+    M.setup_quickfix_keybindings()
 end
 
 return M
