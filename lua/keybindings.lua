@@ -237,7 +237,7 @@ M.setup_gitsigns_keybindings = function()
     vim.keymap.set(
         { "n" },
         "<leader>gB",
-        function() require("gitsigns").blame_line({ full = true }) end,
+        function() require("gitsigns").blame() end,
         { desc = "View full git blame" }
     )
     vim.keymap.set(
