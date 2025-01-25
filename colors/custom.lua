@@ -207,6 +207,8 @@ local groups = {
     cssAttrComma = { link = "None" },
     cssProp = { link = "None" },
     cssAttrRegion = { link = "Constant" },
+    htmlTagN = { link = "htmlTagName" },
+    htmlTagName = { link = "Type" },
     htmlSpecialTagName = { link = "Tag" },
     htmlEndTag = { link = "None" },
     htmlArg = { link = "Delimiter" },
@@ -218,6 +220,9 @@ local groups = {
     xmlEntityPunct = { link = "Special" },
     xmlEntity = { link = "Special" },
     xmlAttrib = { link = "None" },
+    rCodeLine = { link = "Statement" },
+    rUsing = { link = "Statement" },
+    rInherits = { link = "Statement" },
     ["@field"] = { link = "@property" },
     ["@constructor"] = { link = "Function" },
     ["@none"] = { link = "None" }, -- used for C# format strings
@@ -312,7 +317,6 @@ local groups = {
     -- Markdown
     mkdFootnotes = { link = "Constant" },
     htmlItalic = { link = "None", italic = config.italic },
-    htmlTagName = { link = "Type" },
     mkdLink = { link = "Constant" },
     mkdUrl = { link = "Comment" },
     mkdInlineUrl = { link = "Constant" },
