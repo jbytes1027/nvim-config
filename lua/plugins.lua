@@ -1,6 +1,7 @@
 return {
     {
         "ibhagwan/fzf-lua",
+        event = "VeryLazy",
         config = function()
             require("keybindings").setup_fzf_lua_keybindings()
 
@@ -328,6 +329,7 @@ return {
     {
         "williamboman/mason.nvim",
         event = "VeryLazy",
+        cmd = "Mason",
         opts = {}, -- force calling setup
     },
     {
@@ -381,8 +383,8 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        -- event = "VeryLazy",
-        init = function()
+        event = "VeryLazy",
+        config = function()
             require("lspconfig").util.default_config =
                 vim.tbl_extend("keep", require("lspconfig").util.default_config, {
                     before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
@@ -433,7 +435,7 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        -- event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
             "neovim/nvim-lspconfig",
@@ -554,6 +556,7 @@ return {
     },
     {
         "Issafalcon/lsp-overloads.nvim",
+        event = "VeryLazy",
     },
     {
         "hrsh7th/nvim-cmp",
