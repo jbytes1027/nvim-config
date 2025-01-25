@@ -550,9 +550,7 @@ return {
     {
         "mrjones2014/smart-splits.nvim",
         event = "VeryLazy",
-        config = function()
-            require("keybindings").setup_smart_splits_keybindings()
-        end,
+        config = function() require("keybindings").setup_smart_splits_keybindings() end,
     },
     {
         "Issafalcon/lsp-overloads.nvim",
