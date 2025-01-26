@@ -218,9 +218,7 @@ local groups = {
     xmlEntityPunct = { link = "Special" },
     xmlEntity = { link = "Special" },
     xmlAttrib = { link = "None" },
-    rCodeLine = { link = "Statement" },
-    rUsing = { link = "Statement" },
-    rInherits = { link = "Statement" },
+    rTransition = { link = "Statement" },
     ["@field"] = { link = "@property" },
     ["@constructor"] = { link = "Function" },
     ["@none"] = { link = "Normal" }, -- used for C# format strings
