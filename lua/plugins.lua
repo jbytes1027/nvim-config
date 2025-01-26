@@ -62,11 +62,14 @@ return {
                     },
                 },
                 files = {
+                    files = { fzf_opts = { ["--ansi"] = false } },
                     git_icons = false,
                     cwd_prompt = false,
                 },
                 grep = {
-                    rg_opts = "--ignore --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+                    fzf_opts = { ["--ansi"] = false },
+                    rg_glob = false, -- will trigger `opts.requires_processing`
+                    rg_opts = "--column --line-number --no-heading --color=never --smart-case --max-columns=4096 -e",
 
                     actions = {
                         -- actions inherit from 'actions.files' and merge
