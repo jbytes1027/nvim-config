@@ -11,7 +11,7 @@ M.setup_fzf_lua_keybindings = function()
         "<leader>ff",
         function()
             require("fzf-lua").files({
-                fd_opts = [[--color=never --type f --hidden --follow --exclude .git]],
+                fd_opts = [[--color=never --type f --follow --exclude .git]],
             })
         end,
         { desc = "Find files" }
@@ -58,7 +58,7 @@ M.setup_fzf_lua_keybindings = function()
         "<leader>fw",
         function()
             require("fzf-lua").live_grep({
-                rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+                rg_opts = "--column --line-number --no-heading --color=never --smart-case --max-columns=4096 -e",
             })
         end,
         { desc = "Find words" }
@@ -68,7 +68,7 @@ M.setup_fzf_lua_keybindings = function()
         "<leader>fW",
         function()
             require("fzf-lua").live_grep({
-                rg_opts = "--no-ignore --hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+                rg_opts = "--no-ignore --hidden --column --line-number --no-heading --color=never --smart-case --max-columns=4096 -e",
             })
         end,
         { desc = "Find words in all files" }
@@ -78,7 +78,7 @@ M.setup_fzf_lua_keybindings = function()
         "<leader>fw",
         function()
             require("fzf-lua").grep_visual({
-                rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+                rg_opts = "--hidden --column --line-number --no-heading --color=never --smart-case --max-columns=4096 -e",
             })
         end,
         { desc = "Find words" }
@@ -88,51 +88,85 @@ M.setup_fzf_lua_keybindings = function()
         "<leader>fW",
         function()
             require("fzf-lua").grep_visual({
-                rg_opts = "--no-ignore --hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+                rg_opts = "--no-ignore --hidden --column --line-number --no-heading --color=never --smart-case --max-columns=4096 -e",
             })
         end,
         { desc = "Find words in all files" }
     )
+    vim.keymap.set("n", "<leader>Q", function() require("fzf-lua").loclist() end, { desc = "Open location list" })
+    vim.keymap.set("n", "<leader>q", function() require("fzf-lua").quickfix() end, { desc = "Open quickfix list" })
+    vim.keymap.set(
+        { "n" },
+        "<leader>fr",
+        function() require("fzf-lua").lsp_references() end,
+        { desc = "Find references" }
+    )
     vim.keymap.set({ "n" }, "<leader>fl", function() require("fzf-lua").resume() end, { desc = "Resume last search" })
+    vim.keymap.set(
+        { "n" },
+        "<leader>lc",
+        function() require("fzf-lua").lsp_incoming_calls() end,
+        { desc = "View incoming calls" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "<leader>lC",
+        function() require("fzf-lua").lsp_outgoing_calls() end,
+        { desc = "View outgoing calls" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "gr",
+        function() require("fzf-lua").lsp_references() end,
+        { desc = "References of current symbol" }
+    )
 end
 
 M.set_lsp_keybindings = function()
     local buff_has_lsp = function() return next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil end
+    local on_list = function(opts)
+        vim.fn.setqflist({}, " ", opts)
+        if #opts.items == 1 then
+            vim.cmd.cfirst()
+        else
+            require("fzf-lua").quickfix()
+        end
+    end
 
     vim.keymap.set({ "n" }, "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
     vim.keymap.set({ "i" }, "<C-k>", function() vim.lsp.buf.signature_help() end, { desc = "Show signature" })
     vim.keymap.set({ "n", "x" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
-    vim.keymap.set({ "n", "x" }, "gd", function()
-        if buff_has_lsp() then
-            vim.lsp.buf.definition()
-        else
-            feedkeys("gd", "n")
-        end
-    end, { desc = "Show the definition of current symbol" })
-    vim.keymap.set({ "n", "x" }, "gD", function()
-        if buff_has_lsp() then
-            vim.lsp.buf.declaration()
-        else
-            feedkeys("gD", "n")
-        end
-    end, { desc = "Declaration of current symbol" })
+    vim.keymap.set(
+        { "n", "x" },
+        "gd",
+        function() vim.lsp.buf.definition({ on_list = on_list }) end,
+        { desc = "Show the definition of current symbol" }
+    )
+    vim.keymap.set(
+        { "n", "x" },
+        "gD",
+        function() vim.lsp.buf.declaration({ on_list = on_list }) end,
+        { desc = "Declaration of current symbol" }
+    )
     vim.keymap.set(
         { "n" },
         "gI",
-        function() vim.lsp.buf.implementation() end,
+        function() vim.lsp.buf.implementation({ on_list = on_list }) end,
         { desc = "Implementation of current symbol" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "gy",
+        function() vim.lsp.buf.type_definition({ on_list = on_list }) end,
+        { desc = "Definition of current type" }
     )
     vim.keymap.set({ "n" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
     vim.keymap.set({ "x" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format selection" })
     vim.keymap.set({ "n" }, "<leader>lc", function() vim.lsp.buf.incoming_calls() end, { desc = "View incoming calls" })
     vim.keymap.set({ "n" }, "<leader>lC", function() vim.lsp.buf.outgoing_calls() end, { desc = "View outgoing calls" })
-    vim.keymap.set({ "n" }, "gr", function() vim.lsp.buf.references() end, { desc = "References of current symbol" })
-    vim.keymap.set({ "n" }, "<leader>lR", function() vim.lsp.buf.references() end, { desc = "Search references" })
     vim.keymap.set({ "n" }, "<leader>lr", function() vim.lsp.buf.rename() end, { desc = "Rename current symbol" })
     vim.keymap.set({ "n" }, "<leader>lh", function() vim.lsp.buf.signature_help() end, { desc = "Signature help" })
-    vim.keymap.set({ "n" }, "<leader>ll", vim.lsp.codelens.refresh, { desc = "LSP CodeLens refresh" })
     vim.keymap.set({ "n", "x" }, "<leader>lL", vim.lsp.codelens.run, { desc = "LSP CodeLens run" })
-    vim.keymap.set({ "n" }, "gy", function() vim.lsp.buf.type_definition() end, { desc = "Definition of current type" })
     vim.keymap.set({ "n" }, "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" })
     vim.keymap.set(
         { "n" },
@@ -234,12 +268,7 @@ M.setup_gitsigns_keybindings = function()
     end, { desc = "Jump to prev hunk" })
 
     vim.keymap.set({ "n" }, "<leader>gb", function() require("gitsigns").blame_line() end, { desc = "View git blame" })
-    vim.keymap.set(
-        { "n" },
-        "<leader>gB",
-        function() require("gitsigns").blame() end,
-        { desc = "View full git blame" }
-    )
+    vim.keymap.set({ "n" }, "<leader>gB", function() require("gitsigns").blame() end, { desc = "View full git blame" })
     vim.keymap.set(
         { "n" },
         "<leader>gp",
@@ -459,9 +488,6 @@ M.setup_quickfix_keybindings = function()
     )
     vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
     vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
-
-    vim.keymap.set("n", "<leader>Q", "<cmd>lopen<CR>", { desc = "Open location list" })
-    vim.keymap.set("n", "<leader>q", "<cmd>copen<CR>", { desc = "Open quickfix list" })
 
     vim.keymap.set("n", "p", function()
         local win_id = vim.api.nvim_get_current_win()

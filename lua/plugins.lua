@@ -9,6 +9,8 @@ return {
                 defaults = {
                     header = false,
                     file_icons = false,
+                    copen = "FzfLua quickfix",
+                    lopen = "FzfLua loclist",
                 },
                 winopts = {
                     height = 0.95,
