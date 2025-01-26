@@ -123,7 +123,6 @@ M.setup_fzf_lua_keybindings = function()
 end
 
 M.set_lsp_keybindings = function()
-    local buff_has_lsp = function() return next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil end
     local on_list = function(opts)
         vim.fn.setqflist({}, " ", opts)
         if #opts.items == 1 then
@@ -162,11 +161,10 @@ M.set_lsp_keybindings = function()
     )
     vim.keymap.set({ "n" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
     vim.keymap.set({ "x" }, "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format selection" })
-    vim.keymap.set({ "n" }, "<leader>lc", function() vim.lsp.buf.incoming_calls() end, { desc = "View incoming calls" })
-    vim.keymap.set({ "n" }, "<leader>lC", function() vim.lsp.buf.outgoing_calls() end, { desc = "View outgoing calls" })
     vim.keymap.set({ "n" }, "<leader>lr", function() vim.lsp.buf.rename() end, { desc = "Rename current symbol" })
     vim.keymap.set({ "n" }, "<leader>lh", function() vim.lsp.buf.signature_help() end, { desc = "Signature help" })
-    vim.keymap.set({ "n", "x" }, "<leader>lL", vim.lsp.codelens.run, { desc = "LSP CodeLens run" })
+    vim.keymap.set({ "n" }, "<leader>ll", function() vim.lsp.codelens.refresh() end, { desc = "LSP CodeLens refresh" })
+    vim.keymap.set({ "n", "x" }, "<leader>lL", function() vim.lsp.codelens.run() end, { desc = "LSP CodeLens run" })
     vim.keymap.set({ "n" }, "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" })
     vim.keymap.set(
         { "n" },
