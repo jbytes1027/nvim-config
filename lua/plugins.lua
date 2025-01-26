@@ -85,6 +85,52 @@ return {
                         child_prefix = true,
                     },
                 },
+                quickfix = {
+                    actions = {
+                        ["ctrl-x"] = {
+                            reload = false,
+                            fn = function(selected, opts)
+                                print(vim.inspect(opts.__reload_cmd))
+
+                                -- Inspired from fzf-lua/actions.lua
+                                local list_to_remove = {}
+                                for i = 1, #selected do
+                                    local file = require("fzf-lua").path.entry_to_file(selected[i], opts)
+                                    local text = file.stripped:match(":%d+:%d?%d?%d?%d?:?(.*)$")
+                                    table.insert(list_to_remove, {
+                                        bufnr = file.bufnr,
+                                        filename = file.bufname or file.path or file.uri,
+                                        lnum = file.line > 0 and file.line or 1,
+                                        col = file.col,
+                                        text = text,
+                                    })
+                                end
+
+                                -- Get the current quickfix list
+                                local quickfix_list = vim.fn.getqflist()
+
+                                local filtered_list = vim.tbl_filter(function(qf_item)
+                                    for _, value in pairs(list_to_remove) do
+                                        if value.lnum == qf_item.lnum and value.col == qf_item.col then
+                                            local filename = vim.api.nvim_buf_get_name(qf_item.bufnr)
+
+                                            if value.bufnr == qf_item.bufnr or value.filename == filename then
+                                                return false
+                                            end
+                                        end
+                                    end
+                                    return true
+                                    -- return not string.match(item.text, selected)
+                                end, quickfix_list)
+
+                                -- Update the quickfix list with the filtered list
+                                vim.fn.setqflist(filtered_list, "r")
+
+                                require("fzf-lua").quickfix()
+                            end,
+                        },
+                    },
+                },
                 keymap = {
                     -- Below are the default binds, setting any value in these tables will override
                     -- the defaults, to inherit from the defaults change [1] from `false` to `true`
