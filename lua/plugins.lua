@@ -163,7 +163,7 @@ return {
                 auto_install = true,
 
                 -- List of parsers to ignore installing (or "all")
-                ignore_install = { "diff" },
+                ignore_install = { "diff", "html" },
 
                 highlight = {
                     enable = true,
