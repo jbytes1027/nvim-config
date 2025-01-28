@@ -23,14 +23,10 @@ function M.toggle_diagnostics(silent)
         return
     end
 
-    if vim.g.diagnostics_hidden == nil then vim.g.diagnostics_hidden = false end
-    M.set_diagnostics(vim.g.diagnostics_hidden)
-    ui_notify(silent, string.format("diagnostics %s", bool2str(not vim.g.diagnostics_hidden)))
-end
-
-function M.set_diagnostics(enabled)
-    vim.g.diagnostics_hidden = not enabled
+    require("lsp").diagnostics_hidden = not require("lsp").diagnostics_hidden
     require("lsp").diagnostics_set_config()
+
+    ui_notify(silent, string.format("diagnostics %s", bool2str(not require("lsp").diagnostics_hidden)))
 end
 
 --- Toggle cmp entrirely

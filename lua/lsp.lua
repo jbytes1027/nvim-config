@@ -1,5 +1,7 @@
 local M = {}
 
+M.diagnostics_hidden = true
+
 M.diagnostics_set_config = function()
     local config = {
         signs = false,
@@ -16,7 +18,7 @@ M.diagnostics_set_config = function()
         },
     }
 
-    if vim.g.diagnostics_hidden then
+    if M.diagnostics_hidden then
         config.virtual_text = false
         config.underline = false
     end

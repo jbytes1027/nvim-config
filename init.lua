@@ -1,5 +1,5 @@
 require("options")
-require("ui").set_diagnostics(false) -- disable diagnostics displaying on startup
+require("lsp").diagnostics_set_config() -- disable diagnostics displaying on startup
 require("gruvbox").load()
 vim.cmd("colorscheme custom")
 
