@@ -2,18 +2,20 @@ local M = {}
 
 M.diagnostics_hidden = true
 
+M.diagnostics_min_severity = vim.diagnostic.severity.WARN;
+
 M.diagnostics_set_config = function()
     local config = {
         signs = false,
         virtual_text = {
             prefix = "🞙",
             severity = {
-                min = vim.diagnostic.severity.WARN,
+                min = M.diagnostics_min_severity,
             },
         },
         underline = {
             severity = {
-                min = vim.diagnostic.severity.WARN,
+                min = M.diagnostics_min_severity,
             },
         },
     }

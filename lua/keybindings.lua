@@ -169,13 +169,13 @@ M.set_lsp_keybindings = function()
     vim.keymap.set(
         { "n" },
         "[d",
-        function() vim.diagnostic.goto_prev({ float = true, severity = { min = vim.diagnostic.severity.WARN } }) end,
+        function() vim.diagnostic.goto_prev({ float = true, severity = { min = require("lsp").diagnostics_min_severity } }) end,
         { desc = "Previous diagnostic" }
     )
     vim.keymap.set(
         { "n" },
         "]d",
-        function() vim.diagnostic.goto_next({ float = true, severity = { min = vim.diagnostic.severity.WARN } }) end,
+        function() vim.diagnostic.goto_next({ float = true, severity = { min = require("lsp").diagnostics_min_severity } }) end,
         { desc = "Next diagnostic" }
     )
 end
@@ -326,6 +326,7 @@ end
 
 M.setup_toggle_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>ud", require("ui").toggle_diagnostics, { desc = "Toggle diagnostics" })
+    vim.keymap.set({ "n" }, "<leader>uD", require("ui").toggle_diagnostics_severity, { desc = "Toggle diagnostics severity" })
     vim.keymap.set({ "n" }, "<leader>ug", require("ui").toggle_signcolumn, { desc = "Toggle signcolumn" })
     vim.keymap.set({ "n" }, "<leader>ui", require("ui").set_indent, { desc = "Change indent setting" })
     vim.keymap.set({ "n" }, "<leader>un", require("ui").change_number, { desc = "Change line numbering" })

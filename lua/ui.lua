@@ -29,6 +29,26 @@ function M.toggle_diagnostics(silent)
     ui_notify(silent, string.format("diagnostics %s", bool2str(not require("lsp").diagnostics_hidden)))
 end
 
+-- Toggle diagnostics severity
+-- @param silent? boolean if true then don't sent a notification
+function M.toggle_diagnostics_severity(silent)
+    if require("lsp").diagnostics_min_severity == vim.diagnostic.severity.WARN then
+        require("lsp").diagnostics_min_severity = vim.diagnostic.severity.HINT
+    else
+        require("lsp").diagnostics_min_severity = vim.diagnostic.severity.WARN
+    end
+
+    require("lsp").diagnostics_set_config()
+
+    ui_notify(
+        silent,
+        string.format(
+            "diagnostics severity set to %s",
+            vim.diagnostic.severity[require("lsp").diagnostics_min_severity]
+        )
+    )
+end
+
 --- Toggle cmp entrirely
 ---@param silent? boolean if true then don't sent a notification
 function M.toggle_cmp(silent)
