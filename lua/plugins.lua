@@ -585,6 +585,7 @@ return {
                                 keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
                             },
                         },
+                        priority = 1000,
                     },
                     { name = "buffer", priority = 500 },
                     { name = "path", priority = 250 },
