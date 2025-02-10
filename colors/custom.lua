@@ -349,6 +349,12 @@ local groups = {
     QfFileName = { link = "None" },
     QfLineNr = { link = "None" },
 
+    -- SQL
+    ["@keyword.sql"] = { link = "Statement" },
+    ["@type.sql"] = { link = "None" },
+    ["@type.builtin.sql"] = { link = "None" },
+    ["@attribute.sql"] = { link = "None" },
+
     -- Git diffs
     gitHead = { link = "Constant" },
     gitKeyword = { link = "Constant" },
