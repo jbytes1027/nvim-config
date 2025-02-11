@@ -314,6 +314,7 @@ local groups = {
     -- Markdown
     mkdFootnotes = { link = "Constant" },
     htmlItalic = { link = "None", italic = config.italic },
+    mkdRule = { link = "None" },
     mkdLink = { link = "Constant" },
     mkdUrl = { link = "Comment" },
     mkdInlineUrl = { link = "Constant" },
