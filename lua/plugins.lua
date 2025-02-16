@@ -477,6 +477,7 @@ return {
                                 EnableScriptNuGetReferences = false,
                             },
                             FormattingOptions = {
+                                OrganizeImports = true,
                                 EnableEditorConfigSupport = true,
                             },
                         },
