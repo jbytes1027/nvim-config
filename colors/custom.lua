@@ -135,7 +135,6 @@ local groups = {
     GitSignsAddNr = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_green },
     GitSignsChangeNr = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_green },
     GitSignsDeleteNr = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_red },
-    debugPC = { ctermbg = cterm_colors.light_blue },
     netrwDir = { ctermfg = cterm_colors.light_cyan },
     netrwClassify = { ctermfg = cterm_colors.light_cyan },
     netrwLink = { ctermfg = cterm_colors.light_bg },
