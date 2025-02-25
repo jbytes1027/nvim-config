@@ -357,7 +357,7 @@ local groups = {
     ["@type.builtin.sql"] = { link = "None" },
     ["@attribute.sql"] = { link = "None" },
 
-    -- Git diffs
+    -- Git diff files
     gitHead = { link = "Constant" },
     gitKeyword = { link = "Constant" },
     gitIdentity = { link = "Special" },
