@@ -137,6 +137,15 @@ local groups = {
     GitSignsAddNr = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_green },
     GitSignsChangeNr = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_green },
     GitSignsDeleteNr = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_red },
+    TelescopeSelection = { ctermfg = cterm_colors.light_blue, ctermbg = cterm_colors.dark_bg, reverse = true },
+    TelescopeMatching = { ctermfg = cterm_colors.light_blue, bold = config.bold, underline = true },
+    TelescopePromptPrefix = { link = "TelescopeNormal" },
+    CmpItemAbbrDeprecated = { ctermfg = cterm_colors.light_fg },
+    CmpItemAbbrMatch = { ctermfg = cterm_colors.light_blue },
+    CmpItemMenu = { ctermfg = cterm_colors.light_bg },
+    CmpItemKind = { ctermfg = cterm_colors.dark_fg },
+
+    -- Netrw plugin
     netrwDir = { ctermfg = cterm_colors.light_cyan },
     netrwClassify = { ctermfg = cterm_colors.light_cyan },
     netrwLink = { ctermfg = cterm_colors.light_bg },
@@ -146,13 +155,6 @@ local groups = {
     netrwList = { ctermfg = cterm_colors.light_blue },
     netrwHelpCmd = { ctermfg = cterm_colors.light_cyan },
     netrwVersion = { ctermfg = cterm_colors.light_green },
-    TelescopeSelection = { ctermfg = cterm_colors.light_blue, ctermbg = cterm_colors.dark_bg, reverse = true },
-    TelescopeMatching = { ctermfg = cterm_colors.light_blue, bold = config.bold, underline = true },
-    TelescopePromptPrefix = { link = "TelescopeNormal" },
-    CmpItemAbbrDeprecated = { ctermfg = cterm_colors.light_fg },
-    CmpItemAbbrMatch = { ctermfg = cterm_colors.light_blue },
-    CmpItemMenu = { ctermfg = cterm_colors.light_bg },
-    CmpItemKind = { ctermfg = cterm_colors.dark_fg },
 
     -- Code Highlighting Base
     Title = { ctermfg = cterm_colors.light_green, bold = config.bold },
