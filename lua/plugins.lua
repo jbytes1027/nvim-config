@@ -57,7 +57,11 @@ return {
                     builtin = {
                         syntax = true,
                         treesitter = {
-                            enabled = false,
+                            enabled = true,
+                        },
+                        ext_ft_override = {
+                            ["js"] = "text",
+                            ["css"] = "text",
                         },
                     },
                 },
