@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, { -- highlight text on yank
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = { "*.cshtml", "*.razor" },
-    command = "setf razor",
+    command = "setf razor | set syntax=razor",
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
