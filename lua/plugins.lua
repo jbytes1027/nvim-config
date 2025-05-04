@@ -72,7 +72,7 @@ return {
                 },
                 grep = {
                     fzf_opts = { ["--ansi"] = false },
-                    rg_glob = false, -- will trigger `opts.requires_processing`
+                    rg_glob = true, -- true required for windows support
                     rg_opts = "--column --line-number --no-heading --color=never --smart-case --max-columns=4096 -e",
 
                     actions = {
