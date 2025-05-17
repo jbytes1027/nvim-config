@@ -19,7 +19,7 @@ local cterm_colors = {
 
 local config = {
     invert_signs = false,
-    bold = true,
+    bold = false,
     italic = false,
 }
 
