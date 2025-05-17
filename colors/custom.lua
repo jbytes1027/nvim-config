@@ -64,7 +64,7 @@ local groups = {
     CursorColumn = { link = "CursorLine" },
     CursorLineNr = { ctermbg = cterm_colors.light_bg },
     Pmenu = { ctermfg = cterm_colors.light_fg, ctermbg = cterm_colors.light_bg },
-    PmenuSel = { ctermfg = cterm_colors.light_bg, ctermbg = cterm_colors.light_blue },
+    PmenuSel = { ctermfg = cterm_colors.dark_fg, ctermbg = cterm_colors.light_blue },
     PmenuSbar = { ctermbg = cterm_colors.light_bg },
     PmenuThumb = { ctermbg = cterm_colors.dark_fg },
     FloatBorder = { link = "WinSeparator" },
