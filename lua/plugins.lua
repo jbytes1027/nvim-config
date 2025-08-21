@@ -328,7 +328,7 @@ return {
         event = "VeryLazy",
         dependencies = { "jay-babu/mason-null-ls.nvim", "nvim-lua/plenary.nvim" },
         config = function()
-            vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
+            require("keybindings").set_lsp_keybindings()
 
             local null_ls = require("null-ls")
             local dotnet_format = {
