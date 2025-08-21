@@ -26,3 +26,19 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = "*.min.*",
     command = "TSDisable highlight | syntax off",
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(ev)
+        vim.b.lsp_statusline_text = "LSP"
+        require("keybindings").set_lsp_keybindings()
+    end,
+})
+
+vim.api.nvim_create_autocmd("LspDetach", {
+    callback = function(ev)
+        local count = #vim.lsp.get_clients({ bufnr = 0 })
+
+        -- If last lsp client
+        if count == 1 then vim.b.lsp_statusline_text = "" end
+    end,
+})

@@ -328,8 +328,6 @@ return {
         event = "VeryLazy",
         dependencies = { "jay-babu/mason-null-ls.nvim", "nvim-lua/plenary.nvim" },
         config = function()
-            require("keybindings").set_lsp_keybindings()
-
             local null_ls = require("null-ls")
             local dotnet_format = {
                 method = null_ls.methods.FORMATTING,
@@ -379,11 +377,7 @@ return {
             require("lspconfig").util.default_config =
                 vim.tbl_extend("keep", require("lspconfig").util.default_config, {
                     before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
-                    on_init = function(client, results) vim.b.lsp_statusline_text = "LSP" end,
                     on_attach = function(client, bufnr)
-                        require("keybindings").set_lsp_keybindings()
-
-                        vim.b.lsp_statusline_text = "LSP"
                         if client.server_capabilities.semanticTokensProvider ~= nil then
                             client.server_capabilities.semanticTokensProvider = nil
                         end
@@ -420,7 +414,6 @@ return {
                             })
                         end
                     end,
-                    on_exit = function(code, signal, client_id) vim.b.lsp_statusline_text = "" end,
                 })
         end,
     },
