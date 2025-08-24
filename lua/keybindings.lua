@@ -347,7 +347,7 @@ M.setup_toggle_keybindings = function()
 end
 
 M.setup_autocomplete_keybindings = function()
-    vim.keymap.set("i", "<C-Space>", function()
+    vim.keymap.set("i", "<C-x><C-o>", function()
         local cmp = require("cmp")
         if cmp.visible() == false then
             cmp.complete()
