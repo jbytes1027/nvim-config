@@ -182,11 +182,6 @@ M.set_lsp_keybindings = function()
 end
 
 M.setup_window_and_buffer_keybindings = function()
-    -- Buffer
-    vim.keymap.set({ "n" }, "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-    vim.keymap.set({ "n" }, "]B", "<cmd>blast<cr>", { desc = "Last buffer" })
-    vim.keymap.set({ "n" }, "[b", "<cmd>bprev<cr>", { desc = "Prev buffer" })
-    vim.keymap.set({ "n" }, "[B", "<cmd>bfirst<cr>", { desc = "First buffer" })
     -- Window
     vim.keymap.set({ "n" }, "<leader>w", "<cmd>close<cr>", { desc = "Close window" })
     vim.keymap.set({ "n" }, "<A-w>", "<cmd>close<cr>", { desc = "Close window" })
@@ -455,40 +450,6 @@ M.setup_lowercase_marks_keybindings = function()
 end
 
 M.setup_quickfix_keybindings = function()
-    vim.keymap.set(
-        { "n" },
-        "[q",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "cprev") end,
-        { desc = "Prev quickfix item" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "]q",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "cnext") end,
-        { desc = "Next quickfix item" }
-    )
-    vim.keymap.set({ "n" }, "[Q", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
-    vim.keymap.set({ "n" }, "]Q", "<cmd>clast<cr>", { desc = "Last quickfix item" })
-
-    vim.keymap.set(
-        { "n" },
-        "[l",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "lprev") end,
-        { desc = "Prev location list item" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "]l",
-        ---@diagnostic disable-next-line: param-type-mismatch
-        function() pcall(vim.cmd, vim.v.count1 .. "lnext") end,
-        { desc = "Next location list item" }
-    )
-    vim.keymap.set({ "n" }, "[L", "<cmd>lfirst<cr>", { desc = "First location list item" })
-    vim.keymap.set({ "n" }, "]L", "<cmd>llast<cr>", { desc = "Last location list item" })
-
     vim.keymap.set("n", "p", function()
         local win_id = vim.api.nvim_get_current_win()
         if vim.fn.getwininfo(win_id)[1]["quickfix"] == 1 then
