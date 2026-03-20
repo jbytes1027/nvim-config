@@ -3,7 +3,6 @@ require("lsp").diagnostics_set_config() -- disable diagnostics displaying on sta
 require("gruvbox").load()
 vim.cmd("colorscheme custom")
 
-require("cmds") -- load autocommands
 require("autocmds") -- load autocommands
 require("commands") -- Load commands
 require("statusline") -- Setup status bar

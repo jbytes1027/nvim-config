@@ -623,7 +623,7 @@ M.setup_misc_keybindings = function()
         '<cmd>:let @" = expand("%:p:h")<cr><cmd>:let @+ = expand("%:p:h")<cr><cmd>:let @* = expand("%:p:h")<cr>',
         { desc = "Yank file directory path" }
     )
-    vim.keymap.set({ "n" }, "<leader>gD", require("cmds").DiffOrg, { desc = "View Unsaved Changes Diff" })
+    vim.keymap.set({ "n" }, "<leader>gD", require("commands").DiffOrg, { desc = "View Unsaved Changes Diff" })
 
     vim.keymap.set({ "n", "x" }, "zM", function()
         vim.wo.foldenable = true
