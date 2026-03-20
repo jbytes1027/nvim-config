@@ -623,6 +623,21 @@ M.setup_misc_keybindings = function()
         '<cmd>:let @" = expand("%:p:h")<cr><cmd>:let @+ = expand("%:p:h")<cr><cmd>:let @* = expand("%:p:h")<cr>',
         { desc = "Yank file directory path" }
     )
+    vim.keymap.set(
+        { "n" },
+        "gp",
+        function()
+            local clipboard_text = vim.fn.getreg("+")
+                :gsub("^%s+", "")   -- trim leading whitespace
+                :gsub("%s+$", "")   -- trim trailing whitespace
+                :gsub("\r", "")     -- remove CR
+                :gsub("\n", "")     -- remove LF
+
+            require("commands").JumpToFileLine(clipboard_text)
+        end,
+        { desc = "Go to clipboard path" }
+    )
+
     vim.keymap.set({ "n" }, "<leader>gD", require("commands").DiffOrg, { desc = "View Unsaved Changes Diff" })
 
     vim.keymap.set({ "n", "x" }, "zM", function()
