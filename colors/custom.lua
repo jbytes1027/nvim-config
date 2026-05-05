@@ -186,6 +186,7 @@ local groups = {
     Done = {},
 
     -- Code Highlighting Extensions
+    xsdElement = { link = "Type" },
     luaFunc = { link = "Function" },
     jsonKeyword = { link = "Identifier" },
     csAccess = { link = "None" },
@@ -221,6 +222,7 @@ local groups = {
     xmlEntityPunct = { link = "Special" },
     xmlEntity = { link = "Special" },
     xmlAttrib = { link = "None" },
+    xmlAttribPunct = { link = "None" }, -- Punct = Punctuation
     rTransition = { link = "Statement" },
     ["@field"] = { link = "@property" },
     ["@constructor"] = { link = "Function" },
