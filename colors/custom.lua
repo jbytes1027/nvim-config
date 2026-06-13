@@ -320,9 +320,9 @@ local groups = {
     mkdFootnotes = { link = "Constant" },
     htmlItalic = { link = "None", italic = config.italic },
     mkdRule = { link = "None" },
-    mkdLink = { link = "Constant" },
+    mkdLink = {},
     mkdUrl = { link = "Comment" },
-    mkdInlineUrl = { link = "Constant" },
+    mkdInlineUrl = { link = "mkdLink" },
     markdownCode = { link = "Constant" },
     markdownEscape = { link = "None" },
     mkdLineBreak = { link = "None" },
@@ -333,7 +333,7 @@ local groups = {
     ["@markup.link.url.markdown"] = { link = "Comment" },
     ["@markup.link.url.markdown_inline"] = { link = "Comment" },
     ["@markup.link.label.markdown"] = { link = "Comment" },
-    ["@markup.link.label.markdown_inline"] = { link = "Constant" },
+    ["@markup.link.label.markdown_inline"] = { link = "mkdLink" },
 
     -- Clear html inline markup
     ["@markup.heading.html"] = {},
