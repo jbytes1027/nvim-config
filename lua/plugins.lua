@@ -318,6 +318,12 @@ return {
         event = "VeryLazy",
     },
     {
+        "GustavEikaas/easy-dotnet.nvim",
+        ft = { "cs", "csx", "vb", "razor" },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function() require("easy-dotnet").setup() end,
+    },
+    {
         "williamboman/mason.nvim",
         event = "VeryLazy",
         cmd = "Mason",
