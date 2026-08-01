@@ -165,7 +165,7 @@ local groups = {
     Number = { link = "Constant" },
     Float = { link = "Constant" },
     Type = { ctermfg = cterm_colors.light_cyan },
-    Attribute = { link = "Type" } ,
+    Attribute = { link = "Type" },
     Identifier = { link = "Type" }, -- any variable name, includes html tags
     PreCondit = { ctermfg = cterm_colors.light_fg },
     Structure = { ctermfg = cterm_colors.light_fg },

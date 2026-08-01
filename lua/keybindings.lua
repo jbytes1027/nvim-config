@@ -170,13 +170,17 @@ M.set_lsp_keybindings = function()
     vim.keymap.set(
         { "n" },
         "[d",
-        function() vim.diagnostic.goto_prev({ float = true, severity = { min = require("lsp").diagnostics_min_severity } }) end,
+        function()
+            vim.diagnostic.goto_prev({ float = true, severity = { min = require("lsp").diagnostics_min_severity } })
+        end,
         { desc = "Previous diagnostic" }
     )
     vim.keymap.set(
         { "n" },
         "]d",
-        function() vim.diagnostic.goto_next({ float = true, severity = { min = require("lsp").diagnostics_min_severity } }) end,
+        function()
+            vim.diagnostic.goto_next({ float = true, severity = { min = require("lsp").diagnostics_min_severity } })
+        end,
         { desc = "Next diagnostic" }
     )
 end
@@ -322,7 +326,12 @@ end
 
 M.setup_toggle_keybindings = function()
     vim.keymap.set({ "n" }, "<leader>ud", require("ui").toggle_diagnostics, { desc = "Toggle diagnostics" })
-    vim.keymap.set({ "n" }, "<leader>uD", require("ui").toggle_diagnostics_severity, { desc = "Toggle diagnostics severity" })
+    vim.keymap.set(
+        { "n" },
+        "<leader>uD",
+        require("ui").toggle_diagnostics_severity,
+        { desc = "Toggle diagnostics severity" }
+    )
     vim.keymap.set({ "n" }, "<leader>ug", require("ui").toggle_signcolumn, { desc = "Toggle signcolumn" })
     vim.keymap.set({ "n" }, "<leader>ui", require("ui").set_indent, { desc = "Change indent setting" })
     vim.keymap.set({ "n" }, "<leader>un", require("ui").change_number, { desc = "Change line numbering" })
@@ -623,20 +632,17 @@ M.setup_misc_keybindings = function()
         '<cmd>:let @" = expand("%:p:h")<cr><cmd>:let @+ = expand("%:p:h")<cr><cmd>:let @* = expand("%:p:h")<cr>',
         { desc = "Yank file directory path" }
     )
-    vim.keymap.set(
-        { "n" },
-        "gp",
-        function()
-            local clipboard_text = vim.fn.getreg("+")
-                :gsub("^%s+", "")   -- trim leading whitespace
-                :gsub("%s+$", "")   -- trim trailing whitespace
-                :gsub("\r", "")     -- remove CR
-                :gsub("\n", "")     -- remove LF
+    vim.keymap.set({ "n" }, "gp", function()
+        local clipboard_text = vim
+            .fn
+            .getreg("+")
+            :gsub("^%s+", "") -- trim leading whitespace
+            :gsub("%s+$", "") -- trim trailing whitespace
+            :gsub("\r", "") -- remove CR
+            :gsub("\n", "") -- remove LF
 
-            require("commands").JumpToFileLine(clipboard_text)
-        end,
-        { desc = "Go to clipboard path" }
-    )
+        require("commands").JumpToFileLine(clipboard_text)
+    end, { desc = "Go to clipboard path" })
 
     vim.keymap.set({ "n" }, "<leader>gD", require("commands").DiffOrg, { desc = "View Unsaved Changes Diff" })
 

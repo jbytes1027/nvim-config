@@ -284,7 +284,7 @@ M.enable_lemminx_if_installed = function()
 
     vim.lsp.config(cmd, {
         cmd = { cmd },
-        filetypes = { "xml", "xsd", "xslt", "svg", },
+        filetypes = { "xml", "xsd", "xslt", "svg" },
         root_markers = { ".git" },
     })
 

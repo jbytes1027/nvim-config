@@ -337,17 +337,11 @@ return {
                 })
             end
 
-            if vim.fn.executable("black") == 1 then
-                null_ls.register(null_ls.builtins.formatting.black)
-            end
+            if vim.fn.executable("black") == 1 then null_ls.register(null_ls.builtins.formatting.black) end
 
-            if vim.fn.executable("stylua") == 1 then
-                null_ls.register(null_ls.builtins.formatting.stylua)
-            end
+            if vim.fn.executable("stylua") == 1 then null_ls.register(null_ls.builtins.formatting.stylua) end
 
-            if vim.fn.executable("prettier") == 1 then
-                null_ls.register(null_ls.builtins.formatting.prettier)
-            end
+            if vim.fn.executable("prettier") == 1 then null_ls.register(null_ls.builtins.formatting.prettier) end
 
             -- For prebuild configs, check https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
             -- For manual configuing, see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md#sources

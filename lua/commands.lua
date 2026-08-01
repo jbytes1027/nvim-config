@@ -54,14 +54,10 @@ function M.JumpToFileLine(input)
     end
 
     -- Match trailing ":"
-    if not path then
-        path = input:match("^(.*):$")
-    end
+    if not path then path = input:match("^(.*):$") end
 
     -- Fallback: whole string is path
-    if not path then
-        path = input
-    end
+    if not path then path = input end
 
     -- Expand and normalize
     path = vim.fn.expand(path)
@@ -79,16 +75,14 @@ function M.JumpToFileLine(input)
     end
 end
 
-vim.api.nvim_create_user_command('Goto', function(params)
-    M.JumpToFileLine(params.args)
-end, { nargs = 1 })
+vim.api.nvim_create_user_command("Goto", function(params) M.JumpToFileLine(params.args) end, { nargs = 1 })
 
 function M.DiffOrg()
     local og_filetype = vim.o.filetype
     vim.cmd(
         "vert new | set buftype=nofile | set filetype="
-        .. og_filetype
-        .. "| read ++edit # | 0d_| diffthis | wincmd p | diffthis"
+            .. og_filetype
+            .. "| read ++edit # | 0d_| diffthis | wincmd p | diffthis"
     )
 end
 
