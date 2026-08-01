@@ -2,7 +2,7 @@ local M = {}
 
 M.diagnostics_hidden = true
 
-M.diagnostics_min_severity = vim.diagnostic.severity.WARN;
+M.diagnostics_min_severity = vim.diagnostic.severity.WARN
 
 M.diagnostics_set_config = function()
     local config = {
