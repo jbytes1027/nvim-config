@@ -304,42 +304,53 @@ return {
                     to_stdin = false,
                 }),
             }
-            local gdformat = {
-                method = null_ls.methods.FORMATTING,
-                filetypes = { "gdscript" },
-                generator = null_ls.formatter({
-                    command = "gdformat",
-                    args = { "$FILENAME" },
-                    to_temp_file = true,
-                    from_temp_file = true,
-                }),
-            }
-            local jq = {
-                name = "jq",
-                method = null_ls.methods.FORMATTING,
-                filetypes = { "json", "jsonc" },
-                generator = helpers.formatter_factory({
-                    command = "jq",
-                    args = { "--indent", "4", ".", "$FILENAME" },
-                    to_temp_file = false,
-                    from_temp_file = false,
-                    from_stdin = true,
-                    to_stdin = true,
-                }),
-            }
+
+            null_ls.setup()
+
+            if vim.fn.executable("gdformat") == 1 then
+                null_ls.register({
+                    name = "gdformat",
+                    method = null_ls.methods.FORMATTING,
+                    filetypes = { "gdscript" },
+                    generator = null_ls.formatter({
+                        command = "gdformat",
+                        args = { "$FILENAME" },
+                        to_temp_file = true,
+                        from_temp_file = true,
+                    }),
+                })
+            end
+
+            if vim.fn.executable("jq") == 1 then
+                null_ls.register({
+                    name = "jq",
+                    method = null_ls.methods.FORMATTING,
+                    filetypes = { "json", "jsonc" },
+                    generator = helpers.formatter_factory({
+                        command = "jq",
+                        args = { "--indent", "4", ".", "$FILENAME" },
+                        to_temp_file = false,
+                        from_temp_file = false,
+                        from_stdin = true,
+                        to_stdin = true,
+                    }),
+                })
+            end
+
+            if vim.fn.executable("black") == 1 then
+                null_ls.register(null_ls.builtins.formatting.black)
+            end
+
+            if vim.fn.executable("stylua") == 1 then
+                null_ls.register(null_ls.builtins.formatting.stylua)
+            end
+
+            if vim.fn.executable("prettier") == 1 then
+                null_ls.register(null_ls.builtins.formatting.prettier)
+            end
+
             -- For prebuild configs, check https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
             -- For manual configuing, see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md#sources
-            null_ls.setup({
-                sources = {
-                    -- Anything not supported by mason.
-                    -- dotnet_format,
-                    gdformat,
-                    jq,
-                    null_ls.builtins.formatting.prettier,
-                    null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.formatting.black,
-                },
-            })
         end,
     },
     {
