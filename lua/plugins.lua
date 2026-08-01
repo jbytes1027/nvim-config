@@ -326,15 +326,19 @@ return {
     {
         "williamboman/mason.nvim",
         event = "VeryLazy",
-        cmd = "Mason",
-        opts = {}, -- force calling setup
+        config = function()
+            require("mason").setup()
+            -- Needs to be ran after mason so that executables are in the path
+            require("lsp").enable_installed()
+        end,
     },
     {
         "nvimtools/none-ls.nvim",
         event = "VeryLazy",
-        dependencies = { "jay-babu/mason-null-ls.nvim", "nvim-lua/plenary.nvim" },
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local null_ls = require("null-ls")
+            local helpers = require("null-ls.helpers")
             local dotnet_format = {
                 method = null_ls.methods.FORMATTING,
                 filetypes = { "cs" },
@@ -354,183 +358,33 @@ return {
                     from_temp_file = true,
                 }),
             }
+            local jq = {
+                name = "jq",
+                method = null_ls.methods.FORMATTING,
+                filetypes = { "json", "jsonc" },
+                generator = helpers.formatter_factory({
+                    command = "jq",
+                    args = { "--indent", "4", ".", "$FILENAME" },
+                    to_temp_file = false,
+                    from_temp_file = false,
+                    from_stdin = true,
+                    to_stdin = true,
+                }),
+            }
+            -- For prebuild configs, check https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
+            -- For manual configuing, see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md#sources
             null_ls.setup({
-                sources = { -- see https://github.com/nvimtools/none-ls.nvim/blob/main/doc/HELPERS.md
+                sources = {
                     -- Anything not supported by mason.
                     -- dotnet_format,
                     gdformat,
+                    jq,
+                    null_ls.builtins.formatting.prettier,
+                    null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.formatting.black,
                 },
             })
         end,
-    },
-    {
-        "jay-babu/mason-null-ls.nvim",
-        event = "VeryLazy",
-        cmd = { "NullLsInstall", "NullLsUninstall" },
-        dependencies = { "williamboman/mason.nvim" },
-        opts = {
-            ensure_installed = {
-                -- Opt to list sources here, when available in mason.
-            },
-            automatic_installation = false,
-            handlers = {},
-        },
-    },
-    {
-        "neovim/nvim-lspconfig",
-        event = "VeryLazy",
-        config = function()
-            require("lspconfig").util.default_config =
-                vim.tbl_extend("keep", require("lspconfig").util.default_config, {
-                    before_init = function(params, config) vim.b.lsp_statusline_text = "..." end,
-                    on_attach = function(client, bufnr)
-                        if client.server_capabilities.semanticTokensProvider ~= nil then
-                            client.server_capabilities.semanticTokensProvider = nil
-                        end
-                        if client.server_capabilities.signatureHelpProvider then
-                            require("lsp-overloads").setup(client, {
-                                -- UI options are mostly the same as those passed to vim.lsp.util.open_floating_preview
-                                ui = {
-                                    border = "none", -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
-                                    wrap = true, -- Wrap long lines
-                                    wrap_at = nil, -- Character to wrap at for computing height when wrap enabled
-                                    max_width = nil, -- Maximum signature popup width
-                                    max_height = nil, -- Maximum signature popup height
-                                    -- Events that will close the signature popup window: use {"CursorMoved", "CursorMovedI", "InsertCharPre"} to hide the window when typing
-                                    close_events = { "CursorMoved", "BufHidden", "InsertLeave" },
-                                    focusable = true, -- Make the popup float focusable
-                                    focus = false, -- If focusable is also true, and this is set to true, navigating through overloads will focus into the popup window (probably not what you want)
-                                    silent = true, -- Prevents noisy notifications (make false to help debug why signature isn't working)
-                                },
-                                keymaps = {
-                                    next_signature = "<C-j>",
-                                    previous_signature = "<C-k>",
-                                    next_parameter = "<C-l>",
-                                    previous_parameter = "<C-h>",
-                                    close_signature = "<A-s>",
-                                    vim.api.nvim_buf_set_keymap(
-                                        bufnr,
-                                        "i",
-                                        "<C-k>",
-                                        "<cmd>LspOverloadsSignature<CR>",
-                                        {}
-                                    ),
-                                },
-                                display_automatically = false, -- Uses trigger characters to automatically display the signature overloads when typing a method signature
-                            })
-                        end
-                    end,
-                })
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            "williamboman/mason.nvim",
-            "neovim/nvim-lspconfig",
-        },
-        opts = {
-            handlers = {
-                -- The first entry (without a key) will be the default handler and will be called for each installed server that doesn't have a dedicated handler.
-                function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup({})
-                end,
-
-                -- Next, provide a dedicated handler for specific servers.
-                ["omnisharp"] = function()
-                    require("lspconfig").omnisharp.setup({
-                        autostart = false,
-                        filetypes = { "cs", "vb", "csx" },
-                        single_file_support = true,
-                        settings = { -- see https://github.com/OmniSharp/omnisharp-roslyn/tree/master/src/OmniSharp.Shared/Options for options
-                            RoslynExtensionsOptions = {
-                                DocumentAnalysisTimeoutMs = 30000,
-                                EnableDecompilationSupport = true,
-                                -- Enables support for showing unimported types and unimported extension
-                                -- methods in completion lists. When committed, the appropriate using
-                                -- directive will be added at the top of the current file. This option can
-                                -- have a negative impact on initial completion responsiveness,
-                                -- particularly for the first few completion sessions after opening a
-                                -- solution.
-                                EnableImportCompletion = true,
-                                EnableAsyncCompletion = true,
-                                -- Enables support for roslyn analyzers, code fixes and rulesets.
-                                EnableAnalyzersSupport = true,
-                                -- Only run roslyn analyzers against open files
-                                AnalyzeOpenDocumentsOnly = false,
-                                InlayHintsOptions = {
-                                    EnableForParameters = true,
-                                    ForLiteralParameters = true,
-                                    ForIndexerParameters = true,
-                                    ForObjectCreationParameters = true,
-                                    ForOtherParameters = true,
-                                    SuppressForParametersThatDifferOnlyBySuffix = false,
-                                    SuppressForParametersThatMatchMethodIntent = false,
-                                    SuppressForParametersThatMatchArgumentName = false,
-                                    EnableForTypes = true,
-                                    ForImplicitVariableTypes = true,
-                                    ForLambdaParameterTypes = true,
-                                    ForImplicitObjectCreation = true,
-                                },
-                            },
-                            Script = {
-                                Enabled = true,
-                                DefaultTargetFramework = "net461",
-                                EnableScriptNuGetReferences = false,
-                            },
-                            FormattingOptions = {
-                                OrganizeImports = true,
-                                EnableEditorConfigSupport = true,
-                            },
-                        },
-                        handlers = {
-                            ["textDocument/definition"] = require("omnisharp_extended").handler,
-                        },
-                    })
-                end,
-                ["lua_ls"] = function()
-                    require("lspconfig").lua_ls.setup({ -- see https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options for options
-                        settings = {
-                            Lua = {
-                                format = {
-                                    enable = false, -- use style lua
-                                },
-                                runtime = {
-                                    -- Tell the language server which version of Lua you're using
-                                    -- (most likely LuaJIT in the case of Neovim)
-                                    version = "LuaJIT",
-                                },
-                                diagnostics = {
-                                    -- Get the language server to recognize the `vim` global
-                                    globals = {
-                                        "vim",
-                                        "require",
-                                    },
-                                },
-                                workspace = {
-                                    -- Make the server aware of Neovim runtime files
-                                    library = vim.api.nvim_get_runtime_file("", true),
-                                },
-                            },
-                        },
-                    })
-                end,
-                ["markdown_oxide"] = function()
-                    local capabilities =
-                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-                    require("lspconfig").markdown_oxide.setup({
-                        capabilities = vim.tbl_deep_extend("force", capabilities, {
-                            workspace = {
-                                didChangeWatchedFiles = {
-                                    dynamicRegistration = true,
-                                },
-                            },
-                        }),
-                    })
-                end,
-            },
-        },
     },
     {
         "jbytes1027/plain-lf.nvim",
