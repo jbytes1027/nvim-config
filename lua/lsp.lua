@@ -314,6 +314,61 @@ M.enable_vscode_json_languageserver_if_installed = function()
     vim.lsp.enable(cmd)
 end
 
+M.enable_vscode_html_language_server_if_installed = function()
+    local cmd = "vscode-html-language-server"
+
+    if vim.fn.executable(cmd) == 0 then return end
+
+    vim.lsp.config(cmd, {
+        cmd = function(dispatchers, config)
+            local cmd = "vscode-html-language-server"
+            if (config or {}).root_dir then
+                local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
+                if vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
+            end
+            return vim.lsp.rpc.start({ cmd, "--stdio" }, dispatchers)
+        end,
+        filetypes = { "html" },
+        init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
+        root_markers = { "package.json", ".git" },
+        settings = {},
+        init_options = {
+            provideFormatter = true,
+            embeddedLanguages = { css = true, javascript = true },
+            configurationSection = { "html", "css", "javascript" },
+        },
+    })
+
+    vim.lsp.enable(cmd)
+end
+
+M.enable_vscode_css_language_server_if_installed = function()
+    local cmd = "vscode-css-language-server"
+
+    if vim.fn.executable(cmd) == 0 then return end
+
+    vim.lsp.config(cmd, {
+        cmd = function(dispatchers, config)
+            local cmd = "vscode-css-language-server"
+            if (config or {}).root_dir then
+                local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
+                if vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
+            end
+            return vim.lsp.rpc.start({ cmd, "--stdio" }, dispatchers)
+        end,
+        filetypes = { "css", "scss", "less" },
+        init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
+        root_markers = { "package.json", ".git" },
+        settings = {
+            css = { validate = true },
+            scss = { validate = true },
+            less = { validate = true },
+        },
+    })
+
+    vim.lsp.enable(cmd)
+end
+
 M.enable_ty_if_installed = function()
     local cmd = "ty"
 
@@ -471,6 +526,8 @@ M.enable_installed = function()
     M.enable_lua_language_server_if_installed()
     M.enable_lemminx_if_installed()
     M.enable_vscode_json_languageserver_if_installed()
+    M.enable_vscode_html_language_server_if_installed()
+    M.enable_vscode_css_language_server_if_installed()
     M.enable_ty_if_installed()
     M.enable_typescript_language_server_if_installed()
 end
