@@ -374,7 +374,34 @@ return {
     },
     {
         "Issafalcon/lsp-overloads.nvim",
-        event = "VeryLazy",
+        cmd = "LspOverloads",
+        opts = {
+            ui = {
+                border = "none",
+                wrap = true,
+                wrap_at = nil,
+                max_width = nil,
+                max_height = nil,
+                close_events = {
+                    "CursorMoved",
+                    "CursorMovedI",
+                    "InsertCharPre",
+                },
+                focusable = true,
+                focus = false,
+                silent = true,
+            },
+
+            keymaps = {
+                next_signature = "<C-j>",
+                previous_signature = "<C-k>",
+                next_parameter = "<C-l>",
+                previous_parameter = "<C-h>",
+                close_signature = "<A-s>",
+            },
+
+            display_automatically = false,
+        },
     },
     {
         "hrsh7th/nvim-cmp",

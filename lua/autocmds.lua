@@ -31,6 +31,48 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
         vim.b.lsp_statusline_text = "LSP"
         require("keybindings").set_lsp_keybindings()
+
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        local bufnr = ev.buf
+
+        -- Disable Semantic Tokens Provider
+        if client.server_capabilities.semanticTokensProvider ~= nil then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+
+        if client.server_capabilities.signatureHelpProvider then
+            require("lsp-overloads").setup(client, {
+                ui = {
+                    border = "none",
+                    wrap = true,
+                    wrap_at = nil,
+                    max_width = nil,
+                    max_height = nil,
+                    close_events = {
+                        "CursorMoved",
+                        "CursorMovedI",
+                        "InsertCharPre",
+                    },
+                    focusable = true,
+                    focus = false,
+                    silent = true,
+                },
+
+                keymaps = {
+                    next_signature = "<C-j>",
+                    previous_signature = "<C-k>",
+                    next_parameter = "<C-l>",
+                    previous_parameter = "<C-h>",
+                    close_signature = "<A-s>",
+                },
+
+                display_automatically = false,
+            })
+
+            vim.keymap.set("i", "<C-k>", "<cmd>LspOverloads signature<CR>", {
+                buffer = bufnr,
+            })
+        end
     end,
 })
 

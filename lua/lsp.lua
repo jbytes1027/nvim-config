@@ -30,48 +30,9 @@ end
 
 M.setup_default_lsp_config = function()
     vim.lsp.config("*", {
+        -- This is cleared elsewhere in an LspAttach autocommand.
+        -- There is no autocommand equivalent.
         before_init = function(_, _) vim.b.lsp_statusline_text = "..." end,
-
-        on_attach = function(client, bufnr)
-            -- Disable Semantic Tokens Provider
-            if client.server_capabilities.semanticTokensProvider ~= nil then
-                client.server_capabilities.semanticTokensProvider = nil
-            end
-
-            if client.server_capabilities.signatureHelpProvider then
-                require("lsp-overloads").setup(client, {
-                    ui = {
-                        border = "none",
-                        wrap = true,
-                        wrap_at = nil,
-                        max_width = nil,
-                        max_height = nil,
-                        close_events = {
-                            "CursorMoved",
-                            "CursorMovedI",
-                            "InsertCharPre",
-                        },
-                        focusable = true,
-                        focus = false,
-                        silent = true,
-                    },
-
-                    keymaps = {
-                        next_signature = "<C-j>",
-                        previous_signature = "<C-k>",
-                        next_parameter = "<C-l>",
-                        previous_parameter = "<C-h>",
-                        close_signature = "<A-s>",
-                    },
-
-                    display_automatically = false,
-                })
-
-                vim.keymap.set("i", "<C-k>", "<cmd>LspOverloadsSignature<CR>", {
-                    buffer = bufnr,
-                })
-            end
-        end,
     })
 end
 

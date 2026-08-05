@@ -95,31 +95,6 @@ M.setup_fzf_lua_keybindings = function()
     )
     vim.keymap.set("n", "<leader>Q", function() require("fzf-lua").loclist() end, { desc = "Open location list" })
     vim.keymap.set("n", "<leader>q", function() require("fzf-lua").quickfix() end, { desc = "Open quickfix list" })
-    vim.keymap.set(
-        { "n" },
-        "<leader>fr",
-        function() require("fzf-lua").lsp_references() end,
-        { desc = "Find references" }
-    )
-    vim.keymap.set({ "n" }, "<leader>fl", function() require("fzf-lua").resume() end, { desc = "Resume last search" })
-    vim.keymap.set(
-        { "n" },
-        "<leader>lc",
-        function() require("fzf-lua").lsp_incoming_calls() end,
-        { desc = "View incoming calls" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "<leader>lC",
-        function() require("fzf-lua").lsp_outgoing_calls() end,
-        { desc = "View outgoing calls" }
-    )
-    vim.keymap.set(
-        { "n" },
-        "gr",
-        function() require("fzf-lua").lsp_references() end,
-        { desc = "References of current symbol" }
-    )
 end
 
 M.set_lsp_keybindings = function()
@@ -134,7 +109,7 @@ M.set_lsp_keybindings = function()
 
     vim.keymap.set({ "n" }, "<leader>lI", "<cmd>NullLsInfo<cr>", { desc = "Null-ls information" })
     vim.keymap.set({ "n" }, "<leader>li", "<cmd>checkhealth lsp<cr>", { desc = "LSP information" })
-    vim.keymap.set({ "i" }, "<C-k>", function() vim.lsp.buf.signature_help() end, { desc = "Show signature" })
+    vim.keymap.set({ "i" }, "<C-k>", "<cmd>LspOverloads signature<CR>", { desc = "Show signature" })
     vim.keymap.set({ "n", "x" }, "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "LSP code action" })
     vim.keymap.set(
         { "n", "x" },
@@ -182,6 +157,31 @@ M.set_lsp_keybindings = function()
             vim.diagnostic.goto_next({ float = true, severity = { min = require("lsp").diagnostics_min_severity } })
         end,
         { desc = "Next diagnostic" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "<leader>fr",
+        function() require("fzf-lua").lsp_references() end,
+        { desc = "Find references" }
+    )
+    vim.keymap.set({ "n" }, "<leader>fl", function() require("fzf-lua").resume() end, { desc = "Resume last search" })
+    vim.keymap.set(
+        { "n" },
+        "<leader>lc",
+        function() require("fzf-lua").lsp_incoming_calls() end,
+        { desc = "View incoming calls" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "<leader>lC",
+        function() require("fzf-lua").lsp_outgoing_calls() end,
+        { desc = "View outgoing calls" }
+    )
+    vim.keymap.set(
+        { "n" },
+        "gr",
+        function() require("fzf-lua").lsp_references() end,
+        { desc = "References of current symbol" }
     )
 end
 
