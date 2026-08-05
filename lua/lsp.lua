@@ -105,18 +105,20 @@ M.enable_intelephense_if_installed = function()
             "composer.json",
             ".git",
         },
+        -- See https://intelephense.com/docs
         settings = {
             intelephense = {
+                -- For options, see https://github.com/bmewburn/vscode-intelephense/blob/master/examples/diagnostics/problemCode.ts
                 diagnostics = {
-                    -- baseline: keep noisy "undefined type" warnings off all the time
-                    undefinedTypes = "off",
-                    undefinedFunctions = "off",
-                    undefinedConstants = "off",
-                    undefinedClassConstants = "off",
-                    undefinedMethods = "off",
-                    undefinedProperties = "off",
-                    -- undefinedVariables = "off",
+                    undefinedTypes = false,
+                    undefinedFunctions = false,
+                    undefinedConstants = false,
+                    undefinedClassConstants = false,
+                    undefinedMethods = false,
+                    undefinedProperties = false,
+                    -- undefinedVariables = false,
                 },
+                telemetry = { enabled = false },
             },
         },
     })
