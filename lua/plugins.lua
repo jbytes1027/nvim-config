@@ -275,6 +275,7 @@ return {
     },
     {
         "GustavEikaas/easy-dotnet.nvim",
+        enabled = vim.fn.executable("dotnet-easydotnet") == 1,
         ft = { "cs", "csx", "vb", "razor" },
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("easy-dotnet").setup() end,
