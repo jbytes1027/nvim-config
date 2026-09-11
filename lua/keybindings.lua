@@ -195,6 +195,18 @@ M.setup_window_and_buffer_keybindings = function()
     vim.keymap.set({ "n" }, "<A-j>", "<cmd>wincmd j<cr>", { desc = "Down window navigation" })
     vim.keymap.set({ "n" }, "<A-k>", "<cmd>wincmd k<cr>", { desc = "Up window navigation" })
     vim.keymap.set({ "n" }, "<A-l>", "<cmd>wincmd l<cr>", { desc = "Right window navigation" })
+    if vim.fn.has("win32") == 1 then
+        vim.keymap.set(
+            "n",
+            "<c-w><c-e>",
+            function()
+                vim.fn.jobstart(
+                    { "cmd.exe", "/c", "start", "wt.exe", "-d", vim.fn.expand("%:p:h"), "nvim", vim.fn.expand("%:p") },
+                    { detach = true }
+                )
+            end
+        )
+    end
 end
 
 M.setup_smart_splits_keybindings = function()
