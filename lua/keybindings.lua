@@ -704,6 +704,19 @@ M.setup_misc_keybindings = function()
     vim.keymap.set({ "n" }, "<esc>", "<cmd>nohlsearch<cr>")
 end
 
+M.setup_razor_alternate_file_keybinding = function()
+    vim.keymap.set("n", "<leader>lj", function()
+        local file = vim.api.nvim_buf_get_name(0)
+
+        if file:match("%.razor$") then
+            vim.cmd.edit(file .. ".cs")
+        elseif file:match("%.razor%.cs$") then
+            local razor = file:gsub("%.razor%.cs$", ".razor")
+            vim.cmd.edit(razor)
+        end
+    end, { desc = "Go to Razor alternate file" })
+end
+
 M.setup = function()
     vim.keymap.set("", "<leader>", "") -- disable plane space key
 

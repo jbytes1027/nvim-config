@@ -8,6 +8,16 @@
 --     vim.api.nvim_create_namespace("auto_hlsearch")
 -- )
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "cs", "css", "html", "python", "cpp", "xml", "json", "sql", "javascript", "zig" },
+    callback = function()
+        vim.treesitter.start()
+        -- indentation, provided by nvim-treesitter
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        vim.bo.syntax = "off"
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
     -- See https://github.com/L3MON4D3/LuaSnip/issues/258
     callback = function() require("luasnip").unlink_current() end,

@@ -251,6 +251,11 @@ return {
         end,
     },
     {
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        build = ":TSUpdate",
+    },
+    {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
         config = function()
