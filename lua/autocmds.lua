@@ -18,6 +18,12 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    callback = function()
+        require("keybindings").setup_razor_alternate_file_keybinding()
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
     -- See https://github.com/L3MON4D3/LuaSnip/issues/258
     callback = function() require("luasnip").unlink_current() end,
