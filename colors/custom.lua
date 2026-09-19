@@ -26,7 +26,7 @@ local config = {
 local groups = {
     Normal = { ctermfg = cterm_colors.light_fg },
     NormalNC = {},
-    TabLineFill = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.dark_fg },
+    TabLineFill = { ctermfg = cterm_colors.dark_bg, ctermbg = cterm_colors.light_bg },
     TabLineSel = { ctermfg = cterm_colors.white, bold = config.bold },
     TabLine = { link = "TabLineFill" },
     MatchParen = { ctermbg = cterm_colors.light_bg },
