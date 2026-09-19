@@ -280,39 +280,48 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("easy-dotnet").setup() end,
     {
-        "romgrk/barbar.nvim",
-        init = function() vim.g.barbar_auto_setup = false end,
-        opts = { -- For options, see https://github.com/romgrk/barbar.nvim
-            animation = false,
-            -- Excludes buffers from the tabline
-            exclude_ft = {},
-            exclude_name = {},
-            icons = {
-                buffer_index = false,
-                buffer_number = false,
-                button = "x",
-                minimum_length = 10,
-                diagnostics = {
-                    [vim.diagnostic.severity.ERROR] = { enabled = false },
-                    [vim.diagnostic.severity.WARN] = { enabled = false },
-                    [vim.diagnostic.severity.INFO] = { enabled = false },
-                    [vim.diagnostic.severity.HINT] = { enabled = false },
+        "akinsho/bufferline.nvim",
+        event = "VeryLazy",
+        config = function()
+            local bufferline = require("bufferline")
+
+            bufferline.setup({
+                options = {
+                    diagnostics = false,
+                    always_show_bufferline = true,
+                    offsets = nil,
+                    style_preset = bufferline.style_preset.default, -- bufferline.style_preset.default or bufferline.style_preset.minimal,
+                    right_mouse_command = false,
+                    -- This is the default right_mouse_command
+                    middle_mouse_command = "bdelete! %d",
+                    buffer_close_icon = "x",
+                    modified_icon = "x",
+                    close_icon = "x ",
+                    left_trunc_marker = " ",
+                    right_trunc_marker = " ",
+                    diagnostics = false,
+                    diagnostics_indicator = nil,
+                    show_buffer_icons = false,
+                    show_buffer_close_icons = true,
+                    style_preset = {
+                        bufferline.style_preset.no_italic,
+                        bufferline.style_preset.no_bold,
+                    },
+                    groups = {
+                        items = {
+                            require("bufferline.groups").builtin.pinned:with({ icon = "^" }),
+                        },
+                    },
                 },
-                gitsigns = {
-                    added = { enabled = false, icon = "+" },
-                    changed = { enabled = false, icon = "~" },
-                    deleted = { enabled = false, icon = "-" },
+                highlights = {
+                    indicator_selected = {
+                        ctermfg = 14,
+                    },
                 },
-                filetype = {
-                    enabled = false,
-                },
-            },
-            pinned = {
-                buffer_index = true,
-                filename = true,
-                -- separator = { right = "▕", left = "" },
-            },
-        },
+            })
+
+            require("keybindings").setup_buffer_keybindings()
+        end,
     },
     {
         "williamboman/mason.nvim",
