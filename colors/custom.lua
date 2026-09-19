@@ -391,6 +391,12 @@ local groups = {
     gitType = { link = "Type" },
     gitDiffAdded = { link = "diffAdded" },
     gitDiffRemoved = { link = "diffRemoved" },
+
+    -- Barbar
+    BufferCurrent = { ctermbg = cterm_colors.dark_bg, ctermfg = cterm_colors.light_fg },
+    BufferCurrentSign = { ctermbg = cterm_colors.dark_bg, ctermfg = cterm_colors.light_blue },
+    BufferInactive = { link = "TabLineFill" },
+    BufferInactiveSign = { ctermfg = cterm_colors.dark_bg },
 }
 
 vim.g.html_no_rendering = 1

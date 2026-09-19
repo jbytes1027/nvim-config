@@ -279,6 +279,40 @@ return {
         ft = { "cs", "csx", "vb", "razor" },
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("easy-dotnet").setup() end,
+    {
+        "romgrk/barbar.nvim",
+        init = function() vim.g.barbar_auto_setup = false end,
+        opts = { -- For options, see https://github.com/romgrk/barbar.nvim
+            animation = false,
+            -- Excludes buffers from the tabline
+            exclude_ft = {},
+            exclude_name = {},
+            icons = {
+                buffer_index = false,
+                buffer_number = false,
+                button = "x",
+                minimum_length = 10,
+                diagnostics = {
+                    [vim.diagnostic.severity.ERROR] = { enabled = false },
+                    [vim.diagnostic.severity.WARN] = { enabled = false },
+                    [vim.diagnostic.severity.INFO] = { enabled = false },
+                    [vim.diagnostic.severity.HINT] = { enabled = false },
+                },
+                gitsigns = {
+                    added = { enabled = false, icon = "+" },
+                    changed = { enabled = false, icon = "~" },
+                    deleted = { enabled = false, icon = "-" },
+                },
+                filetype = {
+                    enabled = false,
+                },
+            },
+            pinned = {
+                buffer_index = true,
+                filename = true,
+                -- separator = { right = "▕", left = "" },
+            },
+        },
     },
     {
         "williamboman/mason.nvim",
