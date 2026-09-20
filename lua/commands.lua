@@ -1,5 +1,20 @@
 M = {}
 
+vim.api.nvim_create_user_command("VSEdit", function()
+    local file = vim.fn.expand("%:p")
+    local line = vim.fn.line(".")
+
+    vim.fn.jobstart({
+        [[C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\devenv.exe]],
+        "/edit",
+        file,
+        "/command",
+        "Edit.Goto " .. line,
+    }, {
+        detach = true,
+    })
+end, {})
+
 vim.api.nvim_create_user_command("CF", function(args)
     if args.args == "" and args.bang then
         vim.fn.setqflist({})
