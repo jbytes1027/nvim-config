@@ -268,6 +268,8 @@ local groups = {
     ["@variable"] = {},
     ["@variable.builtin"] = { link = "@variable" },
     ["@variable.parameter.builtin"] = { link = "@variable" },
+    ["@variable.member"] = { link = "@variable" },
+    ["@variable.parameter"] = { link = "@variable" },
     ["@constant.builtin"] = { link = "Constant" },
     ["@text.literal"] = { link = "String" },
     ["@tag"] = { link = "Tag" },
@@ -360,6 +362,13 @@ local groups = {
     ["@type.sql"] = { link = "None" },
     ["@type.builtin.sql"] = { link = "None" },
     ["@attribute.sql"] = { link = "None" },
+
+    -- C#
+    ["@keyword.c_sharp"] = { link = "Statement" },
+    ["@keyword.await.c_sharp"] = { link = "Statement" },
+    ["@keyword.modifier.method.c_sharp"] = { link = "@keyword.modifier" },
+    ["@keyword.modifier.property.c_sharp"] = { link = "@keyword.modifier" },
+    ["@keyword.var.c_sharp"] = { link = "@keyword.modifier" },
 
     -- Git diff files
     gitHead = { link = "Constant" },
