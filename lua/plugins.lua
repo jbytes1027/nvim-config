@@ -284,6 +284,7 @@ return {
         ft = { "cs", "csx", "vb", "razor" },
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("easy-dotnet").setup() end,
+    },
     {
         "akinsho/bufferline.nvim",
         event = "VeryLazy",
