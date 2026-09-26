@@ -337,6 +337,10 @@ return {
                         ctermbg = 0,
                         ctermfg = 7,
                     },
+                    duplicate_selected = {
+                        ctermfg = 7,
+                        ctermbg = 0,
+                    },
                 },
             })
 
