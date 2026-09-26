@@ -322,6 +322,21 @@ return {
                 highlights = {
                     indicator_selected = {
                         ctermfg = 14,
+                        ctermbg = 0,
+                    },
+                    separator_selected = {
+                        ctermfg = 14,
+                        ctermbg = 0,
+                    },
+                    buffer_selected = {
+                        ctermbg = 0,
+                        ctermfg = 7,
+                        bold = false,
+                        italic = false,
+                    },
+                    close_button_selected = {
+                        ctermbg = 0,
+                        ctermfg = 7,
                     },
                 },
             })
