@@ -341,6 +341,10 @@ return {
                         ctermfg = 7,
                         ctermbg = 0,
                     },
+                    modified_selected = {
+                        ctermfg = 7,
+                        ctermbg = 0,
+                    },
                 },
             })
 
