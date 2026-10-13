@@ -37,7 +37,7 @@ M.setup_default_lsp_config = function()
 end
 
 local root_pattern = function(...)
-    local patterns = M.tbl_flatten({ ... })
+    local patterns = vim.iter({ ... }):flatten(math.huge):totable()
     return function(startpath)
         startpath = M.strip_archive_subpath(startpath)
         for _, pattern in ipairs(patterns) do
