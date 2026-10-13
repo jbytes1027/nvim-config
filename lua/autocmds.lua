@@ -11,10 +11,12 @@
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "cs", "css", "html", "python", "cpp", "xml", "json", "sql", "javascript", "zig" },
     callback = function()
-        vim.treesitter.start()
-        -- indentation, provided by nvim-treesitter
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.bo.syntax = "off"
+        if pcall(vim.treesitter.start) then
+            vim.treesitter.start()
+            -- indentation, provided by nvim-treesitter
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            vim.bo.syntax = "off"
+        end
     end,
 })
 
