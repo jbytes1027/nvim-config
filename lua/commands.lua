@@ -15,6 +15,14 @@ vim.api.nvim_create_user_command("VSEdit", function()
     })
 end, {})
 
+vim.api.nvim_create_user_command("Obsidian", function()
+    local file = vim.fn.expand("%:p")
+    local url = "obsidian://open?path=" .. vim.uri_encode(file)
+    vim.ui.open(url)
+end, {
+    desc = "Open current file in Obsidian",
+})
+
 vim.api.nvim_create_user_command("CF", function(args)
     if args.args == "" and args.bang then
         vim.fn.setqflist({})
